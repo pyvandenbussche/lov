@@ -1,0 +1,129 @@
+extends ../layout/layout
+block content
+      section#title.postBlue
+        h1 #{agent.name} 
+          span (!{agent.type.charAt(0).toUpperCase() + agent.type.slice(1)})
+      section#posts.default-area
+          article
+            #greenContainer.contents.clear.col-2.split.wrplGreen
+              h2 Metadata
+              .metadataFrame
+                div(class='metadataContainer#{agent.type.charAt(0).toUpperCase() + agent.type.slice(1)}')
+                  table.metadata-table.noheader.flat-table-3(style="width:100%")
+                    tbody
+                      tr
+                        td URI
+                        td
+                          a(href='#{agent.prefUri}', target='_blank') #{agent.prefUri}
+                      - if(agent.altUris && agent.altUris.length>0)
+                        tr
+                          td AltURIs
+                          td
+                            each alturi in agent.altUris 
+                              div
+                                a(href='#{alturi}', target='_blank') #{alturi}
+            aside.wrpl
+              .h-padding
+                h2 Statistics
+                .line
+                svg#chart(style='height:200px;')               
+                .clear
+                  
+            script.
+              nv.addGraph(function() {
+                var chart = nv.models.pieChart()
+                  .x(function(d) { return d.label })
+                  .y(function(d) { return d.value })
+                  .values(function(d) { return d })
+                  .valueFormat(d3.format('.'))
+                  .showLegend(true)
+                  .showLabels(false)
+                  .color(d3.scale.category10().range())
+                  .margin({top: 0, right: 5, bottom: 0, left: 0});
+                d3.select("#chart")
+                  .datum(!{JSON.stringify(pieData)})
+                  .transition().duration(500)
+                  .call(chart);
+                nv.utils.windowResize(chart.update);
+                return chart;
+              });
+          article
+            #greenContainer.contents.clear.col-2.split.wrplGreen
+              h2 Has role in #{allVocabs.length} vocabularies
+              .visus
+                div(class='visusContainer#{agent.type.charAt(0).toUpperCase() + agent.type.slice(1)}')
+                  #vis(style="margin: 0 0 0 0")    
+            script.   
+              var root={"name": "flare","children": [!{allVocabs}]};
+              var boxWidth = 600,
+                  boxHeight = 400,
+                  format = d3.format(",d"),
+                  color = d3.scale.category20c();
+
+              var bubble = d3.layout.pack()
+                  .sort(null)
+                  .size([boxWidth, boxHeight])
+                  .padding(1.5);
+
+              var svg = d3.select("#vis").append("svg")
+                  .attr("viewBox","0 0 600 400")
+                  .attr("perserveAspectRatio","xMinYMin")
+                  .attr("width", boxWidth)
+                  .attr("height", boxHeight)
+                  .attr("class", "Limace");
+
+                var node = svg.selectAll(".node")
+                    .data(bubble.nodes(classes(root))
+                    .filter(function(d) { return !d.children; }))
+                    .enter().append("g")
+                    .attr("class", "node")
+                    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+                    .on("click", function(d) { self.location= "/vocabs/"+ d.className});
+
+                node.append("title")
+                    .text(function(d) { return d.className; });
+
+                node.append("circle")
+                    .attr("r", function(d) { return d.r; })
+                    .style("fill", function(d) { return color(d.packageName); });
+
+                node.append("text")
+                    .attr("dy", ".3em")
+                    .style("text-anchor", "middle")
+                    .text(function(d) { return d.className.substring(0, d.r / 3); })
+                    .style("font-size", function (d) { return ((d.r / 30)) + "em"; });
+                    
+                
+                
+
+              // Returns a flattened hierarchy containing all leaf nodes under the root.
+              function classes(root) {
+                var classes = [];
+
+                function recurse(name, node) {
+                  if (node.children) node.children.forEach(function(child) { recurse(node.name, child); });
+                  else classes.push({packageName: node.prefix, className: node.prefix, value: 5});
+                }
+
+                recurse(null, root);
+                return {children: classes};
+              }
+                
+               var chartVis = $(".Limace"),
+                  aspectVis = chartVis.width() / chartVis.height(),
+                  containerVis = chartVis.parent();
+              $(window).on("resize", function() {
+                  var targetWidthVis = containerVis.width();
+                  chartVis.attr("width", targetWidthVis);
+                  chartVis.attr("height", Math.round(targetWidthVis / aspectVis));
+              }).trigger("resize");
+            aside.wrpl
+              .h-padding
+                h2 Tags
+                .line
+                .asideListFloat
+                  -if(tags && tags.length>0 )
+                    ul.tagsVocab
+                      - each tag in tags
+                        li
+                          a.tag(href='/vocabs?tag='+encodeURIComponent(tag)) #{tag}

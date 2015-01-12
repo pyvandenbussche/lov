@@ -1,0 +1,80 @@
+g.matchingQueryTerm > rect {
+  fill: #A2DAD2;
+  stroke-width: 2px;
+  stroke: #333;
+}
+
+g.edgeLabel > rect {
+  fill: #F6F6F6;
+}
+
+/*text {
+  font-weight: 300;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
+  font-size: 14px;
+}*/
+
+.node rect {
+  stroke: #999;
+}
+
+.edgePath path {
+  stroke: #333;
+  stroke-width: 1.5px;
+  fill: none;
+}
+
+
+.visus{
+  background-color:#F6F6F6;
+  padding:.4em;
+  overflow :hidden;
+}
+.visusContainerVocab{
+  border-left: 6px solid #9A69BD;
+  padding-left:.4em;
+  overflow :hidden;
+}
+.visusContainerPerson{
+  border-left: 6px solid #82C836;
+  padding-left:.4em;
+  overflow :hidden;
+}
+.visusContainerOrganization{
+  border-left: 6px solid #4A8806;
+  padding-left:.4em;
+  overflow :hidden;
+}
+
+.timeline-band-0 .timeline-band-layer .timeline-ether-bg {
+                                /*background-color: #0F5656;*/
+                                background-color: #F6F6F6;
+                        }
+/* .timeline-band-0 .timeline-band-layer .timeline-ether-lines {
+                                background-color: #CCCCCC;
+                        }
+ .timeline-band-0 .timeline-band-layer-inner .timeline-event-label {
+                                color: #FFFFFF;
+                        }*/
+
+/* CSS for charts */
+.tick line {display:none}
+.nv-y {display:none}
+
+/* LEGEND */
+ul.visusLegend { list-style-type: none; }
+.visusLegend li {
+  float:left; 
+  padding-right:1em;
+  padding-top:1em;
+}
+.visusLegend li .color{
+  width:1em;
+  height:1em;
+  display:block;
+  float:left;
+}
+.visusLegend li .linkName{
+  padding-left:.3em;
+  color:#FFFFFF;
+}

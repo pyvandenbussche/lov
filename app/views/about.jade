@@ -1,0 +1,259 @@
+extends ./layout/layout
+block content
+      section#title.postBlue
+        h1
+          |All you need to know about 
+          span LOV
+          | !
+      section#posts.default-area
+        article
+          .contents.clear.col-2.split.wrplGreen
+            .aboutGroupName About LOV
+            ul.aboutGroup
+              li.aboutTopic
+                .aboutTopicHeading
+                  h2 Vocabularies describe and link Data on the Web
+                .aboutTopicContent
+                  .aboutTopicContentContainer
+                    .aboutDesc LOV stands for Linked Open Vocabularies. This name is derived from LOD, standing for Linked Open Data. Let's assume that the reader is somehow familiar with the latter concept, otherwise a visit to 
+                      a.linkBox(href="http://linkeddata.org/" target="_blank") http://linkeddata.org/ 
+                      | or 
+                      a.linkBox(href="http://www.w3.org/2013/data/" target="_blank") http://www.w3.org/2013/data/ 
+                      | will help to figure it before further reading.
+                    .aboutDesc Data on the Web use properties (aka predicates) and classes (aka types) to describe people, places, products, events, and any kind of things whatsoever. In the data "Mary is a person, her family name is Watson, she lives is the city of San Francisco", "Person" is the class of Mary, "City" is the class of San Francisco, "family name" and "lives is" are properties used to describe a person, the latter acting also as a link between a person and a place.
+                    .aboutDesc A vocabulary in LOV gathers definitions of a set of classes and properties (together simply called terms of the vocabulary), useful to describe specific types of things, or things in a given domain or industry, or things at large but for a specific usage.  Terms of vocabularies also provide the links in linked data, in the above case between a Person and a City. The definitions of terms provided by the vocabularies bring clear semantics to descriptions and links, thanks to the formal language they use (some dialect of RDF such as RDFS or OWL). In short, vocabularies provide the semantic glue enabling Data to become meaningful Data.
+              li.aboutTopic
+                .aboutTopicHeading
+                  h2 Vocabularies are also data
+                .aboutTopicContent
+                  .aboutTopicContentContainer
+                    .aboutDesc Thanks to the very nature of the Web and the RDF pile of standards, vocabularies can be expressed themselves as Web data. Vocabulary terms, like people and places and all things data are about, are identified by public URIs and can be described in some RDF dialect. They can be linked inside a vocabulary and across vocabularies. Metadata can be put on vocabularies to capture information such as creator, publisher, version number, date of publication. Thanks to the recursive data model of RDF, those metadata use other vocabularies, forming a growing ecosystem.
+              li.aboutTopic
+                .aboutTopicHeading
+                  h2 Quality vocabularies are in LOV
+                .aboutTopicContent
+                  .aboutTopicContentContainer
+                    .aboutDesc The oldest RDF vocabularies have been published at the turn of the century just after the first RDF specification, in 1999. Since then, thousands of them have been published and used. Some are stable recommendations, published by standard bodies like the W3C or the Dublin Core Metadata Initiative. Some are library metadata formats provided by the Library of Congress or other large national libraries (BnF, DNB, etc.). Many more are published and used by actors as diverse as large media corporations such as BBC, national administrations such as INSEE, the European Community, universities and research projects, and some are just published by individuals and put on the community table, in the tradition and spirit of the open, collaborative Web. And a growing number has been forgotten by their publishers, have broken URIs or obsolete content, although their terms can still can be found in data. This is the open Web ...
+                    .aboutDesc LOV provides a choice of several hundreds of such vocabularies, based on quality requirements including URI stability and availability on the Web, use of standard formats and publication best practices, quality metadata and documentation, identifiable and trustable publication body, proper versioning policy.
+              li.aboutTopic
+                .aboutTopicHeading
+                  h2 Is LOV trustable and here to stay?
+                .aboutTopicContent
+                  .aboutTopicContentContainer
+                    .aboutDesc LOV started in 2011, in the framework of a French research project
+                      a.linkBox(href="http://datalift.org" target="_blank") http://datalift.org
+                      | . Its main initial objective was to help publishers and users of linked data and vocabularies to assess what was available for their needs, to reuse it as far as possible, and to insert their own vocabulary production seamlessly in the ecosystem. 
+                    .aboutDesc The
+                      a.linkBox(href="https://okfn.org/" target="_blank") Open Knowledge Foundation
+                      | has provided technical hosting since July 2012. Four years after its launch, and one year after the end of its initial framework project, LOV is supported by a small team of curators and developers. Various solutions are under study to further provide LOV with a sustainable legal framework and business model.
+              li.aboutTopic
+                .aboutTopicHeading
+                  h2 How can you contribute?
+                .aboutTopicContent
+                  .aboutTopicContentContainer
+                    .aboutDesc 
+                      b Publish quality vocabularies 
+                      | and suggest them for insertion in LOV using the
+                      a.linkBox(href="/suggest") LOV-Suggest form
+                      | or directly contact the LOV team, we are always responsive.
+                    .aboutDesc 
+                      b Engage in the public conversation 
+                      | around vocabularies by joining the 
+                      a.linkBox(href="https://plus.google.com/communities/108509791366293651606" target="_blank") Google+ community
+                      | .
+                    .aboutDesc 
+                      b Build cool applications 
+                      | on top of LOV, using the 
+                      a.linkBox(href="/api") LOV API. 
+            .aboutGroupName LOV Features
+            ul.aboutGroup
+              li.aboutTopic
+                .aboutTopicHeading
+                  h2 Vocabulary Documentation
+                .aboutTopicContent
+                  .aboutTopicContentContainer
+                    .aboutDesc The vocabulary collection is maintained by curators in charge of validating (Before a vocabulary is inserted, LOV curators contact the authors to make sure the vocabulary is published following the best practices and contains enough metadata thus ensuring the overall LOV ecosystem quality), inserting a vocabulary in the LOV ecosystem and assigning a detailed review (updated every year). When some metadata failed to be extracted automatically (such as creators of a vocabulary), curators enhance the description available on LOV system. The documentation assists any user in the task of understanding the semantic of each vocabulary term and therefore of any data using it. For instance, information about the creator and publisher is a key indication for a vocabulary user in case help or clarification is required from the author, or to assess the stability of that artifact. About 55% of vocabularies specify at least one creator, contributor or editor. We augmented this information using manually gathered information, leading to inclusion of data about the creator in over 85% of vocabularies in LOV. The database stores every different version of a vocabulary over time since its first issue. For each version, a user can access the file (even though the original online file is no longer available). An automatic script is in place to automatically check for vocabulary updates every day. To embrace the complexity of the vocabulary ecosystem and assess the impact of a modification, one needs to know in which vocabularies and datasets a particular vocabulary term is referenced. For the first time LOV provides such a vision. 
+              li.aboutTopic
+                .aboutTopicHeading
+                  h2 Data Access
+                .aboutTopicContent
+                  .aboutTopicContentContainer
+                    .aboutDesc LOV system (code and data) is published under 
+                      a.linkBox(href="https://creativecommons.org/licenses/by/4.0/" target="_blank") Creative Commons 4.0 license (CC BY 4.0)
+                      | . Three options are offered for users and applications to access LOV data:
+                      ul(style="margin-left:2em;")
+                        li download data dumps of LOV catalogue in RDF Notation 3 format or the LOV catalogue and the latest version of each vocabulary in RDF N-quads format,
+                        li run SPARQL queries on 
+                          a.linkBox(href="http://lov.okfn.org/endpoint/lov") LOV SPARQL Endpoint
+                        li use LOV system
+                          a.linkBox(href="http://lov.okfn.org/dataset/lov/api") Application Program Interfaces (APIs) 
+                          | that provides the same services as user interaces.
+              li.aboutTopic
+                .aboutTopicHeading
+                  h2 Vocabulary Search Engine
+                .aboutTopicContent
+                  .aboutTopicContentContainer
+                    .aboutDesc For every vocabulary in LOV, terms (classes, properties, datatypes, instances) are indexed and a full text search feature is offered. Compared to other existing ontology search engines, the Linked Open Vocabularies search engine ranking algorithm is not only based on term popularity in datasets but take as well into account its popularity within the LOV ecosystem and most importantly assigned a different score depending on which label property a searched term matched. We distinguish four different label property categories on which a search term could match. We will take as example the search term "person": 
+                      ul(style="margin-left:2em;")
+                          li 
+                            b local name 
+                            | (URI without the namespace). Whereas a URI is not suppose to carry any meaning, it is a convention to use a compressed form of a term label to construct the local name. It becomes therefore an important artifact for term matching for which the highest score will be assigned. An example of local name matching the term "person" is 
+                            span.code "http://schema.org/Person".
+                          li
+                            b primary labels
+                            | . The highest score will also be assigned for matches on 
+                            span.code rdfs:label
+                            | , 
+                            span.code dce:title
+                            | , 
+                            span.code dcterms:title
+                            | , 
+                            span.code skos:prefLabel 
+                            | properties. An example of primary label matching the term "person" is 
+                            span.code rdfs:label "Person"@en.
+                          li 
+                            b secondary labels
+                            | . We define as secondary label properties: 
+                            span.code rdfs:comment
+                            | , 
+                            span.code dce:description
+                            | ,
+                            span.code dcterms:description
+                            | and 
+                            span.code skos:altLabel
+                            | . A medium score is assigned for matches on these properties. An example of secondary label matching the term "person" is 
+                            span.code dcterms:description "Examples of a Creator include a person, an organization, or a service."@en.
+                          li 
+                            b tertiary labels 
+                            | . Finally all properties not falling in the previous categories are considered as tertiary labels for which a low score is assigned. An example of tertiary label matching the term "person" is 
+                            span.code http://metadataregistry.org/uri/profile/RegAp/name "Person"@en. 
+
+                      | As a result a term matching a value for the property 
+                      span.code rdfs:label 
+                      | will have a higher score than if it matches a value for the property 
+                      span.code dcterms:comment
+                      | . Based on the different nature of these labels, we apply different indexing tokenizers and scoring methods.
+              li.aboutTopic
+                .aboutTopicHeading
+                  h2 Community
+                .aboutTopicContent
+                  .aboutTopicContentContainer
+                    .aboutDesc Over the last four years, Linked Open Vocabularies initiative has gathered a community of data publishers, ontology designers. 
+                      a.linkBox(href="https://plus.google.com/communities/108509791366293651606" target="_blank") LOV Google+ community 
+                      | is now an important place to discuss, report and announce general facts related to vocabularies on the Web. Our system provides a way to 
+                      a.linkBox(href="http://lov.okfn.org/dataset/lov/suggest/") suggest 
+                      | the insertion of a new vocabulary. This feature allows a user to check what information the LOV Bot can automatically detect. From our experience with vocabulary publication, we published a handbook about Metadata recommendations for linked open data vocabularies.
+            .aboutGroupName Application Ecosystem
+            ul.aboutGroup
+              li.aboutTopic
+                .aboutTopicHeading
+                  h2 Applications using LOV
+                .aboutTopicContent
+                  .aboutTopicContentContainer
+                    .aboutDescImg 
+                      a(href='https://github.com/ISA-tools/OntoMaton' target='_blank')
+                        img(src='/img/ontomaton.png' title='OntoMaton')
+                    .aboutDesc OntoMaton facilitates ontology search and tagging functionalities within Google Spreadsheets. It has been developed by the 
+                      a.linkBox(href='http://isa-tools.org/' target='_blank') ISA Team 
+                      | at the University of 
+                      a.linkBox(href='http://www.oerc.ox.ac.uk/' target='_blank') Oxford's e-Research Centre
+                      | .
+                      a.linkBox(href='http://bioinformatics.oxfordjournals.org/content/29/4/525.full' target='_blank') Read more...
+                  .aboutTopicContentContainer(style='margin-top:1em')
+                    .aboutDescImg 
+                      a(href='http://yasgui.org/' target='_blank')
+                        img(src='/img/yasgui.png' title='Yet Another Sparql GUI')
+                    .aboutDesc YASGUI is a feature-packed user-friendly interface to access any SPARQL endpoint, both on your local computer as well as remote ones. YASGUI provides syntax checking and highlighting, assists you by autocompleting your prefixes, properties, classes, and endpoints, allows you to bookmark queries, and much more. It has been developed by 
+                      a.linkBox(href='http://laurensrietveld.nl/' target='_blank') Laurens Rietveld 
+                      | funded by  
+                      a.linkBox(href='http://www.data2semantics.org/' target='_blank') Data to Semantics
+                      | .
+                      a.linkBox(href='http://laurensrietveld.nl/pdf/YASGUI_-_Feeling_the_Pulse_of_Linked_Data.pdf' target='_blank') Read more...
+                  .aboutTopicContentContainer(style='margin-top:1em')
+                    .aboutDescImg 
+                      a(href='http://datalift.org/' target='_blank')
+                        img(src='/img/partners/datalift.jpg' title='Datalift')
+                    .aboutDesc Datalift is an original platform dedicated to the exploitation of data. In Datalift, the input data are raw data coming from multiple heterogeneous formats (databases, CSV, XML, RDF, RDFa, GML, Shapefile, ...). The output data produced are "Linked Data", they are also named semantic and interconnected data. The Datalift platform is actively involved in the Web mutation to the Linked Data. It has been developed by the 
+                      a.linkBox(href='http://datalift.org/en/node/10' target='_blank') Datalift organisation
+                      | .
+                      a.linkBox(href='http://www.aaai.org/ocs/index.php/WS/AAAIW12/paper/viewFile/5349/5678' target='_blank') Read more...
+                  .aboutTopicContentContainer(style='margin-top:1em')
+                    .aboutDescImg 
+                      a(href='http://ontowiki.net/' target='_blank')
+                        img(src='/img/ontowiki.png' title='OntoWiki')
+                    .aboutDesc OntoWiki facilitates the visual presentation of a knowledge base as an information map, with different views on instance data. It enables intuitive authoring of semantic content, with an inline editing mode for editing RDF content, similar to WYSIWIG for text documents. It has been developed by the 
+                      a.linkBox(href='http://aksw.org/About.html' target='_blank') Agile Knowledge Engineering and Semantic Web (AKSW)
+                      | research team.
+                      a.linkBox(href='https://files.ifi.uzh.ch/ddis/iswc_archive/iswc/pps/web/2006/lsdis.cs.uga.edu/iswc06/items/Auer2006ys.pdf' target='_blank') Read more...
+              li.aboutTopic
+                .aboutTopicHeading
+                  h2 Useful Related Applications
+                .aboutTopicContent
+                  .aboutTopicContentContainer
+                    .aboutDescImg(style='float:left;')
+                      a(href='http://validator.linkeddata.org/vapour' target='_blank')
+                        img(src='/img/vapour.gif' title='Vapour')
+                    .aboutDesc Vapour is a validation service to check whether semantic web data is correctly published according to the current best practices, as defined by the 
+                      a.linkBox(href='http://www.w3.org/DesignIssues/LinkedData.html' target='_blank') Linked Data principles 
+                      | . It has been developed by 
+                      a.linkBox(href='http://www.fundacionctic.org/' target='_blank') Fundaci&#243;n CTIC
+                      | . 
+                      a.linkBox(href='http://www.wikier.org/stuff/research/publications/2008/SFSW2008-vapour.pdf' target='_blank') Read more...
+                  .aboutTopicContentContainer(style='margin-top:1em')
+                    .aboutDesc(style='float:left;')
+                      a(href='http://graphite.ecs.soton.ac.uk/checker/' target='_blank' style='font-size:120%; font-weight:bold;') 
+                        div RDF Triple-Checker
+                    .aboutDesc RDF Triple-Checker helps you find typos and common errosrs in RDF data and in RDF Vocabulary. It has been developed by 
+                      a.linkBox(href='https://github.com/cgutteridge' target='_blank') Christopher Gutteridge
+                      | member of the   
+                      a.linkBox(href='http://blog.soton.ac.uk/webteam/' target='_blank') Southampton ECS Web Team
+                      | .
+                  .aboutTopicContentContainer(style='margin-top:1em')
+                    .aboutDescImg(style='float:left;')
+                      a(href='http://oeg-lia3.dia.fi.upm.es/oops/index-content.jsp' target='_blank')
+                        img(src='/img/oops.png' title='OntOlogy Pitfall Scanner!')
+                    .aboutDesc OOPS! (OntOlogy Pitfall Scanner!) helps you to detect some of the most common pitfalls appearing when developing ontologies. It has been developed by 
+                      a.linkBox(href='http://delicias.dia.fi.upm.es/~mpoveda/' target='_blank') Mar&#237;a Poveda
+                      | member of the   
+                      a.linkBox(href='http://www.oeg-upm.net/' target='_blank') Ontology Engineering Group (OEG)
+                      | . 
+                      a.linkBox(href='http://oa.upm.es/14384/1/mpovedaEtAlCameraReady.pdf' target='_blank') Read more...
+          aside.wrpl
+            .h-padding
+              h2 Acknowledgement
+              .line
+              .asideListFloat
+                ul.partners
+                  li
+                    a(href='http://datalift.org/', target='_blank')
+                      img(src='/img/partners/datalift.jpg', style='height:3em' title='Datalift Research Project')
+                  li
+                    a(href='http://jp.fujitsu.com/group/labs/en/', target='_blank')
+                      img(src='/img/partners/fujitsu.png', style='height:3em' title='Fujitsu Laboratories Limited')
+                  li
+                    a(href='http://ics.upmc.fr/', target='_blank')
+                      img(src='/img/partners/inserm.png', style='height:3em' title='French Medical Research Institute')
+                  li
+                    a(href='http://www.mondeca.com/', target='_blank')
+                      img(src='/img/partners/mondeca.png', style='height:3em' title='Mondeca')
+              h2 Historical Creators
+              .line
+              .asideListFloat
+                ul.historicalContributors
+                  li
+                    a(href='http://google.com/+PierreYvesVandenbussche', target='_blank')
+                      img(src='/img/contributors/pyv.jpg' title='Pierre-Yves Vandenbussche')
+                      div.historicalContributorsDesc
+                        div.historicalContributorsDescContent Pierre-Yves Vandenbussche
+                  li
+                    a(href='http://bvatant.blogspot.ie/', target='_blank')
+                      img(src='/img/contributors/bv.jpg' title='Bernard Vatant')
+                      div.historicalContributorsDesc
+                        div.historicalContributorsDescContent Bernard Vatant
+      script.
+        $(".aboutTopicContent").hide()
+        $( ".aboutTopicHeading" ).click(function() {
+          $(this).parent().find( ".aboutTopicContent" ).slideToggle( "slow", function() {
+            // Animation complete.
+          });
+        });

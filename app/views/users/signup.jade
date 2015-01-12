@@ -1,0 +1,53 @@
+extends ../layout/layout
+block content
+      - var action = '/users'
+      - action += user.isNew? '' : '/' + user.id
+      - var title = user.isNew? 'Sign up' : 'Edit your profile'
+      section#post.postBlue
+        article
+          header.wrpl.w-3-3
+            h1 #{title}
+      section#posts.default-area
+          article
+            #greenContainer.contents.clear.col-2.split.wrplGreen
+              form.form-horizontal(action=action, method="post")
+                input(type='hidden', name='_csrf', value="#{csrf_token}")
+                - if (!user.isNew)
+                  input(type="hidden", name="_method", value="PUT")
+                  input(type="hidden", name="salt",value= '#{user.salt}')
+                  input(type="hidden", name="hashed_password",value= '#{user.hashed_password}')
+                  input(type="hidden", name="category",value= '#{user.category}')
+                  input(type="hidden", name="apiKey",value= '#{user.apiKey}')
+                  input#agentHidden(type="hidden", name="agent",value= '#{user.agent}')
+                  input(type="hidden", name="activated",value= '#{user.activated}')
+                .control-group
+                  label.control-label(for='name') Full name
+                  .controls
+                    input#user-name-agent.typeahead(type='text', name="name", placeholder='Full name', value=user.name, autocomplete='off')
+
+                .control-group
+                  label.control-label(for='email') Email
+                  .controls
+                    input#email(type='text', name="email", placeholder='Email', value=user.email)
+
+                if(user.isNew)
+                  .control-group
+                    label.control-label(for='password') Password
+                    .controls
+                      input#password(type='password', name="password", placeholder='Password')
+                    
+                .control-group
+                  label.control-callBackFn(for='callBackFn') Callback function
+                  .controls
+                    input#callBackFn(type='text', name="callBackFn", placeholder='Optional Callback Function')
+
+                .form-actions
+                  if(user.isNew)
+                    button.btn.btn-primary(type='submit') Sign up
+                    | &nbsp;
+                    | or&nbsp;
+                    a.show-login(href="/login") login
+                  else
+                    button.btn.btn-primary(type='submit') Save changes
+                    | &nbsp;
+                    a.btn(href='/users/'+user.id, title="cancel") Cancel

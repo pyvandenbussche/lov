@@ -1,0 +1,58 @@
+#AgentGrid{
+	width: 100%;
+}
+
+
+#AgentGrid li{
+	position:relative;
+    list-style: none;
+	vertical-align: top;
+	margin: 0.8em 0.4em;
+	padding:0.1em;
+	background: #ccc;
+    -webkit-box-shadow:-1px 1px 1px 0px rgba(0,0,0,0.3);
+   -moz-box-shadow:-1px 1px 1px 0px rgba(0,0,0,0.3);
+   box-shadow:-1px 1px 1px 0px rgba(0,0,0,0.3);
+}
+#AgentGrid li:before {
+   content:"";
+   position:absolute;
+   top:0;
+   right:0;
+   border-color:#99CC00 #99CC00 #fff #fff;
+   background: transparent;
+   border-width:0 16px 16px 0 ;
+   border-style:solid;
+   -webkit-box-shadow:-1px 1px 1px 0px rgba(0,0,0,0.3);
+   -moz-box-shadow:-1px 1px 1px 0px rgba(0,0,0,0.3);
+   box-shadow:-1px 1px 1px 0px rgba(0,0,0,0.3);
+   display:block; width:0; /* Firefox 3.0 damage limitation */
+}
+
+#AgentGrid li.AgentBoxperson{ background: #fff;
+}
+#AgentGrid li.AgentBoxorganization{ background: #fff;
+}
+    
+}
+#AgentGrid li.SearchBoxvocabulary{
+    border-bottom: 0.3em solid pink;
+}
+#AgentGrid li.SearchBoxinstance{
+    border-bottom: 0.3em solid purple;
+}
+#AgentGrid li.SearchBoxdatatype{
+    border-bottom: 0.3em solid green;
+}
+li.AgentBoxperson .AgentBoxHeader{background: orange;}
+li.AgentBoxorganization .AgentBoxHeader{background: #53A3B4;}
+.AgentBoxHeader, .AgentBoxBody{
+	margin:0.4em;
+	padding:0.4em;
+}
+.AgentBoxHeader .name{ color:#FFF; font-weight:bold;}
+.AgentBoxHeader .type{ padding-left:0.4em; color:#4a4a4a; text-transform: capitalize;}
+.AgentBoxHeader .score{float:right; padding-left:0.4em; color:#fff; padding-right:0.2em; text-transform: capitalize;}
+.AgentBoxBody{font-size: .9em;}
+.SearcBodyProp{color: #008F00;}
+.SearcBodyLang{color: #008F00;}

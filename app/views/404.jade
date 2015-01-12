@@ -1,0 +1,14 @@
+extends ./layout/layout
+block content
+      section#post.postPink
+        article
+          header.wrpl.w-3-3
+            h1
+              span 404 - 
+              | This page does not exist 
+              span - 404 
+      section#post
+        #error-message-box
+          #error-stack-trace
+            pre
+              code!= error

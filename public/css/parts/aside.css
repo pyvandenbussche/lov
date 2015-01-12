@@ -1,0 +1,131 @@
+#title .desc{
+  margin-top:1em;
+}
+
+section#leftFixedSide{
+  -webkit-transform: translateZ(0);
+  width: 13em;
+  position: fixed;
+  display: inline;
+  text-align: right;
+  margin-left:3em;
+  margin-right:3em;
+  margin-bottom:1.5em;
+  padding: 1em;
+  background-color: #A2DAD2;
+}
+section#leftFixedSide .heading{
+  text-align: center;
+  font-weight: bold;
+  font-size: 120%;
+}
+section#leftFixedSide .hr {
+     background: #524835; 
+     width: 90%;
+     margin:auto;
+     height: 1px;
+}
+section#leftFixedSide > ul{
+  list-style-type: none;
+}
+section#leftFixedSide ul li{
+  margin-bottom:0.3em;
+  margin-top:0.3em;
+}
+section#rightMovingSide{
+  margin-left: 19em;
+  margin-right:3em;
+  margin-top:0em;
+  margin-bottom:1.5em;
+  padding:0;
+}
+section#rightMovingSide .sectionPost{
+  background-color: #524835;/*#F45B30;*/
+  margin-bottom:2em;
+  padding:1.5em;
+}
+
+.sectionPost .sectionPostInner{
+}
+.sectionPost h2{
+  color:#ffffff;
+  font-weight:bold;
+  margin-bottom:0.5em;
+}
+.sectionPost .desc{
+  color:#ffffff;
+}
+.sectionPost .desc a, #title .desc a{
+  padding: 1px 4px 3px;
+  border-radius: 3px;
+  margin-left:0.2em;
+  margin-right:0.2em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.7);
+  -o-box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.7);
+  -moz-transition-delay: initial;
+  -moz-transition-duration: 0.2s;
+  -moz-transition-property: box-shadow -moz-box-shadow -webkit-box-shadow -o-box-shadow;
+  -moz-transition-timing-function: ease-in-out;
+  -webkit-transition-delay: initial;
+  -webkit-transition-duration: 0.2s;
+  -webkit-transition-property: box-shadow -moz-box-shadow -webkit-box-shadow -o-box-shadow;
+  -webkit-transition-timing-function: ease-in-out;
+  -o-transition-delay: initial;
+  -o-transition-duration: 0.2s;
+  -o-transition-property: box-shadow -moz-box-shadow -webkit-box-shadow -o-box-shadow;
+  -o-transition-timing-function: ease-in-out;
+  transition-delay: initial;
+  transition-duration: 0.2s;
+  transition-property: box-shadow -moz-box-shadow -webkit-box-shadow -o-box-shadow;
+  transition-timing-function: ease-in-out;
+  background-color: #e7e7e7;
+}
+.sectionPost .desc a:hover, #title .desc a:hover{
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  -o-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  /*
+			background-color: @footer;
+			color:@grey;
+			text-shadow: 0px -1px 0px rgba(0,0,0,.5);ù
+			*/
+
+}
+
+.sectionPost .param h3{
+  margin-top: 1em;
+  padding: 0.5em 0.5em;
+  background-color: #ffffff;
+  border-top: 1px solid #95866A;
+  border-left: 1px solid #95866A;
+  border-right: 1px solid #95866A;
+}
+.tableParam{
+  border:0;
+  width:100%;
+  margin-bottom: 1em;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.tableParam th, .tableParam td{
+  border: 1px solid #95866A !important;
+  background-color: #D1C4AA;
+}
+.tableParam th{
+  padding: 0.5em;
+  text-align: left; 
+}
+.tableParam td{
+  padding:0.4em 1em;
+}
+.tableParam td span.paramType{
+  font-style: italic;
+}
+.pre{
+font-family: "Courier New" Courier monospace;}

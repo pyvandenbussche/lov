@@ -1,0 +1,7 @@
+ul.login li {
+float: left;
+list-style-type: none;
+padding-right: 10px;
+padding-top: 10px;
+color: #999999;
+}

@@ -1,0 +1,103 @@
+.overflowVisible{
+overflow: visible;
+display:block;
+}
+
+.ribbonContainerLeft h2{
+    position:relative;
+    color:#fff;
+    background:#658E15;
+    font-size:1.5em;
+    float:left;
+    padding:10px 10px 10px 20px;
+    margin-left:-2.5em;
+
+    -moz-box-shadow:2px 2px 0 rgba(0,0,0,0.1);
+    -webkit-box-shadow:2px 2px 0 rgba(0,0,0,0.1);
+    -o-box-shadow:2px 2px 0 rgba(0,0,0,0.1);
+    box-shadow:2px 2px 0 rgba(0,0,0,0.1);
+}
+.ribbonContainerLeft h2:before{
+    content: "";
+    position:absolute;
+    bottom:-8px;
+    left:0;
+    width:0;
+    border-width: 0px 12px 8px 0;
+    border-style: solid;
+    border-color: transparent #3D550D transparent transparent ;
+    display:block;
+}
+.ribbonContainerLeft{
+  background-color: #99CC00;
+}
+
+#post2, #post3{
+  margin-left: 3em;
+margin-right: 3em;
+margin-top: 1em;
+margin-bottom: 1.5em;
+padding-left: 3em;
+padding-right: 3em;
+padding-top: 1.5em;
+padding-bottom: 1.5em;
+overflow: visible;
+display: block;
+}
+#post2.postGreen h2{
+    position:relative;
+    color:#fff;
+    background:#658E15;
+    font-size:1.5em;
+    float:left;
+    padding:10px 10px 10px 20px;
+    margin-left:-2.5em;
+
+    -moz-box-shadow:2px 2px 0 rgba(0,0,0,0.1);
+    -webkit-box-shadow:2px 2px 0 rgba(0,0,0,0.1);
+    -o-box-shadow:2px 2px 0 rgba(0,0,0,0.1);
+    box-shadow:2px 2px 0 rgba(0,0,0,0.1);
+}
+#post2.postGreen h2:before{
+    content: "";
+    position:absolute;
+    bottom:-8px;
+    left:0;
+    width:0;
+    border-width: 0px 12px 8px 0;
+    border-style: solid;
+    border-color: transparent #3D550D transparent transparent ;
+    display:block;
+}
+#post2,#post3.postGreen{
+  background-color: #99CC00;
+}
+.clearBoth{
+clear:both;}
+
+#post3.postGreen h2{
+    position:relative;
+    color:#fff;
+    background:#658E15;
+    font-size:1.5em;
+    float:right;
+    padding:10px 10px 10px 20px;
+    margin-right:-2.5em;
+
+    -moz-box-shadow:-2px 2px 0 rgba(0,0,0,0.1);
+    -webkit-box-shadow:-2px 2px 0 rgba(0,0,0,0.1);
+    -o-box-shadow:-2px 2px 0 rgba(0,0,0,0.1);
+    box-shadow:-2px 2px 0 rgba(0,0,0,0.1);
+}
+#post3.postGreen h2:before{
+    content: "";
+    position:absolute;
+    bottom:-8px;
+    right:0;
+    width:0;
+    border-width: 8px 12px 0px 0;
+    border-style: solid;
+    border-color: #3D550D transparent  transparent transparent ;
+    display:block;
+}
+

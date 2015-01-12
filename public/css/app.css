@@ -1,0 +1,23 @@
+body {
+  padding-top: 60px;
+}
+
+.container {
+  width: auto;
+  max-width: 680px;
+}
+
+.article, .comment {
+  padding: 15px 0;
+  border-top: 1px solid #e8e8e8;
+}
+
+
+.error {
+  color: #FF2602;
+}
+
+.form-actions {
+  background: #fff;
+  border: 0;
+}

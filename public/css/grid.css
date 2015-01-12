@@ -1,0 +1,23 @@
+/*
+* MIXITUP Boilerplate Template Stylesheet
+*/
+
+/* ------ BOILERPLATE TEMPLATE ------ */
+
+.controls{
+	display: inline-block;
+	width: 180px;
+	margin: 0 0 30px;
+	vertical-align: top;
+}
+
+.controls li{
+	margin-left: 20px;
+	cursor: pointer;
+	list-style-type: square;
+}
+
+.controls li.active{
+	font-weight: 700;
+}
+

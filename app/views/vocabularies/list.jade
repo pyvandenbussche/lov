@@ -1,0 +1,64 @@
+extends ../layout/layout
+block content
+      section#post.postBlue
+        article
+          header.wrpl.w-3-3
+            h1 #{count} Vocabularies
+      section#posts.default-area
+          article
+            #greenContainer.contents.clear.col-2.split.wrplGreen
+              h2 Persons (#{persons.length})
+              table(style="height: 100px;")
+                thead
+                  tr
+                    th Name
+                    th URI
+                    th Alt URIs
+                    th Role in
+                tbody(style="overflow-y: scroll; overflow-x: hidden; height: 100px;")
+                  for agent in persons
+                    tr
+                      td #{agent.name}
+                      td #{agent.prefUri}
+                      td 
+                        if agent.altUris.length>0
+                          - var html = "";
+                          - var split = agent.altUris.split(',');
+                          - for (var i in split){
+                          -   if(html.length>0)html+="<br>";
+                          -   html+=split[i];
+                          - }
+                          span(onmouseover='tooltip.show(\'#{html}\')', onmouseout='tooltip.hide();') #{agent.altUris.split(',').length}
+                        else
+                          | 0
+            aside.wrpl
+              .h-padding
+                h2 Agent Type
+                .line
+                div.asideEnum
+                  
+            #greenContainer.contents.clear.col-2.split.wrplGreen
+              h2 Organizations (#{organizations.length})
+              table(style="height: 100px;")
+                thead
+                  tr
+                    th Name
+                    th URI
+                    th Alt URIs
+                    th Role in
+                tbody(style="overflow-y: scroll; overflow-x: hidden; height: 100px;")
+                  for agent in organizations
+                    tr
+                      td #{agent.name}
+                      td #{agent.prefUri}
+                      td 
+                        if agent.altUris.length>0
+                          - var html = "";
+                          - var split = agent.altUris.split(',');
+                          - for (var i in split){
+                          -   if(html.length>0)html+="<br>";
+                          -   html+=split[i];
+                          - }
+                          span(onmouseover='tooltip.show(\'#{html}\')', onmouseout='tooltip.hide();') #{agent.altUris.split(',').length}
+                        else
+                          | 0

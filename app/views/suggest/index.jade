@@ -1,0 +1,174 @@
+extends ../layout/layout
+block content
+      section#post.postBlue.postSearch
+        form#searchForm(action='' method='get' onsubmit='document.getElementById("loading").style.visibility="visible";')
+          div.searchWrapper#searchSuggest
+            button(type='submit', value=' ') Suggest
+            input(name='q', type='text', placeholder='Enter the vocabulary URI to recommend', autocomplete='off', value='#{(typeof(suggestion) != "undefined")? suggestion:""}')
+        a(href="http://lov.okfn.org/dataset/lov/Recommendations_Vocabulary_Design.pdf" target="_blank")
+          div.suggestRecomLogo
+            img(src="../img/pdf.gif") 
+          div.suggestRecomText Recommendations for vocabulary metadata description
+      section#posts.default-area
+        img#loading(src='/img/loading.gif' style='visibility: hidden;display: block;margin-left: auto;margin-right: auto')
+        - if(typeof(vocab) !== 'undefined' && vocab)
+          #greenContainer.clear.wrplGreen(style="width:100%")
+            .suggestMessageBox
+              p(style="padding-top: 0em; font-size:120%")
+                | Thank you for suggesting
+                a(href='#{vocab.uri}', target='_blank') #{suggestion}
+                | vocabulary.
+              p(style="padding-top: 2em;")
+                | This vocabulary is already part of the Linked Open Vocabularies ecosystem. You can access the
+                b
+                  a(href='#{"./vocabs/"+ vocab.prefix}') #{vocab.prefix} vocabulary page
+                | to get more information.
+        - if(typeof(mailSent) !== 'undefined' && mailSent)
+          #greenContainer.clear.wrplGreen(style="width:100%")
+            .suggestMessageBox
+              p(style="padding-top: 0em; font-size:120%")
+                | Thank you for submitting the vocabulary:
+                a(href='#{suggestion}', target='_blank') #{suggestion}
+                | to Linked Open Vocabularies.
+              p(style="padding-top: 2em;") We will review your vocabulary shortly and inform you at
+                a(href='mailto:#{mailSent}', target='_blank') #{mailSent}
+                | as soon as it is integrated to the LOV.
+        - if(typeof(stderr) !== 'undefined' && stderr.length>4)
+          #greenContainer.clear.wrplGreen(style="width:100%")
+            .suggestMessageBox
+              p(style="padding-top: 0em; font-size:120%") An error occurred:
+              p(style="padding-top: 2em;") #{stderr}
+        - if(typeof(stdout) !== 'undefined' && JSON.stringify(stdout).length>4)
+          article
+            #greenContainer.contents.clear.col-2.split.wrplGreen
+              h2 Metadata
+              .metadataExpl Please check the metadata below and confirm the suggestion using your email for further communication
+                #suggestSubmit.featureWrapper
+                  script.
+                    function validateForm() {
+                        var x = document.searchForm.email.value;
+                        var atpos = x.indexOf("@");
+                        var dotpos = x.lastIndexOf(".");
+                        if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+                            alert("Not a valid e-mail address");
+                            document.searchForm.email.focus() ;
+                            return false;
+                        }
+                    }
+                  .submit
+                    form#searchForm(name='searchForm' action='/suggest' onsubmit="return validateForm();" method='post')
+                      span &nbsp
+                      input(name='email', type='text', placeholder='Enter your email address', autocomplete='off')
+                      input(type="hidden", name="_method", value="POST")
+                      input(type='hidden', name='_csrf', value="#{csrf_token}")
+                      input(name='data' type='hidden' value='#{JSON.stringify(stdout)}')
+              .metadataFrame
+                .metadataContainerVocab
+                  table.metadata-table.noheader.flat-table-3(style="width:100%")
+                    tbody
+                      tr
+                        td URI
+                        td
+                          a(href='#{stdout.uri}', target='_blank') #{stdout.uri}
+                      tr
+                        td Namespace
+                        td #{stdout.nsp}
+                      tr
+                        td Prefix
+                        td #{stdout.prefix}
+                      if stdout.titles
+                        tr
+                          td Title
+                          td !{utils.valueLangDisplay(stdout.titles, 'value',null,null)}
+                      if stdout.descriptions
+                        tr
+                          td Description
+                          td !{utils.valueLangDisplay(stdout.descriptions, 'value',null,null)}
+                      
+                      if stdout.creators && stdout.creators.length>0
+                        tr
+                          td Creator
+                          td !{utils.agentSuggest(stdout.creators)}
+                      if stdout.contributors && stdout.contributors.length>0
+                        tr
+                          td Contributor
+                          td !{utils.agentSuggest(stdout.contributors)}
+                      if stdout.publishers && stdout.publishers.length>0
+                        tr
+                          td Publisher
+                          td !{utils.agentSuggest(stdout.publishers)}
+                      if stdout.languages && stdout.languages.length>0
+                        tr
+                          td Language
+                          td !{utils.valueLangDisplay(stdout.languages,'label','iso639P3PCode','/languages/')}
+                      if stdout.dateIssued
+                        tr
+                          td First Issued
+                          td !{stdout.dateIssued}
+                      if stdout.dateModified
+                        tr
+                          td Last Modified
+                          td !{stdout.dateModified}
+                      if stdout.relMetadata && stdout.relMetadata.length>0
+                        tr
+                          td Uses Metatada from (#{stdout.relMetadata.length})
+                          td !{utils.relationSuggest(stdout.relMetadata)}
+                      if stdout.relSpecializes && stdout.relSpecializes.length>0
+                        tr
+                          td Specializes (#{stdout.relSpecializes.length})
+                          td !{utils.relationSuggest(stdout.relSpecializes)}
+                      if stdout.relGeneralizes && stdout.relGeneralizes.length>0
+                        tr
+                          td Generalizes (#{stdout.relGeneralizes.length})
+                          td !{utils.relationSuggest(stdout.relGeneralizes)}
+                      if stdout.relExtends && stdout.relExtends.length>0
+                        tr
+                          td Extends (#{stdout.relExtends.length})
+                          td !{utils.relationSuggest(stdout.relExtends)}
+                      if stdout.relEquivalent && stdout.relEquivalent.length>0
+                        tr
+                          td Has Equivalences with (#{stdout.relEquivalent.length})
+                          td !{utils.relationSuggest(stdout.relEquivalent)}
+                      if stdout.relDisjunc && stdout.relDisjunc.length>0
+                        tr
+                          td Has Disjunctions with (#{stdout.relDisjunc.length})
+                          td !{utils.relationSuggest(stdout.relDisjunc)}
+                      if stdout.relImports && stdout.relImports.length>0
+                        tr
+                          td Imports (#{stdout.relImports.length})
+                          td !{utils.relationSuggest(stdout.relImports)}
+            aside.wrpl
+              .h-padding
+                h2 Statistics
+                .line
+                .asideListFloat
+                  svg#chartElements(style='height:150px;')
+                .clear
+            script.
+              var vocabElementsData =  [{key: "Number of",
+                values: [
+                  {label : "Classes" ,value : parseInt(#{stdout.nbClasses})} , 
+                  {label : "Properties" ,value : parseInt(#{stdout.nbProperties})} , 
+                  {label : "Datatypes" ,value : parseInt(#{stdout.nbDatatypes})} ,
+                  {label : "Instances" ,value : parseInt(#{stdout.nbInstances})} 
+                ]}];
+              nv.addGraph(function() {
+                var chart = nv.models.multiBarHorizontalChart()
+                    .x(function(d) { return d.label })
+                    .y(function(d) { return d.value })
+                    .margin({top: 0, right: -25, bottom: 0})
+                    .valueFormat(d3.format(''))
+                    .barColor(['#FFA500','#53A3B4', '#2ca02c', '#9467bd'])
+                    .showLegend(false)
+                    .showValues(true)           //Show bar value next to each bar.
+                    .tooltips(false)             //Show tooltips on hover.
+                    .showControls(false);        //Allow user to switch between "Grouped" and "Stacked" mode.
+                    
+                d3.select('#chartElements')
+                    .datum(vocabElementsData)
+                    .transition().duration(200)
+                    .call(chart);
+
+                nv.utils.windowResize(chart.update);
+                return chart;
+              });

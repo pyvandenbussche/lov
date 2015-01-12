@@ -1,0 +1,27 @@
+extends ../layout/layout
+block content
+      section#post.postBlue.postSearch
+        form#searchForm(action='' method='get')
+          div.searchWrapper
+            button(type='submit', value=' ') Search
+            input(name='q', type='text', autocomplete='off') 
+      
+      section#posts.default-area.postSearchResults        
+        #greenContainer.wrplGreen(style="width:100%")
+          ul#SearchGrid
+            script(src='/js/graph.js')
+            each result, i in results.recommendations
+              li(class="SearchBoxclass")
+                .SearchContainer
+                  div.SearchInnerBox
+                    span.score !{result.score.toFixed(3)}
+                    span.prefixedName Recommendation #{'#'+(i+1)}
+                    div.occurrences  
+                      | Nb of clusters: #{result.nb_cluster}
+                      p Nb of vocabularies: #{result.nb_vocabularies}
+                  div.hr
+                  div.SearchBody
+                    svg(id='svg#{i}', width="100%", style='padding-top:1em;', margin:0 auto;)
+                    div(id='test#{i}')
+                    script(type='text/javascript') generateGraph('svg#{i}',!{JSON.stringify(result)});
+                    

@@ -1,0 +1,21 @@
+extends ../layout/layout
+block content
+      section#post.postBlue
+        article
+          header.wrpl.w-3-3
+            h1 #{user.name}
+      section#posts.default-area
+          article
+            p
+              br
+              form.center.form-inline.confirm(action="/users/"+user.id, method="post")
+                input(type='hidden', name='_csrf', value="#{csrf_token}")
+                a.btn(href='/users/'+user._id+'/edit', title="edit") Edit
+                | &nbsp;&nbsp;
+                input(type="hidden", name="_method", value="DELETE")
+                button.btn.btn-danger(type="submit") delete
+            #greenContainer.contents.clear.col-2.split.wrplGreen
+              div email: #{user.email}
+              div API key: #{user.apiKey}
+              div Callback function: #{user.callBackFn}
+              div agent: #{user.agent}

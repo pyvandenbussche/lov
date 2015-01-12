@@ -1,0 +1,173 @@
+extends ../layout/layout
+block content
+      section#post.postBlue.postSearch
+        form#searchForm(action='' method='get')
+          div.searchWrapper
+            button(type='submit', value=' ') vocabs
+            input#searchInput(name='q', type='text', placeholder='#{placeholder}', autocomplete='off', value='#{(typeof(results.queryString) !== "undefined")? results.queryString:""}')      
+          - if(typeof(suggestions) !== 'undefined')
+                  .suggestions
+                    span Do you mean: 
+                    each suggestion, i in suggestions
+                      a(href="/vocabs?q=#{suggestion.text}") #{suggestion.text} 
+      script.      
+        $(document).ready(function() {
+          $( "#searchInput" ).autocomplete({
+              minLength: 1,
+              source: function (request, response) {
+               $.ajax({
+                 url: "/api/v2/vocabulary/autocomplete",
+                 data: { q: request.term },
+                 dataType: "json",
+                 success: function( data ) {
+                        response(jQuery.map(data.results, function(item) {
+                            return {
+                                label: item.prefix,
+                                title: item["http://purl.org/dc/terms/title@en"]
+                            }
+                        }))
+                    },
+                 error: function () {
+                     response([]);
+                 }
+              });
+             },
+              position: {my : "left top",at: "left bottom"},
+              messages: {noResults: '',results: function() {}},
+              select : function(event, ui) {
+                  location.href = '/vocabs/' + encodeURIComponent(ui.item.label);
+              },
+             open: function(event, ui) {$(".ui-autocomplete").css("z-index", 1000);}
+          }).data( "uiAutocomplete" )._renderItem = function( ul, item ) {
+           return $( "<li></li>" )
+             .data( "item", item )
+             .append( "<a>" + item.label +((item.title)?" - "+item.title:"" )+"</a>")
+             .appendTo( ul );
+          };
+        });
+      section#posts.default-area.postSearchResults
+        - if (typeof(results.results) !== 'undefined' && results.total_results>0)
+          #greenContainer.contents.clear.col-2.split.wrplGreen
+              //| !{JSON.stringify(results)}
+              .count-items
+                span.count #{results.total_results}
+                .clear
+                .items
+                  | #{results.total_results==1 ? 'result' : 'results'}
+              ul#SearchGrid
+                each result, i in results.results
+                  li(class="SearchBox#{result._source.type}")
+                    .SearchContainer
+                      div.SearchInnerBox
+                        span.prefix
+                          a(href='/vocabs/#{result._source.prefix}') !{result._source.prefix}
+                        if(result._source["http://purl.org/dc/terms/title@en"])
+                          a(href='/vocabs/#{result._source.prefix}').vocabularyPrefix - #{result._source["http://purl.org/dc/terms/title@en"]}
+                        div.uri 
+                            a(href='#{result._source.uri}', target='_blank') !{result._source.uri}
+                      div.hr
+                      div.SearchBodyVoc
+                        if(result._source["http://purl.org/dc/terms/description@en"])
+                          span.SearcBodyValue #{result._source["http://purl.org/dc/terms/description@en"]}
+                          span.SearcBodyProp  @en
+              - var p = {current: results.page, total: Math.ceil(results.total_results/results.page_size)}
+              - var boundary = 2
+              .pagination
+                - var query = '?q='+results.queryString;
+                - if(typeof results.filters.tag != 'undefined')query+='&tag='+results.filters.tag;
+                - if(p.current-boundary >1)
+                  a.page(href='#{query}&page=1') 1
+                  - if(p.current-boundary >2)
+                    span.disabled ...
+                - for(var i = p.current-boundary; i <= p.current + boundary; ++i)
+                  - if (i <= p.total && i > 0)
+                    - if (i !== p.current)
+                      a.page(href='#{query}&page=#{i}') #{i}
+                    - else
+                      span.page.current #{i}
+                - if(p.current+boundary <p.total)
+                  - if(p.current+boundary+1 <p.total)
+                    span.disabled ...
+                  a.page(href='#{query}&page=#{p.total}') #{p.total}
+
+            aside.wrpl.facets
+              .facet
+                h2.facet-heading Type
+                nav
+                  ul.nav-facet
+                    li.nav-item(class="nav-item-vocabulary") 
+                      span vocabulary  (#{results.total_results})
+                    li.nav-item-inactive(class="nav-item-propertyclass hover")
+                      a(href='/terms') property/class >
+                    li.nav-item-inactive(class="nav-item-agent hover")
+                      a(href='/agents') agent >
+              .facet
+                h2.facet-heading Tag
+                // | !{JSON.stringify(results.aggregations)}
+                nav
+                  ul.nav-facet
+                    - var query = '?';
+                    - if(results.queryString)query=query+'q='+results.queryString;
+                    - if(typeof results.filters.lang != 'undefined')query+='&lang='+results.filters.lang;
+                    - var tagArray = ( typeof results.filters.tag != 'undefined' ? encodeURIComponent(results.filters.tag).split(","): []);
+                    for tag in results.aggregations.tags.buckets
+                      - var indexTag = tagArray.indexOf(encodeURIComponent(tag.key));
+                      - if(indexTag>-1)
+                        - tagArray.splice(indexTag,1);
+                          - if(tagArray.length>0)
+                            li.nav-item-active
+                              a(href='#{query}&tag=#{tagArray.join(",")}') #{tag.key} (#{tag.doc_count})
+                          - else
+                            li.nav-item-active
+                              a(href='#{query}') #{tag.key} (#{tag.doc_count})
+                        -tagArray.splice(indexTag,0,encodeURIComponent(tag.key));
+                      - else
+                        li.nav-item(class='hover')
+                          - tagArray.push(encodeURIComponent(tag.key));
+                          a(href='#{query}&tag=#{tagArray.join(",")}') #{tag.key} (#{tag.doc_count})
+                          - tagArray.pop();
+                    - if(results.aggregations.tags.buckets.length==10)
+                      - if(tagArray.length>0)query+='&tag='+tagArray.join(",");
+                        li.nav-item(class='hover')
+                          a(href='#{query}&tag_limit=0')
+                            i.nav-item-moreless show more...
+                    - if(results.aggregations.tags.buckets.length>10)
+                      - if(tagArray.length>0)query+='&tag='+tagArray.join(",");
+                        li.nav-item(class='hover')
+                          a(href='#{query}')
+                            i.nav-item-moreless show less...
+              .facet
+                h2.facet-heading Language
+                // | !{JSON.stringify(results.aggregations)}
+                nav
+                  ul.nav-facet
+                    - var query = '?';
+                    - if(results.queryString)query=query+'q='+results.queryString;
+                    - if(typeof results.filters.tag != 'undefined')query+='&tag='+encodeURIComponent(results.filters.tag);
+                    - var langArray = ( typeof results.filters.lang != 'undefined' ? results.filters.lang.split(","): []);
+                    for lang in results.aggregations.langs.buckets
+                      - var indexLang = langArray.indexOf(lang.key);
+                      - if(indexLang>-1)
+                        - langArray.splice(indexLang,1);
+                          - if(langArray.length>0)
+                            li.nav-item-active
+                              a(href='#{query}&lang=#{langArray.join(",")}') #{lang.key} (#{lang.doc_count})
+                          - else
+                            li.nav-item-active
+                              a(href='#{query}') #{lang.key} (#{lang.doc_count})
+                        -langArray.splice(indexLang,0,lang.key);
+                      - else
+                        li.nav-item(class='hover')
+                          - langArray.push(lang.key);
+                          a(href='#{query}&lang=#{langArray.join(",")}') #{lang.key} (#{lang.doc_count})
+                          - langArray.pop();
+                    - if(results.aggregations.langs.buckets.length==10)
+                      - if(langArray.length>0)query+='&lang='+langArray.join(",");
+                        li.nav-item(class='hover')
+                          a(href='#{query}&lang_limit=0')
+                            i.nav-item-moreless show more...
+                    - if(results.aggregations.langs.buckets.length>10)
+                      - if(langArray.length>0)query+='&lang='+langArray.join(",");
+                        li.nav-item(class='hover')
+                          a(href='#{query}')
+                            i.nav-item-moreless show less...

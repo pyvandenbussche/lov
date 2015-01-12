@@ -1,0 +1,7 @@
+node_modules/
+config/config.js
+.classpath
+.settings/
+versions/
+.classpath
+.project

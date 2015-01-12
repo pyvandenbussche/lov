@@ -1,0 +1,61 @@
+extends ../layout/layout
+block content
+      section#post.postBlue
+        article
+          header.wrpl.w-3-3
+            h1
+              a(href='#{lang.iso639P3PCode}')
+                | #{lang.label} 
+                span (#{lang.iso639P3PCode})
+      section#posts.default-area
+          article
+            #greenContainer.contents.clear.col-2.split.wrplGreen
+              h2.metadata Metadata
+              .metadataFrame
+                .metadataContainerLang
+                  table.metadata-table.noheader.flat-table-3(style="width:100%")
+                    tbody
+                      tr
+                        td URI
+                        td
+                          a(href='#{lang.uri}', target='_blank') #{lang.uri}
+                      tr
+                        td iso639P1Code
+                        td #{lang.iso639P1Code}
+                      tr
+                        td iso639P3PCode
+                        td #{lang.iso639P3PCode}
+            aside.wrpl
+              .h-padding
+                h2 Use
+                .line
+                .asideListFloat
+                  span Used in 
+                  b
+                    a(href='/vocabs?lang=#{lang.label}') #{nbOccurrences} vocabularies
+                h2 Statistics
+                .line
+                .asideListFloat
+                  svg#chartElements(style='height:200px;')               
+                .clear
+            script.
+              nv.addGraph(function() {
+                var chart = nv.models.multiBarHorizontalChart()
+                    .x(function(d) { return d.label })
+                    .y(function(d) { return d.value })
+                    .margin({top: 0, right: -25, bottom: 0})
+                    .valueFormat(d3.format(''))
+                    .barColor(d3.scale.category10().range())
+                    .showLegend(false)
+                    .showValues(true)           //Show bar value next to each bar.
+                    .tooltips(false)             //Show tooltips on hover.
+                    .showControls(false);        //Allow user to switch between "Grouped" and "Stacked" mode.
+                    
+                d3.select('#chartElements')
+                    .datum(!{JSON.stringify(vocabElementsData)})
+                    .transition().duration(200)
+                    .call(chart);
+
+                nv.utils.windowResize(chart.update);
+                return chart;
+              });

@@ -1,0 +1,326 @@
+extends ./layout/layout
+block content
+      section#title.postBlue
+        h1
+          | LOV API 
+          | documentation
+        div.desc Functions defined in LOV can be called with an 
+          span.pre HTTP GET 
+          span request. The response to the function you call is in 
+          span.pre JSON format
+          span . Browser plugins like 
+          a(href='https://addons.mozilla.org/en-us/firefox/addon/jsonview/', target='_blank') JSONView for Firefox 
+          span or 
+          a(href='https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc', target='_blank') Chrome 
+          span will format and color LOV's JSON response nicely in your browser.
+      section#posts.default-area
+          article.wrplGreen(style="width:100%")
+            .apiGroupName Vocabulary Term (Class, Property, Datatype, Instance)
+            ul.apiGroup
+              li.apiOperation#searchTermv2
+                .apiOperationHeading
+                  h2
+                    span.apiHttpMethod get
+                    span.apiPath /api/v2/term/search
+                  .apiLabel Search Term API v2
+                .apiOperationContent
+                  .apiOperationContentContainer
+                    .apiDesc The Search Term API allows a user to search over Linked Open Vocabularies ecosystem for a vocabulary term (class, property, datatype or instance).
+                    table.apiTable
+                      thead
+                        tr
+                          th Parameter
+                          th Type
+                          th Description
+                      tbody
+                        tr
+                          td.paramName q
+                          td.paramType string
+                          td.paramDesc Full text query.
+                        tr
+                          td.paramName page_size
+                          td.paramType int 
+                          td.paramDesc Maximum number of results to return per page (default: 10).
+                        tr
+                          td.paramName page
+                          td.paramType int
+                          td.paramDesc Result page to display starting from 1 (default: 1).
+                        tr
+                          td.paramName type
+                          td.paramType string
+                          td.paramDesc Filter query results based on their type. Possible values: [class, propery, datatype, instance]. Multiple values allowed (use coma without space to seperate them).
+                        tr
+                          td.paramName vocab
+                          td.paramType string
+                          td.paramDesc Filter query results based on the vocabulary it belongs to (e.g. "foaf"). Expecting only one value.
+                        tr
+                          td.paramName vocab_limit
+                          td.paramType int
+                          td.paramDesc Number of elements to display in the vocabulary facet (default: 10).
+                        tr
+                          td.paramName tag
+                          td.paramType string
+                          td.paramDesc Filter query results based on their tag (e.g. "event"). Multiple values allowed, use coma as a separator (e.g. "event,time").
+                        tr
+                          td.paramName tag_limit
+                          td.paramType  int
+                          td.paramDesc Number of elements to display in the tag facet (default: 10).
+                    .apiExample For example, using the LOV Search Term API, your app can search for all classes with the term "Person" in any litteral value: 
+                      a(href="./api/v2/term/search?q=Person&type=class", target="_blank") http://lov.okfn.org/dataset/lov/api/v2/term/search?q=Person&type=class
+              li.apiOperation#autocompleteTermv2
+                .apiOperationHeading
+                  h2
+                    span.apiHttpMethod get
+                    span.apiPath /api/v2/term/autocomplete
+                  .apiLabel Autocomplete Term API v2
+                .apiOperationContent
+                  .apiOperationContentContainer
+                    .apiDesc The Autocomplete Term API allows a user to get autocompletion recommendations for terms in Linked Open Vocabularies ecosystem. The autocompletion is performed on terms URI (e.g. http://xmlns.com/foaf/0.1/Person) or terms prefixed URI (foaf:Person). The user can ask for autocompletion from 1 character and filter by type class or property.
+                    table.apiTable
+                      thead
+                        tr
+                          th Parameter
+                          th Type
+                          th Description
+                      tbody
+                        tr
+                          td.paramName q
+                          td.paramType string
+                          td.paramDesc URI or prefixed URI to complete (from 1 character).
+                        tr
+                          td.paramName type
+                          td.paramType string
+                          td.paramDesc Filter query results type: "property" or "class" (if no type is given, will search over property AND class types.)
+                        tr
+                          td.paramName page_size
+                          td.paramType int 
+                          td.paramDesc Maximum number of results to return per page (default: 10).
+                    .apiExample For example, using the Autocomplete Term API, your app can search for all classes with terms URI or Prefixed URI begining with "foaf:": 
+                      a(href="./api/v2/term/autocomplete?q=foaf:p&type=class", target="_blank") http://localhost:3000/api/v2/term/autocomplete?q=foaf:p&type=class
+                 
+              li.apiOperation#suggestTermsv2
+                .apiOperationHeading
+                  h2
+                    span.apiHttpMethod get
+                    span.apiPath /api/v2/term/suggest
+                  .apiLabel Suggest Term API v2
+                .apiOperationContent
+                  .apiOperationContentContainer
+                    .apiDesc The Suggest Term API allows a user to get suggestion of vocabulary terms label based on the labels stored in LOV. It is useful for instance to help fix some typos for a search engine.
+                    table.apiTable
+                      thead
+                        tr
+                          th Parameter
+                          th Type
+                          th Description
+                      tbody
+                        tr
+                          td.paramName q
+                          td.paramType string
+                          td.paramDesc URI or prefixed URI to complete (from 1 character).
+                        tr
+                          td.paramName type
+                          td.paramType string
+                          td.paramDesc Filter suggestions based on their type. Possible values: [class, propery, datatype, instance]. Multiple values allowed (use coma without space to seperate them).
+                        tr
+                          td.paramName page_size
+                          td.paramType int 
+                          td.paramDesc Maximum number of results to return per page (default: 10).
+                    .apiExample For example, using the Suggest Term API, your app can get suggestion of misspelled query terms such as "preson": 
+                      a(href="./api/v2/term/suggest?q=preson", target="_blank") http://localhost:3000/api/v2/term/suggest?q=preson
+          
+          article.wrplGreen(style="width:100%;")
+            .apiGroupName Vocabulary
+            ul.apiGroup
+              li.apiOperation#listVocabsv2
+                .apiOperationHeading
+                  h2
+                    span.apiHttpMethod get
+                    span.apiPath /api/v2/vocabulary/list
+                  .apiLabel List Vocab API v2
+                .apiOperationContent
+                  .apiOperationContentContainer
+                    .apiDesc The List Vocab API allows a user to list the vocabularies part of the Linked Open Vocabularies ecosystem.
+                    table.apiTable
+                      thead
+                        tr
+                          th Parameter
+                          th Type
+                          th Description
+                      tbody
+                        tr
+                          td.paramName -
+                          td.paramType -
+                          td.paramDesc -
+                    .apiExample For example, using the List Vocab API, your app can list all vocabularies in LOV: 
+                      a(href="./api/v2/vocabulary/list", target="_blank") http://localhost:3000/api/v2/vocabulary/list
+              li.apiOperation#searchVocabsv2
+                .apiOperationHeading
+                  h2
+                    span.apiHttpMethod get
+                    span.apiPath /api/v2/vocabulary/search
+                  .apiLabel Search Vocab API v2
+                .apiOperationContent
+                  .apiOperationContentContainer
+                    .apiDesc The Search Vocab API allows a user to search over Linked Open Vocabularies ecosystem for a Vocabulary based on its title or prefix.
+                    table.apiTable
+                      thead
+                        tr
+                          th Parameter
+                          th Type
+                          th Description
+                      tbody
+                        tr
+                          td.paramName q
+                          td.paramType string
+                          td.paramDesc Full text query.
+                        tr
+                          td.paramName page_size
+                          td.paramType int 
+                          td.paramDesc Maximum number of results to return per page (default: 10).
+                        tr
+                          td.paramName page
+                          td.paramType int
+                          td.paramDesc Result page to display starting from 1 (default: 1).
+                        tr
+                          td.paramName tag
+                          td.paramType string
+                          td.paramDesc Filter query results based on their tag (e.g. "event"). Multiple values allowed, use coma as a separator (e.g. "event,time").
+                        tr
+                          td.paramName tag_limit
+                          td.paramType  int
+                          td.paramDesc Number of elements to display in the tag facet (default: 10).
+                        tr
+                          td.paramName lang
+                          td.paramType string
+                          td.paramDesc Filter query results based on their language (e.g. "french"). Multiple values allowed, use coma as a separator (e.g. "english,french").
+                        tr
+                          td.paramName lang_limit
+                          td.paramType  int
+                          td.paramDesc Number of elements to display in the language facet (default: 10).
+                    .apiExample For example, using the LOV Search Vocab API, your app can search for all vocabulary in English matching the term "Time": 
+                      a(href="./api/v2/vocabulary/search?q=time&lang=English", target="_blank") http://lov.okfn.org/dataset/lov/api/v2/vocabulary/search?q=time&lang=English
+              li.apiOperation#autocompleteVocabsv2
+                .apiOperationHeading
+                  h2
+                    span.apiHttpMethod get
+                    span.apiPath /api/v2/vocabulary/autocomplete
+                  .apiLabel Autocomplete Vocab API v2
+                .apiOperationContent
+                  .apiOperationContentContainer
+                    .apiDesc The Autocomplete Vocab API allows a user to get autocompletion recommendations for vocabularies in Linked Open Vocabularies ecosystem. The autocompletion is performed on vocabulary URI (e.g. http://www.w3.org/2003/01/geo/wgs84_pos) or vocabulary prefix (geo). The user can ask for autocompletion from 1 character.
+                    table.apiTable
+                      thead
+                        tr
+                          th Parameter
+                          th Type
+                          th Description
+                      tbody
+                        tr
+                          td.paramName q
+                          td.paramType string
+                          td.paramDesc URI or prefixed URI to complete (from 1 character).
+                        tr
+                          td.paramName page_size
+                          td.paramType int 
+                          td.paramDesc Maximum number of results to return per page (default: 10).
+                    .apiExample For example, using the Autocomplete Vocab API, your app can search for all vocabularies with URI or Prefix begining with "geo": 
+                      a(href="./api/v2/vocabulary/autocomplete?q=geo", target="_blank") http://localhost:3000/api/v2/vocabulary/autocomplete?q=geo
+                      
+          article.wrplGreen(style="width:100%;")
+            .apiGroupName Agent
+            ul.apiGroup
+              li.apiOperation#listAgentsv2
+                .apiOperationHeading
+                  h2
+                    span.apiHttpMethod get
+                    span.apiPath /api/v2/agent/list
+                  .apiLabel List Agent API v2
+                .apiOperationContent
+                  .apiOperationContentContainer
+                    .apiDesc The List Agent API allows a user to list all agents (Person or Organization) in Linked Open Vocabularies ecosystem. 
+                    table.apiTable
+                      thead
+                        tr
+                          th Parameter
+                          th Type
+                          th Description
+                      tbody
+                        tr
+                          td.paramName -
+                          td.paramType -
+                          td.paramDesc -
+                    .apiExample For example, using the List Agent API, your app can list all agents in LOV: 
+                      a(href="./api/v2/agent/list", target="_blank") http://localhost:3000/api/v2/agent/list
+              li.apiOperation#searchAgentsv2
+                .apiOperationHeading
+                  h2
+                    span.apiHttpMethod get
+                    span.apiPath /api/v2/agent/search
+                  .apiLabel Search Agent API v2
+                .apiOperationContent
+                  .apiOperationContentContainer
+                    .apiDesc The Search Agent API allows a user to search over Linked Open Vocabularies ecosystem for an agent (person or organization).
+                    table.apiTable
+                      thead
+                        tr
+                          th Parameter
+                          th Type
+                          th Description
+                      tbody
+                        tr
+                          td.paramName q
+                          td.paramType string
+                          td.paramDesc Full text query.
+                        tr
+                          td.paramName page_size
+                          td.paramType int 
+                          td.paramDesc Maximum number of results to return per page (default: 10).
+                        tr
+                          td.paramName page
+                          td.paramType int
+                          td.paramDesc Result page to display starting from 1 (default: 1).
+                        tr
+                          td.paramName type
+                          td.paramType string
+                          td.paramDesc Filter query results based on their type. Possible values: [person, organization].
+                        tr
+                          td.paramName tag
+                          td.paramType string
+                          td.paramDesc Filter query results based on their tag (e.g. "event"). Multiple values allowed, use coma as a separator (e.g. "event,time").
+                        tr
+                          td.paramName tag_limit
+                          td.paramType  int
+                          td.paramDesc Number of elements to display in the tag facet (default: 10).
+                    .apiExample For example, using the LOV Search Agent API, your app can search for all person having a name containing "Pierre": 
+                      a(href="./api/v2/agent/search?q=Pierre&type=person", target="_blank") http://lov.okfn.org/dataset/lov/api/v2/agent/search?q=Pierre&type=person
+              li.apiOperation#autocompleteAgentsv2
+                .apiOperationHeading
+                  h2
+                    span.apiHttpMethod get
+                    span.apiPath /api/v2/agent/autocomplete
+                  .apiLabel Autocomplete Agent API v2
+                .apiOperationContent
+                  .apiOperationContentContainer
+                    .apiDesc The Autocomplete Agent API allows a user to get autocompletion recommendations for agents (Person or Organization) in Linked Open Vocabularies ecosystem. The autocompletion is performed on agent name (e.g. Food and Agriculture Organization) or agent URI (e.g. http://localhost:3000/agents/Food%20and%20Agriculture%20Organization). The user can ask for autocompletion from 1 character.
+                    table.apiTable
+                      thead
+                        tr
+                          th Parameter
+                          th Type
+                          th Description
+                      tbody
+                        tr
+                          td.paramName q
+                          td.paramType string
+                          td.paramDesc URI or prefixed URI to complete (from 1 character).
+                    .apiExample For example, using the Autocomplete Agent API, your app can search for all agents with name or URI including "bern": 
+                      a(href="./api/v2/agent/autocomplete?q=bern", target="_blank") http://localhost:3000/api/v2/agent/autocomplete?q=bern
+               
+      script.
+        $(".apiOperationContent").hide()
+        $( ".apiOperationHeading" ).click(function() {
+          $(this).parent().find( ".apiOperationContent" ).slideToggle( "slow", function() {
+            // Animation complete.
+          });
+        });

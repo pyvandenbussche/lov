@@ -1,0 +1,346 @@
+extends ../layout/layout
+block content
+      section#post.postBlue
+        article
+          header.wrpl.w-3-3
+            h1
+              a(href='#{vocab.prefix}')
+                | #{vocab.titles[0].value} 
+                span (#{vocab.prefix})
+            if vocab.commentDeref
+              div.errorLogo
+                img(src="../img/alert.png") 
+              div.errorText #{vocab.commentDeref}
+      section#posts.default-area
+          article
+            #greenContainer.contents.clear.col-2.split.wrplGreen
+              h2 Metadata
+              .metadataFrame
+                .metadataContainerVocab
+                  table.metadata-table.noheader.flat-table-3(style="width:100%")
+                    tbody
+                      //tr
+                        td Prefix
+                        td #{vocab.prefix}
+                      tr
+                        td URI
+                        td
+                          a(href='#{vocab.uri}', target='_blank') #{vocab.uri}
+                      tr
+                        td Namespace
+                        td #{vocab.nsp}
+                      if vocab.isDefinedBy
+                        tr
+                          td isDefinedBy
+                          td
+                            a(href='#{vocab.isDefinedBy}', target='_blank') #{vocab.isDefinedBy}
+                      if vocab.homepage
+                        tr
+                          td homepage
+                          td
+                            a(href='#{vocab.homepage}', target='_blank') #{vocab.homepage}
+                      if vocab.descriptions
+                        tr
+                          td Description
+                          td !{utils.valueLangDisplay(vocab.descriptions, 'value',null,null)}
+                      -if(typeof(lastVersion)!='undefined') 
+                        tr
+                          td Language
+                          td !{utils.valueLangDisplay(lastVersion.languageIds,'label','iso639P3PCode','/languages/')}
+                      if vocab.creatorIds && vocab.creatorIds.length>0
+                        tr
+                          td Creator
+                          td !{utils.valueLangDisplay(vocab.creatorIds,'name','name','/agents/')}
+                      if vocab.contributorIds && vocab.contributorIds.length>0
+                        tr
+                          td Contributor
+                          td !{utils.valueLangDisplay(vocab.contributorIds,'name','name','/agents/')}
+                      if vocab.publisherIds && vocab.publisherIds.length>0
+                        tr
+                          td Publisher
+                          td !{utils.valueLangDisplay(vocab.publisherIds,'name','name','/agents/')}
+                      if vocab.reviews && vocab.reviews.length>0
+                        tr
+                          td Comment
+                          td !{utils.displayReviews(vocab.reviews)}
+            aside.wrpl
+              .h-padding
+                h2 Statistics
+                .line
+                .asideListFloat
+                  svg#chartElements(style='height:150px;')
+                h2 Expressivity
+                .line
+                .asideListFloat
+                  -if(typeof(lastVersion)!='undefined') 
+                    ul.expressivities
+                      -if(lastVersion.relMetadata.indexOf('http://www.w3.org/1999/02/22-rdf-syntax-ns#')>-1)
+                        li
+                          a.expressivity(href='/vocabs/rdf') RDF
+                      -if(lastVersion.relMetadata.indexOf('http://www.w3.org/2000/01/rdf-schema#')>-1)
+                        li
+                          a.expressivity(href='/vocabs/rdfs') RDFS
+                      -if(lastVersion.relMetadata.indexOf('http://www.w3.org/2002/07/owl#')>-1)
+                        li 
+                          a.expressivity(href='/vocabs/owl') OWL  
+                .clear
+                h2 Tags
+                .line
+                .asideListFloat
+                  -if(vocab.tags && vocab.tags.length>0 )
+                    ul.tagsVocab
+                      - each tag in vocab.tags
+                        li
+                          a.tag(href='/vocabs?tag='+encodeURIComponent(tag)) #{tag}
+                .clear
+                h2 LOD
+                .line
+                .blabla 
+                  span Vocabulary used in 
+                  a(href='http://stats.lod2.eu/', target='_blank')
+                    b #{(vocab.datasets)?vocab.datasets.length: 0} datasets 
+                  span 
+                .clear
+      section#post.postMediumDarkBlue
+        h2(style="width:50%; float:left;")  #{inData.nodes.length-1} Incoming Links
+        h2(style="width:50%; float:left;")  #{outData.nodes.length-1} Outgoing Links
+        .visus
+          .visusContainerVocab
+            #visIn(style="width:50%; float:left;") 
+            #visOut(style="width:50%; float:left;")
+              
+        ul.visusLegend
+            li
+              span.color(style="background-color:#{utils.getColor20(13)}")
+              span.linkName Metadata
+            li
+              span.color(style="background-color:#{utils.getColor20(4)}") 
+              span.linkName Extends
+            li
+              span.color(style="background-color:#{utils.getColor20(0)}") 
+              span.linkName Specializes
+            li
+              span.color(style="background-color:#{utils.getColor20(1)}") 
+              span.linkName Generalizes
+            li
+              span.color(style="background-color:#{utils.getColor20(14)}") 
+              span.linkName Has Equivalences with
+            li
+              span.color(style="background-color:#{utils.getColor20(15)}") 
+              span.linkName Has Disjunction with
+            li
+              span.color(style="background-color:#{utils.getColor20(6)}") 
+              span.linkName Imports
+        script.
+          
+          var width = 600,
+              height = 600,
+              nodeMinSize = 20,
+              nodeMaxSize = 60,
+              linkDistance = 60,
+              chargeFactor = 30;
+          var category20 = d3.scale.category20();
+          var color=[];
+          for(i=0; i<20; i++){color[i]=(category20(i));}
+          
+          var graph = !{JSON.stringify(outData)};
+          var dataOutMin = d3.min(graph.nodes, function(d) { return d.nbIncomingLinks; });
+          var dataOutMax = d3.max(graph.nodes, function(d) { return d.nbIncomingLinks; });
+          var linearScale = d3.scale.linear().domain([dataOutMin,dataOutMax]).range([nodeMinSize,nodeMaxSize]);
+
+          var force = d3.layout.force()
+              .charge(function(d) {return -chargeFactor * linearScale(d.nbIncomingLinks);})
+              .linkDistance(linkDistance)
+              .size([width, height])
+              .nodes(graph.nodes)
+              .links(graph.links)
+              .start();
+
+          var svg = d3.select("#visOut").append("svg")
+              .attr("viewBox","0 0 600 600")
+              .attr("perserveAspectRatio","xMinYMin")
+              .attr("width", width)
+              .attr("height", height)
+              .attr("class", "bubble");
+
+            var link = svg.selectAll(".link")
+                .data(graph.links)
+                .enter().append("line")
+                  .attr("class", "link")
+                  .style("stroke", "#000000")
+                  .style("stroke-opacity", ".6")
+                  .style("stroke-width", function(d) { return d.value; });
+
+           var node = svg.selectAll(".node")
+               .data(graph.nodes).enter().append('g').classed('node', true)
+               .on("click", function(d) { self.location= "/vocabs/"+ d.name});;
+                
+            node.append("circle")
+                .attr("r", function(d) { return linearScale(d.nbIncomingLinks); })
+                .style("fill", function(d) { return color[d.group]; });
+                
+            node.append("text")
+                .style("text-anchor", "middle")
+                .attr("dy", ".35em")
+                .text(function(d) { return d.name.substring(0, linearScale(d.nbIncomingLinks) / 2); })
+                .style("font-size", function (d) { return ((linearScale(d.nbIncomingLinks) / 20)) + "em"; });
+                
+            node.append("title")
+                .text(function(d) { return d.name; });
+
+            force.on("tick", function() {
+              link.attr("x1", function(d) { return d.source.x; })
+                  .attr("y1", function(d) { return d.source.y; })
+                  .attr("x2", function(d) { return d.target.x; })
+                  .attr("y2", function(d) { return d.target.y; });
+
+              node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+            });
+            
+            
+            
+          var graphIn = !{JSON.stringify(inData)};
+          var dataInMin = d3.min(graphIn.nodes, function(d) { return d.nbIncomingLinks; });
+          var dataInMax = d3.max(graphIn.nodes, function(d) { return d.nbIncomingLinks; });
+          var linearScaleIn = d3.scale.linear().domain([dataInMin,dataInMax]).range([nodeMinSize,nodeMaxSize]);
+
+          var forceIn = d3.layout.force()
+              .charge(function(d) {return -chargeFactor * linearScaleIn(d.nbIncomingLinks);})
+              .linkDistance(linkDistance)
+              .size([width, height])
+              .nodes(graphIn.nodes)
+              .links(graphIn.links)
+              .start();
+
+          var svgIn = d3.select("#visIn").append("svg")
+              .attr("viewBox","0 0 600 600")
+              .attr("perserveAspectRatio","xMinYMin")
+              .attr("width", width)
+              .attr("height", height)
+              .attr("class", "bubble2");
+
+            var linkIn = svgIn.selectAll(".link")
+                .data(graphIn.links)
+                .enter().append("line")
+                  .attr("class", "link")
+                  .style("stroke", "#000000")
+                  .style("stroke-opacity", ".6")
+                  .style("stroke-width", function(d) { return d.value; });
+
+           var nodeIn = svgIn.selectAll(".node")
+               .data(graphIn.nodes).enter().append('g').classed('node', true)
+               .on("click", function(d) { self.location= "/vocabs/"+ d.name});;
+                
+            nodeIn.append("circle")
+                .attr("r", function(d) { return linearScaleIn(d.nbIncomingLinks); })
+                .style("fill", function(d) { return color[d.group]; });
+                
+            nodeIn.append("text")
+                .style("text-anchor", "middle")
+                .attr("dy", ".35em")
+                .text(function(d) { return d.name.substring(0, linearScaleIn(d.nbIncomingLinks) / 2); })
+                .style("font-size", function (d) { return ((linearScaleIn(d.nbIncomingLinks) / 20)) + "em"; });
+                
+            nodeIn.append("title")
+                .text(function(d) { return d.name; });
+
+            forceIn.on("tick", function() {
+              linkIn.attr("x1", function(d) { return d.source.x; })
+                  .attr("y1", function(d) { return d.source.y; })
+                  .attr("x2", function(d) { return d.target.x; })
+                  .attr("y2", function(d) { return d.target.y; });
+
+              nodeIn.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+            });
+            
+          var chartVis = $(".bubble"),
+              aspectVis = chartVis.width() / chartVis.height(),
+              containerVis = chartVis.parent();
+          var chartVisIn = $(".bubble2"),
+              aspectVisIn = chartVisIn.width() / chartVisIn.height(),
+              containerVisIn = chartVisIn.parent();
+          $(window).on("resize", function() {
+              var targetWidthVis = containerVis.width();
+              chartVis.attr("width", targetWidthVis);
+              chartVis.attr("height", Math.round(targetWidthVis / aspectVis));
+              var targetWidthVisIn = containerVisIn.width();
+              chartVisIn.attr("width", targetWidthVisIn);
+              chartVisIn.attr("height", Math.round(targetWidthVisIn / aspectVisIn));
+          }).trigger("resize");
+          
+          
+        
+      script.
+        
+        nv.addGraph(function() {
+          var chart = nv.models.multiBarHorizontalChart()
+              .x(function(d) { return d.label })
+              .y(function(d) { return d.value })
+              .margin({top: 0, right: -25, bottom: 0})
+              .valueFormat(d3.format(''))
+              .barColor(['#FFA500','#53A3B4', '#2ca02c', '#9467bd'])
+              .showLegend(false)
+              .showValues(true)           //Show bar value next to each bar.
+              .tooltips(false)             //Show tooltips on hover.
+              .showControls(false);        //Allow user to switch between "Grouped" and "Stacked" mode.
+              
+          d3.select('#chartElements')
+              .datum(!{JSON.stringify(vocabElementsData)})
+              .transition().duration(200)
+              .call(chart);
+
+          nv.utils.windowResize(chart.update);
+          return chart;
+        });
+        
+        // Timeline using http://visjs.org/
+        /*var container = document.getElementById('timeline');
+        var items = new vis.DataSet(!{JSON.stringify(timelineData)}); 
+        var options = {
+          zoomMin: 1000 * 60 * 60 * 24 * 31, // limit the zoom to a month
+        };
+         var timeline = new vis.Timeline(container, items, options);*/
+      
+      section#post.postMediumDarkBlue
+        h2 Vocabulary Version History
+        #timeline
+        script.
+          var tl;
+          $(document).ready(function(){
+                  var tl_el = document.getElementById("timeline");
+                  var eventSource1 = new Timeline.DefaultEventSource();
+                  
+                  var theme1 = Timeline.ClassicTheme.create();
+                  theme1.autoWidth = true; // Set the Timeline's "width" automatically.
+                                                                   // Set autoWidth on the Timeline's first band's theme,
+                                                                   // will affect all bands.
+                  theme1.timeline_start = new Date(Date.UTC(1990, 0, 1));
+                  theme1.timeline_stop  = new Date(Date.UTC(2100, 0, 1));
+                  
+                  var d = Timeline.DateTime.parseGregorianDateTime("2012")
+                  var bandInfos = [
+                          Timeline.createBandInfo({
+                                  width:          45, // set to a minimum, autoWidth will then adjust
+                                  intervalUnit:   Timeline.DateTime.YEAR, 
+                                  intervalPixels: 100,
+                                  eventSource:    eventSource1,
+                                  date:           d,
+                                  theme:          theme1,
+                                  layout:         'original'  // original, overview, detailed
+                          })
+                  ];
+                  
+                  Timeline.OriginalEventPainter.prototype._showBubble = function(x, y, evt) {
+                    if(evt.getLink())window.open(evt.getLink(),'_blank');
+                  }
+                                                                                                                  
+                  // create the Timeline
+                  tl = Timeline.create(tl_el, bandInfos, Timeline.HORIZONTAL);
+                  
+                  var url = '.'; // The base url for image, icon and background image
+                                             // references in the data
+                  eventSource1.loadJSON(!{JSON.stringify(timelineData)}, url); // The data was stored into the 
+                                                                                                     // timeline_data variable.
+                  tl.layout(); // display the Timeline
+          });
+              

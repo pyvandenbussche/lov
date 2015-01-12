@@ -1,0 +1,163 @@
+.aboutGroupName{
+  font-size: 130%;
+  padding:.5em 0;
+  font-weight: bold;
+  color:white;
+  text-shadow: 1px 1px 5px #646464;
+}
+
+.aboutGroup{ list-style-type: none; }
+
+.aboutGroup li{padding-top:.2em;padding-bottom:.2em;}
+.aboutTopicHeading{
+  background-color: rgb(230,230,230);
+  border: 1px solid rgb(195, 217, 236);
+  -moz-transition-delay: initial;
+  -moz-transition-duration: 0.2s;
+  -moz-transition-property: box-shadow -moz-box-shadow -webkit-box-shadow -o-box-shadow;
+  -moz-transition-timing-function: ease-in-out;
+  -webkit-transition-delay: initial;
+  -webkit-transition-duration: 0.2s;
+  -webkit-transition-property: box-shadow -moz-box-shadow -webkit-box-shadow -o-box-shadow;
+  -webkit-transition-timing-function: ease-in-out;
+  -o-transition-delay: initial;
+  -o-transition-duration: 0.2s;
+  -o-transition-property: box-shadow -moz-box-shadow -webkit-box-shadow -o-box-shadow;
+  -o-transition-timing-function: ease-in-out;
+  transition-delay: initial;
+  transition-duration: 0.2s;
+  transition-property: box-shadow -moz-box-shadow -webkit-box-shadow -o-box-shadow;
+  transition-timing-function: ease-in-out;
+  float: none;
+  clear: both;
+  overflow: hidden;
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  cursor:pointer;
+}
+.aboutTopicHeading:hover{
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  -o-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  background-color: white;
+}
+.aboutTopic h2{
+  display: block;
+  clear: none;
+  float: left;
+  width: auto;
+  margin: 0px;
+  padding: 0px;
+  font-size:120%;
+  line-height: 1.1em;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  padding: 7px 1em 4px;
+  font-weight: bold;
+}
+
+.aboutTopicContent{
+  background-color: #fbfbfb;
+  border: 1px solid rgb(195, 217, 236);
+  border-top: none;
+  padding:.4em;
+}
+.aboutTopicContentContainer{
+  border-left: 6px solid rgb(15, 106, 180);
+  
+}
+.aboutDesc{
+  padding:1em;
+}
+
+.aboutDesc a.linkBox{
+  padding: 1px 4px 3px;
+  border-radius: 3px;
+  margin-left:0.2em;
+  margin-right:0.2em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.7);
+  -o-box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.7);
+  -moz-transition-delay: initial;
+  -moz-transition-duration: 0.2s;
+  -moz-transition-property: box-shadow -moz-box-shadow -webkit-box-shadow -o-box-shadow;
+  -moz-transition-timing-function: ease-in-out;
+  -webkit-transition-delay: initial;
+  -webkit-transition-duration: 0.2s;
+  -webkit-transition-property: box-shadow -moz-box-shadow -webkit-box-shadow -o-box-shadow;
+  -webkit-transition-timing-function: ease-in-out;
+  -o-transition-delay: initial;
+  -o-transition-duration: 0.2s;
+  -o-transition-property: box-shadow -moz-box-shadow -webkit-box-shadow -o-box-shadow;
+  -o-transition-timing-function: ease-in-out;
+  transition-delay: initial;
+  transition-duration: 0.2s;
+  transition-property: box-shadow -moz-box-shadow -webkit-box-shadow -o-box-shadow;
+  transition-timing-function: ease-in-out;
+  background-color: #e7e7e7;
+}
+.aboutDesc a.linkBox:hover{
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  -o-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  background-color: white;
+}
+
+ul.partners{
+  list-style-type: none;
+}
+ul.partners li{
+	float:left;
+	height:3em;
+	line-height:3em;
+	position:relative;
+	font-size:18px;
+  margin:0.2em;
+	}
+
+  ul.historicalContributors li{
+  float:left;
+  height:8em;
+  width:11em;
+  overflow:hidden;
+  position:relative;
+  font-size:18px;
+  margin:0.2em;
+  }
+  
+  .historicalContributorsDesc{
+    position:absolute; /* absolute position (so we can position it where we want)*/  
+    bottom:0px; /* position will be on bottom */  
+    left:0px;  
+    width:100%;  
+    /* styling bellow */  
+    background-color:black;  
+    font-family: 'tahoma';  
+    font-size:15px;  
+    color:white;  
+    opacity:0.6; /* transparency */  
+    filter:alpha(opacity=60); /* IE transparency */  
+  }
+  
+  .historicalContributorsDescContent{
+    padding:6px 10px;  
+    margin:0px;  
+  }
+.aboutDescImg{
+  float:left;
+  padding: 0em 1em;
+}
+.aboutDescImg img{
+  max-height:100px;
+}
+.aboutDesc .code{
+  font-family: "Courier New" Courier monospace;
+}
+  
