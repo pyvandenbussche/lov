@@ -2,9 +2,8 @@ extends ./layout/layout
 block content
       section#title.postBlue
         h1
-          |All you need to know about 
-          span LOV
-          | !
+          |In LOV at a glance 
+          span ...
       section#posts.default-area
         article
           .contents.clear.col-2.split.wrplGreen
@@ -37,7 +36,7 @@ block content
                     .aboutDesc LOV provides a choice of several hundreds of such vocabularies, based on quality requirements including URI stability and availability on the Web, use of standard formats and publication best practices, quality metadata and documentation, identifiable and trustable publication body, proper versioning policy.
               li.aboutTopic
                 .aboutTopicHeading
-                  h2 Is LOV trustable and here to stay?
+                  h2 LOV provides sustainable resources
                 .aboutTopicContent
                   .aboutTopicContentContainer
                     .aboutDesc LOV started in 2011, in the framework of a French research project
@@ -48,9 +47,16 @@ block content
                       | has provided technical hosting since July 2012. Four years after its launch, and one year after the end of its initial framework project, LOV is supported by a small team of curators and developers. Various solutions are under study to further provide LOV with a sustainable legal framework and business model.
               li.aboutTopic
                 .aboutTopicHeading
-                  h2 How can you contribute?
+                  h2 Contribute, join the community
                 .aboutTopicContent
                   .aboutTopicContentContainer
+                    .aboutDesc Over the last four years, Linked Open Vocabularies initiative has gathered a community of data publishers, ontology designers. 
+                      a.linkBox(href="https://plus.google.com/communities/108509791366293651606" target="_blank") LOV Google+ community 
+                      | is now an important place to discuss, report and announce general facts related to vocabularies on the Web. Our system provides a way to 
+                      a.linkBox(href="http://lov.okfn.org/dataset/lov/suggest/") suggest 
+                      | the insertion of a new vocabulary. This feature allows a user to check what information the LOV Bot can automatically detect. From our experience with vocabulary publication, we published a 
+                      a.linkBox(href="http://lov.okfn.org/dataset/lov/Recommendations_Vocabulary_Design.pdf" target="_blank") handbook about Metadata recommendations for linked open data vocabularies
+                      | . Hence there are at least three main ways you can contribute to the LOV effort :
                     .aboutDesc 
                       b Publish quality vocabularies 
                       | and suggest them for insertion in LOV using the
@@ -133,16 +139,6 @@ block content
                       | will have a higher score than if it matches a value for the property 
                       span.code dcterms:comment
                       | . Based on the different nature of these labels, we apply different indexing tokenizers and scoring methods.
-              li.aboutTopic
-                .aboutTopicHeading
-                  h2 Community
-                .aboutTopicContent
-                  .aboutTopicContentContainer
-                    .aboutDesc Over the last four years, Linked Open Vocabularies initiative has gathered a community of data publishers, ontology designers. 
-                      a.linkBox(href="https://plus.google.com/communities/108509791366293651606" target="_blank") LOV Google+ community 
-                      | is now an important place to discuss, report and announce general facts related to vocabularies on the Web. Our system provides a way to 
-                      a.linkBox(href="http://lov.okfn.org/dataset/lov/suggest/") suggest 
-                      | the insertion of a new vocabulary. This feature allows a user to check what information the LOV Bot can automatically detect. From our experience with vocabulary publication, we published a handbook about Metadata recommendations for linked open data vocabularies.
             .aboutGroupName Application Ecosystem
             ul.aboutGroup
               li.aboutTopic
