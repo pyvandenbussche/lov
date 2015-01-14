@@ -823,6 +823,67 @@ function execSuggestTerms(client, queryString, suggest_size, type, callback) {
   }).exec();
 };
 
+/* return suggestions close to the input term */
+function execAutocompleteLabelsTerms(client, queryString, suggest_size, callback) {
+  if(!suggest_size || (!parseInt(suggest_size) && suggest_size!=='0') || parseInt(suggest_size)<1)suggest_size=5;
+  
+  /* issue the suggestion on the rdfs:label@en field */
+  var q = { index: 'lov',
+    body: {
+      "autocomplete" : {
+          "text" : queryString,
+          "completion" : {
+              "field" : "labelsWithoutLang"
+          }
+      }
+    }
+  };
+  return client.suggest(q, function(err, data) {
+    if(err)return callback(error, null);
+    var hit, parsed, result, text;
+    parsed = data.autocomplete[0];
+    console.log(parsed);
+    result = {
+      suggestions: (function() {
+        var results = [];
+        for (var i = 0; i < parsed.options.length; i++) {
+          text = parsed.options[i].text;
+          results.push(text);
+        }
+        return results;
+      })()
+    };
+    return callback(null, result);
+  });
+};
+
+/**
+* Terms Autocomplete Labels API
+*/
+exports.apiAutocompleteLabelsTerms = function (req, res, esclient) {
+	if (!req.query.q) { //control that q param is present
+		return standardBadRequestHandler(req, res, 'Query parameter missing. Syntax: ?q=querytext');
+	} else {
+		console.log('Autocomplete for terms labels starting with "'+req.query.q+'"')
+		var query = { index: 'lov',
+    body: {
+      "autocomplete" : {
+          "text" : req.query.q,
+          "completion" : {
+              "field" : "labelsWithoutLang"
+          }
+      }
+    }
+  };
+
+    esclient.suggest(query).then(function (resp) {
+        var results = [];
+        res.header('Content-type', 'application/json; charset=utf-8');
+        res.json(resp.autocomplete[0].options);
+    });
+	}
+}
+
 
 /* return a notification of a bad request */
 function standardBadRequestHandler(req, res, helpText) {

@@ -35,7 +35,7 @@ var userAuth = [auth.requiresLogin, auth.user.hasAuthorization]
  * Expose routes
  */
 
-module.exports = function (app, passport,esclient, emailTransporter) {
+module.exports = function (app, passport,esclient, elasticsearchClient, emailTransporter) {
 
   // user routes
   //app.param('userId', users.user)
@@ -132,6 +132,8 @@ module.exports = function (app, passport,esclient, emailTransporter) {
   app.get('/api/v2/term/suggest', function(req, res){search.apiSuggestTerms(req,res,esclient);})
   app.get('/api/v2/term/autocomplete', function(req, res){search.apiAutocompleteTerms(req,res,esclient);})
   app.get('/api/v2/autocomplete/terms', function(req, res){search.apiAutocompleteTerms(req,res,esclient);})
+  app.get('/api/v2/term/autocompleteLabels', function(req, res){search.apiAutocompleteLabelsTerms(req,res,elasticsearchClient);})
+  
   app.get('/api/v2/term/search', function(req, res){search.apiSearch(req,res,esclient);})
   app.get('/api/v2/search', function(req, res){search.apiSearch(req,res,esclient);})
   

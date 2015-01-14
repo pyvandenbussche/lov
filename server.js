@@ -15,6 +15,7 @@ var express = require('express')
   , mongoose = require('mongoose')
   , nodemailer = require('nodemailer')
   , ElasticSearchClient = require('elasticsearchclient')
+  , elasticsearch = require('elasticsearch')
 
 /**
  * Main application entry file.
@@ -32,6 +33,7 @@ mongoose.connect(config.db)
 
 // Bootstrap ElasticSearch Connection
 var esclient = new ElasticSearchClient(config.es);
+var elasticsearchclient = new elasticsearch.Client(config.elasticsearch);
 
 // Bootstrap models
 var models_path = __dirname + '/app/models'
@@ -50,7 +52,7 @@ require('./config/express')(app, config, passport)
 var transporter = nodemailer.createTransport("SMTP", config.email);
 
 // Bootstrap routes
-require('./config/routes')(app, passport, esclient, transporter)
+require('./config/routes')(app, passport, esclient, elasticsearchclient, transporter)
 
 // Start the app by listening on <port>
 var port = process.env.PORT || 3000
