@@ -19,6 +19,7 @@ var users = require('../app/controllers/users')
   , searchMulti = require('../app/controllers/searchMulti')
   , bot = require('../app/controllers/bot')
   , negotiate = require('express-negotiate')
+  , queryExamples = require('../lib/queryExamples')
   
 
 /**
@@ -151,7 +152,7 @@ module.exports = function (app, passport,esclient, emailTransporter) {
     //TODO log SPARQL Queries using the logSearch object ??
     req.negotiate({
         'html': function() {
-          res.render('endpoint/index', {});
+          res.render('endpoint/index', {queryExamples:queryExamples});
         },
         'default': function() {
           res.redirect('http://helium.okfnlabs.org:3030/lov/sparql?query='+ encodeURIComponent(req.query.query));

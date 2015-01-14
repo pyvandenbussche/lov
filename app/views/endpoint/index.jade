@@ -5,8 +5,26 @@ block content
           span / Data Dump
       section#posts.default-area
           article
-            #greenContainer.contents.clear.col-2.split.wrplGreen
-              h2 SPARQL
+            .contents.clear.col-2.split.wrplGreen
+              h2.aboutGroupName(style="padding: .5em;color: #FFFFFF;font-size: 24px;text-shadow: 1px 1px 5px #646464;") SPARQL
+              ul.aboutGroup
+                li.aboutTopic
+                  .aboutTopicHeading
+                    h2 Query Examples
+                  .aboutTopicContent
+                    .aboutTopicContentContainer
+                      - var queryIndex=1;
+                      - each queryExample in queryExamples
+                        .aboutDesc Query ##{queryIndex} 
+                          a.linkBox(href='/sparql?query='+encodeURIComponent(queryExample.query)) #{queryExample.title}
+                        - queryIndex=queryIndex+1;
+              script.
+                $(".aboutTopicContent").hide()
+                $( ".aboutTopicHeading" ).click(function() {
+                  $(this).parent().find( ".aboutTopicContent" ).slideToggle( "slow", function() {
+                    // Animation complete.
+                  });
+                });
               div#yasqe
               div#yasr
               script(src='/js/yasr.bundled_1.2.3.min.js')
@@ -17,7 +35,7 @@ block content
                     endpoint: 'http://helium.okfnlabs.org:3030/lov/sparql',
                     showQueryButton: true
                     },
-                    value: 'PREFIX vann:<http://purl.org/vocab/vann/>\n\PREFIX voaf:<http://purl.org/vocommons/voaf#>\n\ \n\SELECT ?vocabPrefix ?vocabURI {\n\ \tGRAPH <http://lov.okfn.org/dataset/lov>{\n\ \t \t?vocabURI a voaf:Vocabulary.\n\ \t \t?vocabURI vann:preferredNamespacePrefix ?vocabPrefix.\n\}} ORDER BY ?vocabPrefix'
+                    value: 'PREFIX vann:<http://purl.org/vocab/vann/>\n\PREFIX voaf:<http://purl.org/vocommons/voaf#>\n\ \n\### Vocabularies contained in LOV and their prefix\n\SELECT DISTINCT ?vocabPrefix ?vocabURI {\n\ \tGRAPH <http://lov.okfn.org/dataset/lov>{\n\ \t \t?vocabURI a voaf:Vocabulary.\n\ \t \t?vocabURI vann:preferredNamespacePrefix ?vocabPrefix.\n\}} ORDER BY ?vocabPrefix'
                 });
                 var yasr = YASR(document.getElementById("yasr"), {
                   //this way, the URLs in the results are prettified using the defined prefixes in the query
