@@ -4,7 +4,41 @@ block content
         form#searchForm(action='' method='get')
           div.searchWrapper
             button(type='submit', value=' ') Terms
-            input(name='q', type='text', placeholder='#{placeholder}', autocomplete='off', value='#{(typeof(results.queryString) !== "undefined")? results.queryString:""}')      
+            input#searchInput(name='q', type='text', placeholder='#{placeholder}', autocomplete='off', value='#{(typeof(results.queryString) !== "undefined")? results.queryString:""}')
+            script.      
+              $(document).ready(function() {
+                $( "#searchInput" ).autocomplete({
+                    minLength: 1,
+                    source: function (request, response) {
+                     $.ajax({
+                       url: "/api/v2/term/autocompleteLabels",
+                       data: { q: request.term },
+                       dataType: "json",
+                       success: function( data ) {
+                              response(jQuery.map(data, function(item) {
+                                  return {
+                                      label: item.text
+                                  }
+                              }))
+                          },
+                       error: function () {
+                           response([]);
+                       }
+                    });
+                   },
+                    position: {my : "left top",at: "left bottom"},
+                    messages: {noResults: '',results: function() {}},
+                    select : function(event, ui) {
+                        location.href = '/terms?q=' + encodeURIComponent(ui.item.label);
+                    },
+                   open: function(event, ui) {$(".ui-autocomplete").css("z-index", 1000);}
+                }).data( "uiAutocomplete" )._renderItem = function( ul, item ) {
+                 return $( "<li></li>" )
+                   .data( "item", item )
+                   .append( "<a>" + item.label+"</a>")
+                   .appendTo( ul );
+                };
+              });
           - if(typeof(suggestions) !== 'undefined')
                   .suggestions
                     span Do you mean: 
