@@ -55,9 +55,9 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   
   // agent / user routes
   
-  app.get('/agents', function(req, res){search.searchAgent(req,res,esclient);})
+  app.get('/dataset/lov/agents', function(req, res){search.searchAgent(req,res,esclient);})
   //app.get('/agents/autocomplete', agentsPublic.autoComplete)
-  app.get('/agents/:agentId', agents.show)
+  app.get('/dataset/lov/agents/:agentId', agents.show)
   app.param('agentId', agents.load)
   //app.put('/agents/:agentId', agentAuth, agentsPublic.update)
   //app.get('/agents/new', auth.requiresLogin, agentsPublic.new)
@@ -72,16 +72,18 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   
   // vocabs routes
 
-  app.get('/', vocabularies.index)
-  app.get('/vocabs', function(req, res){search.searchVocabulary(req,res,esclient);})
-  app.get('/vocabs/:vocabId/versions/:vocabId-:date.n3', function(req, res) {
+  app.get('/', function(req, res){res.redirect('/dataset/lov/')})
+  app.get('/dataset', function(req, res){res.redirect('/dataset/lov/')})
+  app.get('/dataset/lov', vocabularies.index)
+  app.get('/dataset/lov/vocabs', function(req, res){search.searchVocabulary(req,res,esclient);})
+  app.get('/dataset/lov/vocabs/:vocabId/versions/:vocabId-:date.n3', function(req, res) {
     console.log(req.vocab._id);
     console.log(req.params.vocabId);
     console.log(req.params.date);
     console.log(require('path').resolve(__dirname+'/../versions/'+req.vocab._id+'/'+req.vocab._id+'_'+req.params.date+'.n3'));
     res.download(require('path').resolve(__dirname+'/../versions/'+req.vocab._id+'/'+req.vocab._id+'_'+req.params.date+'.n3'),req.params.vocabId+'-'+req.params.date+'.n3');
 });
-  app.get('/vocabs/:vocabId', vocabularies.show)
+  app.get('/dataset/lov/vocabs/:vocabId', vocabularies.show)
   //app.get('/vocabs/new', auth.requiresLogin, vocabularies.new)
   //app.post('/vocabs', auth.requiresLogin, vocabularies.create)
   //app.get('/vocabs/:vocabId/edit', articleAuth, vocabularies.edit)
@@ -91,7 +93,7 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   
 
   // languages routes
-  app.get('/languages/:langIso639P3PCode', languages.show)
+  app.get('/dataset/lov/languages/:langIso639P3PCode', languages.show)
   app.param('langIso639P3PCode', languages.load)
   
   
@@ -107,15 +109,15 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
 
   //app.param('id', articles.load)
   
-  app.get('/about', function(req, res){res.render('about', {});}  )
+  app.get('/dataset/lov/about', function(req, res){res.render('about', {});}  )
   
   // search
-  app.get('/terms', function(req, res){search.search(req,res,esclient);})
-  app.get('/searchMulti', function(req, res){searchMulti.search(req,res,esclient);})
+  app.get('/dataset/lov/terms', function(req, res){search.search(req,res,esclient);})
+  app.get('/dataset/lov/searchMulti', function(req, res){searchMulti.search(req,res,esclient);})
   
   //Bot
-  app.get('/suggest', function(req, res){bot.isInLOV(req,res);})
-  app.post('/suggest',function(req, res){bot.submit(req,res,emailTransporter);})
+  app.get('/dataset/lov/suggest', function(req, res){bot.isInLOV(req,res);})
+  app.post('/dataset/lov/suggest',function(req, res){bot.submit(req,res,emailTransporter);})
   
   // tag routes
   //var tags = require('../app/controllers/tags')
@@ -129,28 +131,28 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.get('/search', function(req, res){search.apiSearch(req,res,esclient);})
   app.get('/searchTest', function(req, res){search.search(req,res,esclient);})*/
   
-  app.get('/api/v2/term/suggest', function(req, res){search.apiSuggestTerms(req,res,esclient);})
-  app.get('/api/v2/term/autocomplete', function(req, res){search.apiAutocompleteTerms(req,res,esclient);})
-  app.get('/api/v2/autocomplete/terms', function(req, res){search.apiAutocompleteTerms(req,res,esclient);})
-  app.get('/api/v2/term/autocompleteLabels', function(req, res){search.apiAutocompleteLabelsTerms(req,res,elasticsearchClient);})
+  app.get('/dataset/lov/api/v2/term/suggest', function(req, res){search.apiSuggestTerms(req,res,esclient);})
+  app.get('/dataset/lov/api/v2/term/autocomplete', function(req, res){search.apiAutocompleteTerms(req,res,esclient);})
+  app.get('/dataset/lov/api/v2/autocomplete/terms', function(req, res){search.apiAutocompleteTerms(req,res,esclient);})
+  app.get('/dataset/lov/api/v2/term/autocompleteLabels', function(req, res){search.apiAutocompleteLabelsTerms(req,res,elasticsearchClient);})
   
-  app.get('/api/v2/term/search', function(req, res){search.apiSearch(req,res,esclient);})
-  app.get('/api/v2/search', function(req, res){search.apiSearch(req,res,esclient);})
+  app.get('/dataset/lov/api/v2/term/search', function(req, res){search.apiSearch(req,res,esclient);})
+  app.get('/dataset/lov/api/v2/search', function(req, res){search.apiSearch(req,res,esclient);})
   
-  app.get('/api/v2/agent/autocomplete', agents.autoComplete)
-  app.get('/api/v2/agent/search', function(req, res){search.apiSearchAgent(req,res,esclient);})
-  app.get('/api/v2/agent/list', function(req, res){agents.apiListAgents(req,res);})
+  app.get('/dataset/lov/api/v2/agent/autocomplete', agents.autoComplete)
+  app.get('/dataset/lov/api/v2/agent/search', function(req, res){search.apiSearchAgent(req,res,esclient);})
+  app.get('/dataset/lov/api/v2/agent/list', function(req, res){agents.apiListAgents(req,res);})
   
-  app.get('/api/v2/vocabulary/autocomplete', function(req, res){search.apiAutocompleteVocabs(req,res,esclient);})
-  app.get('/api/v2/autocomplete/vocabularies', function(req, res){search.apiAutocompleteVocabs(req,res,esclient);})
-  app.get('/api/v2/vocabulary/list', function(req, res){vocabularies.apiListVocabs(req,res);})
-  app.get('/api/v2/vocabulary/search', function(req, res){search.apiSearchVocabs(req,res,esclient);})
+  app.get('/dataset/lov/api/v2/vocabulary/autocomplete', function(req, res){search.apiAutocompleteVocabs(req,res,esclient);})
+  app.get('/dataset/lov/api/v2/autocomplete/vocabularies', function(req, res){search.apiAutocompleteVocabs(req,res,esclient);})
+  app.get('/dataset/lov/api/v2/vocabulary/list', function(req, res){vocabularies.apiListVocabs(req,res);})
+  app.get('/dataset/lov/api/v2/vocabulary/search', function(req, res){search.apiSearchVocabs(req,res,esclient);})
   
-  app.get('/api', function(req, res){res.render('api', {});}  )
-  app.get('/api/v1', function(req, res){res.render('api', {});}  )
-  app.get('/api/v2', function(req, res){res.render('api', {});}  )
-  app.get('/apidoc', function(req, res){res.render('api', {});}  )
-  app.get('/sparql', function(req, res, next) {
+  app.get('/dataset/lov/api', function(req, res){res.render('api', {});}  )
+  app.get('/dataset/lov/api/v1', function(req, res){res.render('api', {});}  )
+  app.get('/dataset/lov/api/v2', function(req, res){res.render('api', {});}  )
+  app.get('/dataset/lov/apidoc', function(req, res){res.render('api', {});}  )
+  app.get('/dataset/lov/sparql', function(req, res, next) {
     //TODO log SPARQL Queries using the logSearch object ??
     req.negotiate({
         'html': function() {

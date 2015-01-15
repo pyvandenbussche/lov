@@ -2,25 +2,25 @@ extends ./layout/layout
 block content
       section#title.postBlue
         h1(itemprop="name")
-          a(href='/') Linked Open Vocabularies 
+          a(href='/dataset/lov') Linked Open Vocabularies 
             span (LOV)
       section#featuresBanner
         .featureWrapper
           .suggest
-            a(href='/suggest') Suggest
+            a(href='/dataset/lov/suggest') Suggest
         .featureWrapper
           .documentation
-            a(href='/about') Documentation
+            a(href='/dataset/lov/about') Documentation
         //-.featureWrapper
           .contribute
-            a(href='/signup') Contribute
+            a(href='/dataset/lov/signup') Contribute
         .featureWrapper
           .community
             a(href='https://plus.google.com/communities/108509791366293651606', target='_blank') Follow
         .featureWrapper
           .search
-            form#searchForm(action='/terms' method='get')
-              a(href='/terms') &nbsp
+            form#searchForm(action='/dataset/lov/terms' method='get')
+              a(href='/dataset/lov/terms') &nbsp
               input#searchInput(name='q', type='text', placeholder='', autocomplete='off')  
           script.      
             $(document).ready(function() {
@@ -28,7 +28,7 @@ block content
                   minLength: 1,
                   source: function (request, response) {
                    $.ajax({
-                     url: "/api/v2/term/autocompleteLabels",
+                     url: "/dataset/lov/api/v2/term/autocompleteLabels",
                      data: { q: request.term },
                      dataType: "json",
                      success: function( data ) {
@@ -46,7 +46,7 @@ block content
                   position: {my : "left top",at: "left bottom"},
                   messages: {noResults: '',results: function() {}},
                   select : function(event, ui) {
-                      location.href = '/terms?q=' + encodeURIComponent(ui.item.label);
+                      location.href = '/dataset/lov/terms?q=' + encodeURIComponent(ui.item.label);
                   },
                  open: function(event, ui) {$(".ui-autocomplete").css("z-index", 1000);}
               }).data( "uiAutocomplete" )._renderItem = function( ul, item ) {
@@ -59,7 +59,7 @@ block content
       section#posts.default-area
           article
             #greenContainer.contents.clear.col-2.split.wrplGreen
-              a#infoNbVocab(href='/vocabs' style="margin-bottom: -2em") !{vocabs.length} Vocabularies in LOV    
+              a#infoNbVocab(href='/dataset/lov/vocabs' style="margin-bottom: -2em") !{vocabs.length} Vocabularies in LOV    
               #vis(style="margin: -3em 0 -3em 0")                    
               script.   
                 var root={"name": "flare","children": [!{vocabsMostLOVIncomingLinks}]};
@@ -86,7 +86,7 @@ block content
                       .enter().append("g")
                       .attr("class", "node")
                       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-                      .on("click", function(d) { self.location= "/vocabs/"+ d.className});
+                      .on("click", function(d) { self.location= "/dataset/lov/vocabs/"+ d.className});
 
                   node.append("title")
                       .text(function(d) { return d.className+" - reused by " + format(d.value)+ " vocabs"; });
@@ -131,14 +131,14 @@ block content
                 ul.tags
                   - each tag in tagsMostPopular
                     li
-                      a.tag(href='/vocabs?tag='+encodeURIComponent(tag.label)) #{tag.label}
+                      a.tag(href='/dataset/lov/vocabs?tag='+encodeURIComponent(tag.label)) #{tag.label}
             aside.wrpl
               .h-padding
                 h2 Latest insertion
                 .line
                 div.asideEnum
                   - each voc in vocabsLatestInsertion
-                    a.enum(href='/vocabs/#{voc.prefix}')
+                    a.enum(href='/dataset/lov/vocabs/#{voc.prefix}')
                       b #{voc.prefix} - 
                       span #{voc.titles[0].value}
                       .when #{utils.dateToYMD(voc.createdInLOVAt)}
@@ -146,7 +146,7 @@ block content
                 .line
                 div.asideEnum
                   - each voc in vocabsLatestModification
-                    a.enum(href='/vocabs/#{voc.prefix}')
+                    a.enum(href='/dataset/lov/vocabs/#{voc.prefix}')
                       b #{voc.prefix} - 
                       span #{voc.titles[0].value}
                       .when #{utils.dateToYMD(voc.lastModifiedInLOVAt)}

@@ -16,7 +16,7 @@ block content
                       - var queryIndex=1;
                       - each queryExample in queryExamples
                         .aboutDesc Query ##{queryIndex} 
-                          a.linkBox(href='/sparql?query='+encodeURIComponent(queryExample.query)) #{queryExample.title}
+                          a.linkBox(href='/dataset/lov/sparql?query='+encodeURIComponent(queryExample.query)) #{queryExample.title}
                         - queryIndex=queryIndex+1;
               script.
                 $(".aboutTopicContent").hide()
@@ -73,7 +73,7 @@ block content
                 .line
                 div 
                   span Consider using 
-                  a(href="/api")
+                  a(href="/dataset/lov/api")
                     b LOV APIs 
                   span when appropriate
                 .clear

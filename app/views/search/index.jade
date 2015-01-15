@@ -11,7 +11,7 @@ block content
                     minLength: 1,
                     source: function (request, response) {
                      $.ajax({
-                       url: "/api/v2/term/autocompleteLabels",
+                       url: "/dataset/lov/api/v2/term/autocompleteLabels",
                        data: { q: request.term },
                        dataType: "json",
                        success: function( data ) {
@@ -29,7 +29,7 @@ block content
                     position: {my : "left top",at: "left bottom"},
                     messages: {noResults: '',results: function() {}},
                     select : function(event, ui) {
-                        location.href = '/terms?q=' + encodeURIComponent(ui.item.label);
+                        location.href = '/dataset/lov/terms?q=' + encodeURIComponent(ui.item.label);
                     },
                    open: function(event, ui) {$(".ui-autocomplete").css("z-index", 1000);}
                 }).data( "uiAutocomplete" )._renderItem = function( ul, item ) {
@@ -43,7 +43,7 @@ block content
                   .suggestions
                     span Do you mean: 
                     each suggestion, i in suggestions
-                      a(href="/terms?q=#{suggestion.text}") #{suggestion.text} 
+                      a(href="/dataset/lov/terms?q=#{suggestion.text}") #{suggestion.text} 
       
       section#posts.default-area.postSearchResults
         - if (typeof(results.results) !== 'undefined' && results.total_results>0)
@@ -61,7 +61,7 @@ block content
                       div.SearchInnerBox
                         span.prefixedName !{result.prefixedName}
                         span.vocabularyPrefix (
-                          a(href='/vocabs/#{result["vocabulary.prefix"]}') !{result["vocabulary.prefix"]}
+                          a(href='/dataset/lov/vocabs/#{result["vocabulary.prefix"]}') !{result["vocabulary.prefix"]}
                           | )
                         span.score !{result.score.toFixed(3)}
                         if(result["metrics.occurrencesInDatasets"]>0)
@@ -116,7 +116,7 @@ block content
                 nav
                   ul.nav-facet
                     li.nav-item-inactive(class="nav-item-vocabulary") 
-                      a(href='/vocabs') vocabulary >
+                      a(href='/dataset/lov/vocabs') vocabulary >
                     li.nav-item(class="nav-item-propertyclass")
                       span property/class
                     - var query = '?';
@@ -131,7 +131,7 @@ block content
                         li.nav-item(class="nav-item-#{type.key} hover")
                           a(href='#{query}&type=#{type.key}') #{type.key} (#{type.doc_count})
                     li.nav-item-inactive(class="nav-item-agent")
-                      a(href='/agents') agent >
+                      a(href='/dataset/lov/agents') agent >
               .facet
                 h2.facet-heading Tag
                 nav

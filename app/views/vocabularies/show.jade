@@ -9,7 +9,7 @@ block content
                 span (#{vocab.prefix})
             if vocab.commentDeref
               div.errorLogo
-                img(src="../img/alert.png") 
+                img(src="/img/alert.png") 
               div.errorText #{vocab.commentDeref}
       section#posts.default-area
           article
@@ -46,19 +46,19 @@ block content
                       -if(typeof(lastVersion)!='undefined') 
                         tr
                           td Language
-                          td !{utils.valueLangDisplay(lastVersion.languageIds,'label','iso639P3PCode','/languages/')}
+                          td !{utils.valueLangDisplay(lastVersion.languageIds,'label','iso639P3PCode','/dataset/lov/languages/')}
                       if vocab.creatorIds && vocab.creatorIds.length>0
                         tr
                           td Creator
-                          td !{utils.valueLangDisplay(vocab.creatorIds,'name','name','/agents/')}
+                          td !{utils.valueLangDisplay(vocab.creatorIds,'name','name','/dataset/lov/agents/')}
                       if vocab.contributorIds && vocab.contributorIds.length>0
                         tr
                           td Contributor
-                          td !{utils.valueLangDisplay(vocab.contributorIds,'name','name','/agents/')}
+                          td !{utils.valueLangDisplay(vocab.contributorIds,'name','name','/dataset/lov/agents/')}
                       if vocab.publisherIds && vocab.publisherIds.length>0
                         tr
                           td Publisher
-                          td !{utils.valueLangDisplay(vocab.publisherIds,'name','name','/agents/')}
+                          td !{utils.valueLangDisplay(vocab.publisherIds,'name','name','/dataset/lov/agents/')}
                       if vocab.reviews && vocab.reviews.length>0
                         tr
                           td Comment
@@ -76,13 +76,13 @@ block content
                     ul.expressivities
                       -if(lastVersion.relMetadata.indexOf('http://www.w3.org/1999/02/22-rdf-syntax-ns#')>-1)
                         li
-                          a.expressivity(href='/vocabs/rdf') RDF
+                          a.expressivity(href='/dataset/lov/vocabs/rdf') RDF
                       -if(lastVersion.relMetadata.indexOf('http://www.w3.org/2000/01/rdf-schema#')>-1)
                         li
-                          a.expressivity(href='/vocabs/rdfs') RDFS
+                          a.expressivity(href='/dataset/lov/vocabs/rdfs') RDFS
                       -if(lastVersion.relMetadata.indexOf('http://www.w3.org/2002/07/owl#')>-1)
                         li 
-                          a.expressivity(href='/vocabs/owl') OWL  
+                          a.expressivity(href='/dataset/lov/vocabs/owl') OWL  
                 .clear
                 h2 Tags
                 .line
@@ -91,7 +91,7 @@ block content
                     ul.tagsVocab
                       - each tag in vocab.tags
                         li
-                          a.tag(href='/vocabs?tag='+encodeURIComponent(tag)) #{tag}
+                          a.tag(href='/dataset/lov/vocabs?tag='+encodeURIComponent(tag)) #{tag}
                 .clear
                 h2 LOD
                 .line
@@ -173,7 +173,7 @@ block content
 
            var node = svg.selectAll(".node")
                .data(graph.nodes).enter().append('g').classed('node', true)
-               .on("click", function(d) { self.location= "/vocabs/"+ d.name});;
+               .on("click", function(d) { self.location= "/dataset/lov/vocabs/"+ d.name});;
                 
             node.append("circle")
                 .attr("r", function(d) { return linearScale(d.nbIncomingLinks); })
@@ -229,7 +229,7 @@ block content
 
            var nodeIn = svgIn.selectAll(".node")
                .data(graphIn.nodes).enter().append('g').classed('node', true)
-               .on("click", function(d) { self.location= "/vocabs/"+ d.name});;
+               .on("click", function(d) { self.location= "/dataset/lov/vocabs/"+ d.name});;
                 
             nodeIn.append("circle")
                 .attr("r", function(d) { return linearScaleIn(d.nbIncomingLinks); })

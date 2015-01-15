@@ -5,9 +5,9 @@ block content
           div.searchWrapper#searchSuggest
             button(type='submit', value=' ') Suggest
             input(name='q', type='text', placeholder='Enter the vocabulary URI to recommend', autocomplete='off', value='#{(typeof(suggestion) != "undefined")? suggestion:""}')
-        a(href="http://lov.okfn.org/dataset/lov/Recommendations_Vocabulary_Design.pdf" target="_blank")
+        a(href="/Recommendations_Vocabulary_Design.pdf" target="_blank")
           div.suggestRecomLogo
-            img(src="../img/pdf.gif") 
+            img(src="/img/pdf.gif") 
           div.suggestRecomText Recommendations for vocabulary metadata description
       section#posts.default-area
         img#loading(src='/img/loading.gif' style='visibility: hidden;display: block;margin-left: auto;margin-right: auto')
@@ -21,7 +21,7 @@ block content
               p(style="padding-top: 2em;")
                 | This vocabulary is already part of the Linked Open Vocabularies ecosystem. You can access the
                 b
-                  a(href='#{"./vocabs/"+ vocab.prefix}') #{vocab.prefix} vocabulary page
+                  a(href='#{"/dataset/lov/vocabs/"+ vocab.prefix}') #{vocab.prefix} vocabulary page
                 | to get more information.
         - if(typeof(mailSent) !== 'undefined' && mailSent)
           #greenContainer.clear.wrplGreen(style="width:100%")
@@ -56,7 +56,7 @@ block content
                         }
                     }
                   .submit
-                    form#searchForm(name='searchForm' action='/suggest' onsubmit="return validateForm();" method='post')
+                    form#searchForm(name='searchForm' action='/dataset/lov/suggest' onsubmit="return validateForm();" method='post')
                       span &nbsp
                       input(name='email', type='text', placeholder='Enter your email address', autocomplete='off')
                       input(type="hidden", name="_method", value="POST")

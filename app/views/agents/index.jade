@@ -9,14 +9,14 @@ block content
                   .suggestions
                     span Do you mean: 
                     each suggestion, i in suggestions
-                      a(href="/agents?q=#{suggestion.text}") #{suggestion.text} 
+                      a(href="/dataset/lov/agents?q=#{suggestion.text}") #{suggestion.text} 
       script.      
         $(document).ready(function() {
           $( "#searchInput" ).autocomplete({
               minLength: 1,
               source: function (request, response) {
                $.ajax({
-                 url: "/api/v2/agent/autocomplete",
+                 url: "/dataset/lov/api/v2/agent/autocomplete",
                  data: { q: request.term },
                  dataType: "json",
                  success: response,
@@ -28,7 +28,7 @@ block content
               position: {my : "left top",at: "left bottom"},
               messages: {noResults: '',results: function() {}},
               select : function(event, ui) {
-                  location.href = '/agents/' + encodeURIComponent(ui.item.name);
+                  location.href = '/dataset/lov/agents/' + encodeURIComponent(ui.item.name);
               },
              open: function(event, ui) {$(".ui-autocomplete").css("z-index", 1000);}
           }).data( "uiAutocomplete" )._renderItem = function( ul, item ) {
@@ -53,7 +53,7 @@ block content
                   li(class="SearchBox#{result._source.type}")
                     .SearchContainer
                       div.SearchInnerBox
-                        a.prefix(href='/agents/#{result._source.name}') !{result._source.name}
+                        a.prefix(href='/dataset/lov/agents/#{result._source.name}') !{result._source.name}
                         div.uri 
                             a(href='#{result._source.uri}', target='_blank') !{result._source.uri}
                       div.hr
@@ -68,7 +68,7 @@ block content
                                       a(href='#{alturi}', target='_blank') #{alturi}
                         - if(result._source.vocabs)
                           span.SearcBodyProp has role in vocab 
-                          span.SearcBodyValue !{utils.valueLangDisplay(result._source.vocabs,'prefix','prefix','/vocabs/')}
+                          span.SearcBodyValue !{utils.valueLangDisplay(result._source.vocabs,'prefix','prefix','/dataset/lov/vocabs/')}
                           
               - var p = {current: results.page, total: Math.ceil(results.total_results/results.page_size)}
               - var boundary = 2
@@ -98,9 +98,9 @@ block content
                 nav
                   ul.nav-facet
                     li.nav-item-inactive(class="nav-item-vocabulary") 
-                      a(href='/vocabs') vocabulary >
+                      a(href='/dataset/lov/vocabs') vocabulary >
                     li.nav-item-inactive(class="nav-item-propertyclass hover")
-                      a(href='/terms') property/class >
+                      a(href='/dataset/lov/terms') property/class >
                     li.nav-item(class="nav-item-agent")
                       span agent
                     - var query = '?'

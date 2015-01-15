@@ -78,7 +78,7 @@ block content
                     .enter().append("g")
                     .attr("class", "node")
                     .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-                    .on("click", function(d) { self.location= "/vocabs/"+ d.className});
+                    .on("click", function(d) { self.location= "/dataset/lov/vocabs/"+ d.className});
 
                 node.append("title")
                     .text(function(d) { return d.className; });
@@ -126,4 +126,4 @@ block content
                     ul.tagsVocab
                       - each tag in tags
                         li
-                          a.tag(href='/vocabs?tag='+encodeURIComponent(tag)) #{tag}
+                          a.tag(href='/dataset/lov/vocabs?tag='+encodeURIComponent(tag)) #{tag}
