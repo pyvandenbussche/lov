@@ -36,7 +36,6 @@ var userAuth = [auth.requiresLogin, auth.user.hasAuthorization]
  */
 
 module.exports = function (app, passport,esclient, elasticsearchClient, emailTransporter) {
-
   // user routes
   //app.param('userId', users.user)
   //app.get('/login', agentsPrivate.login)
@@ -84,6 +83,14 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
     res.download(require('path').resolve(__dirname+'/../versions/'+req.vocab._id+'/'+req.vocab._id+'_'+req.params.date+'.n3'),req.params.vocabId+'-'+req.params.date+'.n3');
 });
   app.get('/dataset/lov/vocabs/:vocabId', vocabularies.show)
+  app.get('/dataset/lov/details/vocabulary:vocabularyid', function(req, res) {
+    var vocabularyId=req.param('vocabularyid');
+    if(vocabularyId){
+      var prefix = vocabularyId.substring(1,vocabularyId.indexOf(".html"));
+      res.redirect('/dataset/lov/vocabs/'+ prefix);
+    }
+    else res.redirect('/dataset/lov/');
+  });
   //app.get('/vocabs/new', auth.requiresLogin, vocabularies.new)
   //app.post('/vocabs', auth.requiresLogin, vocabularies.create)
   //app.get('/vocabs/:vocabId/edit', articleAuth, vocabularies.edit)
