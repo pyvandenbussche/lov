@@ -100,39 +100,45 @@ exports.load = function(req, res, next, prefix){
 exports.show = function(req, res){
   Statvocabulary.load(req.vocab.uri, function(err, statvocab) {
     if (err) return res.render('500')
-    var lastVersion, timelineData,x, vocabElementsData;
-    if(typeof(req.vocab) != 'undefined' && typeof(req.vocab.versions) != 'undefined' && req.vocab.versions.length>0){
-      for (i in req.vocab.versions){
-        if(typeof(lastVersion) == 'undefined')lastVersion = req.vocab.versions[i];
-        else{
-          if(lastVersion.issued < req.vocab.versions[i].issued)lastVersion = req.vocab.versions[i];
+    var versions,lastVersion, timelineData,x, vocabElementsData;
+    if(typeof(req.vocab) != 'undefined'){
+   
+    
+      if(req.vocab.versions && req.vocab.versions.length>0){
+        for (i in req.vocab.versions){
+          if(typeof(lastVersion) == 'undefined')lastVersion = req.vocab.versions[i];
+          else{
+            if(lastVersion.issued < req.vocab.versions[i].issued)lastVersion = req.vocab.versions[i];
+          }
         }
+        function compare(a,b) {
+          if (a.issued < b.issued)
+            return -1;
+          return 1;
+        }
+        versions = req.vocab.versions.sort(compare);
       }
-      function compare(a,b) {
-        if (a.issued < b.issued)
-          return -1;
-        return 1;
-      }
-      var versions = req.vocab.versions.sort(compare);
       
       //build the JSON Object for the timeline
       
       timelineData = [];
-      for (var i = 0; i < versions.length; i++) {
-        version = versions[i];
-        x={};
-        
-        x.start = utils.dateToYMD(version.issued);
-        if((i+1)<versions.length){x.end = utils.dateToYMD(versions[i+1].issued);}
-        x.icon = '/img/cursor.png';
-        x.color = '#9CF';
-        x.description = '';
-        x.textColor ='#666';
-        x.title = version.name;
-        x.caption = req.vocab.prefix+' '+version.name;
-        if(version.fileURL)x.link = version.fileURL;
-                  
-        timelineData.push(x);
+      if(versions){
+        for (var i = 0; i < versions.length; i++) {
+          version = versions[i];
+          x={};
+          
+          x.start = utils.dateToYMD(version.issued);
+          if((i+1)<versions.length){x.end = utils.dateToYMD(versions[i+1].issued);}
+          x.icon = '/img/cursor.png';
+          x.color = '#9CF';
+          x.description = '';
+          x.textColor ='#666';
+          x.title = version.name;
+          x.caption = req.vocab.prefix+' '+version.name;
+          if(version.fileURL)x.link = version.fileURL;
+                    
+          timelineData.push(x);
+        }
       }
       
       //build the outcoming graph
@@ -142,10 +148,11 @@ exports.show = function(req, res){
       var inNodes = [];
       var inLinks = [];
       var cpt=0;
-      if(typeof(statvocab) != 'undefined'){
       
+      outNodes.push({name:statvocab.prefix, nbIncomingLinks:((statvocab.nbIncomingLinks>0)?statvocab.nbIncomingLinks:1), group:2});
+      inNodes.push({name:statvocab.prefix, nbIncomingLinks:((statvocab.nbIncomingLinks>0)?statvocab.nbIncomingLinks:1), group:2});
+      if(typeof(statvocab) != 'undefined'){
       //generate the data for the outgoing links
-        outNodes.push({name:statvocab.prefix, nbIncomingLinks:((statvocab.nbIncomingLinks>0)?statvocab.nbIncomingLinks:1), group:2});
         cpt = pushNodesLinks(statvocab.outRelMetadata,true,13, outNodes, outLinks, cpt);
         cpt = pushNodesLinks(statvocab.outRelExtends,false,4, outNodes, outLinks, cpt);
         cpt = pushNodesLinks(statvocab.outRelSpecializes,false,0, outNodes, outLinks, cpt);
@@ -157,7 +164,6 @@ exports.show = function(req, res){
       
       //generate the data for the incoming links
         cpt=0;
-        inNodes.push({name:statvocab.prefix, nbIncomingLinks:((statvocab.nbIncomingLinks>0)?statvocab.nbIncomingLinks:1), group:2});
         cpt = pushNodesLinks(statvocab.incomRelMetadata,true,13, inNodes, inLinks, cpt);
         cpt = pushNodesLinks(statvocab.incomRelExtends,false,4, inNodes, inLinks, cpt);
         cpt = pushNodesLinks(statvocab.incomRelSpecializes,false,0, inNodes, inLinks, cpt);
@@ -178,13 +184,15 @@ exports.show = function(req, res){
       inData.links = inLinks;
       
       //build the JSON object for the elements chart
-      vocabElementsData =  [{key: "Number of",
-        values: [
-          {label : "Classes" ,value : parseInt(lastVersion.classNumber)} , 
-          {label : "Properties" ,value : parseInt(lastVersion.propertyNumber)} , 
-          {label : "Datatypes" ,value : parseInt(lastVersion.datatypeNumber)} ,
-          {label : "Instances" ,value : parseInt(lastVersion.instanceNumber)} 
-        ]}];
+      if(lastVersion){
+        vocabElementsData =  [{key: "Number of",
+          values: [
+            {label : "Classes" ,value : parseInt(lastVersion.classNumber)} , 
+            {label : "Properties" ,value : parseInt(lastVersion.propertyNumber)} , 
+            {label : "Datatypes" ,value : parseInt(lastVersion.datatypeNumber)} ,
+            {label : "Instances" ,value : parseInt(lastVersion.instanceNumber)} 
+          ]}];
+       }
     }
     res.render('vocabularies/show', {
       statvocab: statvocab,

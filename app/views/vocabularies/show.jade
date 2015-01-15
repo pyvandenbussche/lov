@@ -102,8 +102,8 @@ block content
                   span 
                 .clear
       section#post.postMediumDarkBlue
-        h2(style="width:50%; float:left;" title="Vocabularies using #{vocab.prefix}. The relation type between a vocabulary and #{vocab.prefix} is indicated by the color.") #{inData.nodes.length-1} Incoming Links
-        h2(style="width:50%; float:left;" title="Vocabularies used by #{vocab.prefix}. The relation type between #{vocab.prefix} and a vocabulary is indicated by the color.")  #{outData.nodes.length-1} Outgoing Links
+        h2(style="width:50%; float:left;" title="Vocabularies using #{vocab.prefix}. The relation type between a vocabulary and #{vocab.prefix} is indicated by the color.") #{inData.nodes?inData.nodes.length-1:0} Incoming Links
+        h2(style="width:50%; float:left;" title="Vocabularies used by #{vocab.prefix}. The relation type between #{vocab.prefix} and a vocabulary is indicated by the color.")  #{outData.nodes?outData.nodes.length-1:0} Outgoing Links
         .visus
           .visusContainerVocab
             #visIn(style="width:50%; float:left;") 
