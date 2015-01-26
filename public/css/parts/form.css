@@ -18,29 +18,74 @@
   background:#2288bb;
 }
 
-#login{
+.login{
   width:400px;
   margin:0 auto;
   margin-top:8px;
   margin-bottom:2%;
   transition:opacity 1s;
   -webkit-transition:opacity 1s;
+  position: relative;
 }
 
-#login h1{
+.login .loginsubTitle{
   background:#f57c20;
   padding:20px 0;
-  font-size:100%;
-  font-weight:300;
+  font-size:180%;
   text-align:center;
   color:#fff;
 }
 
-#login form{
-  overflow: hidden;
-  background:#f0f0f0;
+#fieldSets{
+  width: 400px;
+	margin: 1.5em auto;
+	text-align: center;
+}
+
+#fieldSets fieldset{
+  background: #f0f0f0;
+	border: 0 none;
+	padding: 20px 30px;
+	box-sizing: border-box;
+	width: 100%;
+  position:relative;
+}
+
+#fieldSets fieldset:not(:first-of-type) {
+	display: none;
+}
+#fieldSets fieldset .loginsubTitle{
+  background:#f57c20;
+  padding:20px 0;
+  font-size:180%;
+  text-align:center;
+  color:#fff;
+}
+#fieldSets fieldset .loginBody{
   padding:6% 4%;
 }
+
+input[type="button"], input[type="submit"]{
+  width:40%;
+  background:#f57c20;
+  border:0;
+  padding:4%;
+  font-family:'Open Sans',sans-serif;
+  font-size:100%;
+  color:#fff;
+  cursor:pointer;
+  transition:background .3s;
+  -webkit-transition:background .3s;
+}
+input[type="button"]:disabled{
+  cursor:default;
+  background:rgb(200,200,200);
+}
+
+#signupAgentNameClose{
+ cursor:pointer;
+}
+
 
 input{
   width:92%;
@@ -70,21 +115,27 @@ top:1.8em;
 right:0.2em;
 }
 
-input[type="submit"]{
-  width:100%;
-  background:#f57c20;
-  border:0;
-  padding:4%;
-  font-family:'Open Sans',sans-serif;
-  font-size:100%;
-  color:#fff;
-  cursor:pointer;
-  transition:background .3s;
-  -webkit-transition:background .3s;
+#formErrors{
+display: none;
+text-align:left;
+background: #FAD3C4;
+padding: 0.5em;
+font-size: 80%;
+margin-bottom: 1em;
 }
+
+
 .loginButtonRight{
   position:relative;  
   float:right;
+  top:0.5em;
+  color:#84004D;
+  cursor:pointer;
+}
+
+.loginButtonLeft{
+  position:relative;  
+  float:left;
   top:0.5em;
   color:#84004D;
   cursor:pointer;
@@ -314,3 +365,57 @@ margin-left: auto;
     margin-top:0.2em;
 }
 
+/*progressbar*/
+#loginProgressBar {
+  position: relative;
+  margin:0 auto;
+  text-align: center;
+  width:400px;
+	/*CSS counters to number the steps*/
+	counter-reset: step;
+}
+#loginProgressBar li {
+	list-style-type: none;
+	color: black;
+	text-transform: uppercase;
+	font-size: 9px;
+	width: 50%;
+	float: left;
+	position: relative;
+}
+#loginProgressBar li:before {
+	content: counter(step);
+	counter-increment: step;
+	width: 20px;
+	line-height: 20px;
+	display: block;
+	font-size: 10px;
+	color: #333;
+	background: white;
+	border-radius: 3px;
+	margin: 0 auto 5px auto;
+  
+}
+/*progressbar connectors*/
+#loginProgressBar li:after {
+	content: ' ';
+	width: 180px;
+  margin-left:10px;
+  margin-right:10px;
+	height: 2px;
+	background: white;
+	position: absolute;
+	left: -50%;
+	top: 9px;
+	z-index: 0; /*put it behind the numbers*/
+}
+#loginProgressBar li:first-child:after {
+	/*connector not needed before the first step*/
+	content: none; 
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#loginProgressBar li.active:before,  #loginProgressBar li.active:after{
+	background: #f57c20;
+	color: white;
+}

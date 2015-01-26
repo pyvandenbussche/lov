@@ -36,11 +36,22 @@ var userAuth = [auth.requiresLogin, auth.user.hasAuthorization]
  */
 
 module.exports = function (app, passport,esclient, elasticsearchClient, emailTransporter) {
+
+  app.get('/edition', function(req, res){res.redirect('/edition/lov/')})
+  app.get('/edition/lov', auth.requiresLogin, users.index)
+  app.get('/edition/lov/signup', users.signup)
+  app.get('/edition/lov/login', users.login)
+  app.get('/edition/lov/logout', users.logout)
+  app.post('/edition/lov/users', users.create.createAgent)
+  
+  
+
+
   // user routes
   //app.param('userId', users.user)
-  //app.get('/login', agentsPrivate.login)
+  
   //app.get('/signup', users.new)
-  //app.get('/logout', agentsPrivate.logout)
+  
   //app.post('/agents', agentsPrivate.createAgent)
   //app.post('/agents/session',
   //  passport.authenticate('local', {

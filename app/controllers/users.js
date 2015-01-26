@@ -40,8 +40,8 @@ exports.login = function (req, res) {
  * Show sign up form
  */
 
-exports.new = function (req, res) {
-  res.render('users/new', {
+exports.signup = function (req, res) {
+  res.render('users/signup', {
     title: 'Sign up',
     user: new User()
   })
@@ -67,7 +67,7 @@ exports.update = function(req, res){
 
   user.save(function(err) {
     if (!err) {
-      return res.redirect('/users/' + user._id)
+      return res.redirect('edition/lov/users/' + user._id)
     }
     console.log(err.errors)
     res.render('users/edit', {
@@ -83,7 +83,7 @@ exports.update = function(req, res){
 
 exports.logout = function (req, res) {
   req.logout()
-  res.redirect('/login')
+  res.redirect('/edition/lov/login')
 }
 
 /**
@@ -101,7 +101,7 @@ exports.create = function (req, res) {
   user.provider = 'local'
   user.save(function (err) {
     if (err) {
-      return res.render('users/new', {
+      return res.render('users/signup', {
         errors: utils.errors(err.errors),
         user: user,
         title: 'Sign up'
@@ -111,7 +111,7 @@ exports.create = function (req, res) {
     // manually login the user once successfully signed up
     req.logIn(user, function(err) {
       if (err) return next(err)
-      return res.redirect('/')
+      return res.redirect('/edition/lov/')
     })
   })
 }
@@ -127,6 +127,12 @@ exports.show = function (req, res) {
     user: user
   })
 }
+
+exports.index = function(req, res){
+  res.render('edition/index', {
+    utils: utils
+  })
+ }
 
 /**
  * Find user by id

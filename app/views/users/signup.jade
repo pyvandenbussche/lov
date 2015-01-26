@@ -1,53 +1,183 @@
 extends ../layout/layout
 block content
-      - var action = '/users'
-      - action += user.isNew? '' : '/' + user.id
-      - var title = user.isNew? 'Sign up' : 'Edit your profile'
-      section#post.postBlue
+      section#post.postPink
         article
           header.wrpl.w-3-3
-            h1 #{title}
-      section#posts.default-area
-          article
-            #greenContainer.contents.clear.col-2.split.wrplGreen
-              form.form-horizontal(action=action, method="post")
-                input(type='hidden', name='_csrf', value="#{csrf_token}")
-                - if (!user.isNew)
-                  input(type="hidden", name="_method", value="PUT")
-                  input(type="hidden", name="salt",value= '#{user.salt}')
-                  input(type="hidden", name="hashed_password",value= '#{user.hashed_password}')
-                  input(type="hidden", name="category",value= '#{user.category}')
-                  input(type="hidden", name="apiKey",value= '#{user.apiKey}')
-                  input#agentHidden(type="hidden", name="agent",value= '#{user.agent}')
-                  input(type="hidden", name="activated",value= '#{user.activated}')
-                .control-group
-                  label.control-label(for='name') Full name
-                  .controls
-                    input#user-name-agent.typeahead(type='text', name="name", placeholder='Full name', value=user.name, autocomplete='off')
+            h1 Signup
+      section#post.postPink
+        ul#loginProgressBar
+          li.active Agent Binding
+          li Account Setup
+        .clear
+      
+        form(action="/edition/lov/users", method="post" name="TheForm")#fieldSets
+          fieldset
+            .loginsubTitle Agent Binding (Step 1)
+            .loginBody
+              input#userNameAgent(type='text', name="name", placeholder='Full name', value=user.name, autocomplete='off')
+              #agentName 
+              input#next.loginButtonRight(type='button' name='next' class='next action-button' value='Next' disabled)
+              .clear.loginButtonRight
+                a(href="/edition/lov/login") login
+          fieldset
+            .loginsubTitle Account Setup (Step 2)
+            .loginBody
+              #formErrors
+              input(type='hidden', name='_csrf', value="#{csrf_token}")
+              input#agentHidden(type="hidden", name="agentHidden")
+              input#email(type='email', name="email", placeholder='Email')
+              input(type='password', name="password", placeholder='Password')
+              input(type='password', name="password_confirm", placeholder='Confirm Password')
+              input.loginButtonLeft(type='button' name='previous' class='previous action-button' value='Previous')
+              input.loginButtonRight(type='submit' name='submit' value='Submit')
+              
+              .clear.loginButtonRight
+                a(href="/edition/lov/login") login          
 
-                .control-group
-                  label.control-label(for='email') Email
-                  .controls
-                    input#email(type='text', name="email", placeholder='Email', value=user.email)
+            
+          
+          
+      script.
+        $(document).ready(function() {
+          $( "#userNameAgent" ).autocomplete({
+              minLength: 1,
+              source: function (request, response) {
+               $.ajax({
+                 url: "/dataset/lov/api/v2/agent/autocomplete",
+                 data: { q: request.term },
+                 dataType: "json",
+                 success: response,
+                 error: function () {
+                     response([]);
+                 }
+              });
+             },
+              position: {my : "left top",at: "left bottom"},
+              messages: {noResults: '',results: function() {}},
+              select : function(event, ui) {
+                  //ui.item.name;
+                  document.getElementById('agentName').innerHTML = '<div class="signupAgentName">'+ui.item.name+'<span id="signupRemove" onclick="document.getElementById(\'agentName\').style.display = \'none\';document.getElementById(\'userNameAgent\').style.display = \'block\';document.getElementById(\'next\').disabled=true;"> X</span></div>';
+                  
+                  document.getElementById('userNameAgent').style.display = 'none';
+                  document.getElementById('agentName').style.display = 'block';
+                  document.getElementById('agentHidden').value=ui.item.name;
+                  document.getElementById('next').disabled=false;
+              },
+             open: function(event, ui) {$(".ui-autocomplete").css("z-index", 1000);}
+          }).data( "uiAutocomplete" )._renderItem = function( ul, item ) {
+           return $( "<li></li>" )
+             .data( "item", item )
+             .append( "<a>" + item.name +"</a>")
+             .appendTo( ul );
+          };
+        });
+        
+        
+        
+        
+        //form validation before submit
+        new FormValidator('TheForm', [{
+            name: 'email',
+            rules: 'required|valid_email'
+        }, {
+            name: 'password',
+            rules: 'required|min_length[8]'
+        }, {
+            name: 'password_confirm',
+            display: 'password confirmation',
+            rules: 'required|matches[password]'
+        }], function(errors, event) {
+            if (errors.length > 0) {
+              var errorString = '';
+              for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+                  errorString += errors[i].message + '<br />';
+              }
+              document.getElementById('formErrors').style.display = 'block';
+              document.getElementById('formErrors').innerHTML = errorString;
+              event.returnValue=false;
+            }
+        });
+        
+        
+        
+        
+        //jQuery time
+        var current_fs, next_fs, previous_fs; //fieldsets
+        var left, opacity, scale; //fieldset properties which we will animate
+        var animating; //flag to prevent quick multi-click glitches
 
-                if(user.isNew)
-                  .control-group
-                    label.control-label(for='password') Password
-                    .controls
-                      input#password(type='password', name="password", placeholder='Password')
-                    
-                .control-group
-                  label.control-callBackFn(for='callBackFn') Callback function
-                  .controls
-                    input#callBackFn(type='text', name="callBackFn", placeholder='Optional Callback Function')
+        $(".next").click(function(){
+          if(animating) return false;
+          animating = true;
+          
+          current_fs = $(this).parent().parent();
+          next_fs = $(this).parent().parent().next();
+          
+          //activate next step on loginProgressBar using the index of next_fs
+          $("#loginProgressBar li").eq($("fieldset").index(next_fs)).addClass("active");
+          
+          //show the next fieldset
+          //next_fs.show(); 
+          //hide the current fieldset with style
+          current_fs.animate({opacity: 0}, {
+            step: function(now, mx) {
+              //as the opacity of current_fs reduces to 0 - stored in "now"
+              //1. scale current_fs down to 80%
+              scale = 1 - (1 - now) * 0.2;
+              //2. bring next_fs from the right(50%)
+              //left = (now * 50)+"%";
+              //3. increase opacity of next_fs to 1 as it moves in
+              //opacity = 1 - now;
+              current_fs.css({'transform': 'scale('+scale+')'});
+              //next_fs.css({'left': left, 'opacity': opacity});
+            }, 
+            duration: 600, 
+            complete: function(){
+              current_fs.hide();
+              current_fs.css({'opacity': 1});
+              current_fs.css({'transform': ''});
+              next_fs.show();
+              animating=false;
+            }, 
+            //this comes from the custom easing plugin
+            easing: 'easeInOutBack'
+          });
+        });
 
-                .form-actions
-                  if(user.isNew)
-                    button.btn.btn-primary(type='submit') Sign up
-                    | &nbsp;
-                    | or&nbsp;
-                    a.show-login(href="/login") login
-                  else
-                    button.btn.btn-primary(type='submit') Save changes
-                    | &nbsp;
-                    a.btn(href='/users/'+user.id, title="cancel") Cancel
+        $(".previous").click(function(){
+          current_fs = $(this).parent().parent();
+          previous_fs = $(this).parent().parent().prev();
+          
+          //de-activate current step on loginProgressBar
+          $("#loginProgressBar li").eq($("fieldset").index(current_fs)).removeClass("active");
+          
+          //show the previous fieldset
+          //previous_fs.show(); 
+          //hide the current fieldset with style
+          current_fs.animate({opacity: 0}, {
+            step: function(now, mx) {
+              //as the opacity of current_fs reduces to 0 - stored in "now"
+              //1. scale current_fs down to 80%
+              scale = 1 - (1 - now) * 0.2;
+              //2. bring next_fs from the right(50%)
+              //left = (now * 50)+"%";
+              //3. increase opacity of next_fs to 1 as it moves in
+              //opacity = 1 - now;
+              current_fs.css({'transform': 'scale('+scale+')'});
+              //next_fs.css({'left': left, 'opacity': opacity});
+            }, 
+            duration: 600, 
+            complete: function(){
+              current_fs.hide();
+              current_fs.css({'opacity': 1});
+              current_fs.css({'transform': ''});
+              previous_fs.show(); 
+            }, 
+            //this comes from the custom easing plugin
+            easing: 'easeInOutBack'
+          });
+        });
+
+        $(".submit").click(function(){
+          return false;
+        })

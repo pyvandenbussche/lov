@@ -12,11 +12,8 @@ var mongoose = require('mongoose')
  */
 
 var UserSchema = new Schema({
-  name: { type: String, default: ''},
   email: { type: String, default: ''},
   category: { type: String, default: '' },
-  callBackFn: { type: String, default: ''},
-  apiKey: { type: String, default: '' },
   agent: {type : Schema.ObjectId, ref : 'Agent'},
   hashed_password: { type: String, default: '' },
   salt: { type: String, default: '' },
@@ -45,14 +42,14 @@ var validatePresenceOf = function (value) {
 }
 
 // the below 4 validations only apply if you are signing up traditionally
-
-UserSchema.path('name').validate(function (name) {
-  return name.length
-}, 'Name cannot be blank')
-
 UserSchema.path('email').validate(function (email) {
   return email.length
 }, 'Email cannot be blank')
+
+UserSchema.path('email').validate(function (email) {
+  var emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+   return emailRegex.test(email);
+}, 'Email not valid')
 
 UserSchema.path('email').validate(function (email, fn) {
   var User = mongoose.model('User')
@@ -74,12 +71,7 @@ UserSchema.path('hashed_password').validate(function (hashed_password) {
  */
 
 UserSchema.pre('save', function(next) {
-  if (!this.isNew){
-    
-        console.log('2 '+this.agent);
-         next();
-  }
-
+  if (!this.isNew)next()
   if (!validatePresenceOf(this.password))
     next(new Error('Invalid password'))
   else
