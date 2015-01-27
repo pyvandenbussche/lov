@@ -42,7 +42,7 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.get('/edition/lov/signup', users.signup)
   app.get('/edition/lov/login', users.login)
   app.get('/edition/lov/logout', users.logout)
-  app.post('/edition/lov/users', users.create.createAgent)
+  //app.post('/edition/lov/users', users.create.createAgent)
   
   
 
@@ -173,6 +173,9 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.get('/dataset/lov/sparql', function(req, res, next) {
     //TODO log SPARQL Queries using the logSearch object ??
     req.negotiate({
+        'application/sparql-results+json,application/sparql-results+xml,text/tab-separated-values,text/csv,application/json,application/xml': function() {
+          res.redirect('http://helium.okfnlabs.org:3030/lov/sparql?query='+ encodeURIComponent(req.query.query));
+        },
         'html': function() {
           res.render('endpoint/index', {queryExamples:queryExamples});
         },
@@ -184,6 +187,9 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.get('/endpoint/lov', function(req, res, next) {
     //TODO log SPARQL Queries using the logSearch object ??
     req.negotiate({
+        'application/sparql-results+json,application/sparql-results+xml,text/tab-separated-values,text/csv,application/json,application/xml': function() {
+          res.redirect('http://helium.okfnlabs.org:3030/lov/sparql?query='+ encodeURIComponent(req.query.query));
+        },
         'html': function() {
           res.render('endpoint/index', {queryExamples:queryExamples});
         },
