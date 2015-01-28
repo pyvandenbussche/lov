@@ -140,6 +140,17 @@ VocabularySchema.statics = {
       .populate('versions.languageIds', 'label iso639P3PCode')
       .exec(cb)
   },
+  
+  loadFromPrefixURINSP: function (prefixURINSP, cb) {
+    this.findOne({ $or: [ //search for nsp or uri or prefix
+   {prefix:prefixURINSP}, {uri:prefixURINSP},{nsp:prefixURINSP}]},{_id:0})
+      .populate('creatorIds', 'name')
+      .populate('contributorIds', 'name')
+      .populate('publisherIds', 'name')
+      .populate('reviews.agentId', 'name')
+      .populate('versions.languageIds', 'label iso639P3PCode')
+      .exec(cb)
+  },
 
   findNspURI: function (uri, cb) {
     var canonicalURI = (uri.slice(-1) == '#' || uri.slice(-1) == '/') ? uri.slice(0,-1): uri; //remove trailing char (to match case where there is an extra '/' or '#')

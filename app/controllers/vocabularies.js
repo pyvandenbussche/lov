@@ -56,6 +56,26 @@ exports.apiListVocabs = function (req, res) {
   })
 }
 
+ /**
+* Vocabulary Info API
+*/
+exports.apiInfoVocab = function (req, res) {
+  if (!(req.query.vocab!=null)) return res.send(500, "You must provide a value for 'vocab' parameter");
+  Vocabulary.loadFromPrefixURINSP(req.query.vocab, function (err, vocab) {
+    if (err) return res.send(500, err);
+    //store log in DB
+    var exists = (vocab)?1:0;
+    var log = new LogSearch({
+      searchURL: req.originalUrl,
+      date: new Date(),
+      category: "vocabularyInfo",
+      method: "api",
+      nbResults: exists  });//console.log(log);
+    log.save(function (err){if(err)console.log(err)});
+    return standardCallback(req, res, err, vocab);
+  })
+}
+
 /* depending on result, send the appropriate response code */
 function standardCallback(req, res, err, results) {
   if (err != null) {

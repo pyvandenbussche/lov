@@ -96,7 +96,7 @@ block content
                           td.paramType int 
                           td.paramDesc Maximum number of results to return per page (default: 10).
                     .apiExample For example, using the Autocomplete Term API, your app can search for all classes with terms URI or Prefixed URI begining with "foaf:": 
-                      a(href="/dataset/lov/api/v2/term/autocomplete?q=foaf:p&type=class", target="_blank") http://localhost:3000/api/v2/term/autocomplete?q=foaf:p&type=class
+                      a(href="/dataset/lov/api/v2/term/autocomplete?q=foaf:p&type=class", target="_blank") http://lov.okfn.org/dataset/lov/api/v2/term/autocomplete?q=foaf:p&type=class
                  
               li.apiOperation#suggestTermsv2
                 .apiOperationHeading
@@ -127,7 +127,7 @@ block content
                           td.paramType int 
                           td.paramDesc Maximum number of results to return per page (default: 10).
                     .apiExample For example, using the Suggest Term API, your app can get suggestion of misspelled query terms such as "preson": 
-                      a(href="/dataset/lov/api/v2/term/suggest?q=preson", target="_blank") http://localhost:3000/api/v2/term/suggest?q=preson
+                      a(href="/dataset/lov/api/v2/term/suggest?q=preson", target="_blank") http://lov.okfn.org/dataset/lov/api/v2/term/suggest?q=preson
           
           article.wrplGreen(style="width:100%;")
             .apiGroupName Vocabulary
@@ -153,7 +153,7 @@ block content
                           td.paramType -
                           td.paramDesc -
                     .apiExample For example, using the List Vocab API, your app can list all vocabularies in LOV: 
-                      a(href="/dataset/lov/api/v2/vocabulary/list", target="_blank") http://localhost:3000/api/v2/vocabulary/list
+                      a(href="/dataset/lov/api/v2/vocabulary/list", target="_blank") http://lov.okfn.org/dataset/lov/api/v2/vocabulary/list
               li.apiOperation#searchVocabsv2
                 .apiOperationHeading
                   h2
@@ -225,8 +225,29 @@ block content
                           td.paramType int 
                           td.paramDesc Maximum number of results to return per page (default: 10).
                     .apiExample For example, using the Autocomplete Vocab API, your app can search for all vocabularies with URI or Prefix begining with "geo": 
-                      a(href="/dataset/lov/api/v2/vocabulary/autocomplete?q=geo", target="_blank") http://localhost:3000/api/v2/vocabulary/autocomplete?q=geo
-                      
+                      a(href="/dataset/lov/api/v2/vocabulary/autocomplete?q=geo", target="_blank") http://lov.okfn.org/dataset/lov/api/v2/vocabulary/autocomplete?q=geo
+              li.apiOperation#infoVocabsv2
+                .apiOperationHeading
+                  h2
+                    span.apiHttpMethod get
+                    span.apiPath /api/v2/vocabulary/info
+                  .apiLabel Info Vocab API v2
+                .apiOperationContent
+                  .apiOperationContentContainer
+                    .apiDesc The Info Vocab API allows a user to get details about one vocabulary.
+                    table.apiTable
+                      thead
+                        tr
+                          th Parameter
+                          th Type
+                          th Description
+                      tbody
+                        tr
+                          td.paramName vocab
+                          td.paramType string
+                          td.paramDesc Prefix, URI or Namespace of a vocabulary in LOV. This parameter is mandatory
+                    .apiExample For example, using the Info Vocab API, your app can get the deatils about schema.org vocabulary: 
+                      a(href="/dataset/lov/api/v2/vocabulary/info?vocab=schema", target="_blank") http://lov.okfn.org/dataset/lov/api/v2/vocabulary/info?vocab=schema
           article.wrplGreen(style="width:100%;")
             .apiGroupName Agent
             ul.apiGroup
@@ -251,7 +272,7 @@ block content
                           td.paramType -
                           td.paramDesc -
                     .apiExample For example, using the List Agent API, your app can list all agents in LOV: 
-                      a(href="/dataset/lov/api/v2/agent/list", target="_blank") http://localhost:3000/api/v2/agent/list
+                      a(href="/dataset/lov/api/v2/agent/list", target="_blank") http://lov.okfn.org/dataset/lov/api/v2/agent/list
               li.apiOperation#searchAgentsv2
                 .apiOperationHeading
                   h2
@@ -302,7 +323,7 @@ block content
                   .apiLabel Autocomplete Agent API v2
                 .apiOperationContent
                   .apiOperationContentContainer
-                    .apiDesc The Autocomplete Agent API allows a user to get autocompletion recommendations for agents (Person or Organization) in Linked Open Vocabularies ecosystem. The autocompletion is performed on agent name (e.g. Food and Agriculture Organization) or agent URI (e.g. http://localhost:3000/agents/Food%20and%20Agriculture%20Organization). The user can ask for autocompletion from 1 character.
+                    .apiDesc The Autocomplete Agent API allows a user to get autocompletion recommendations for agents (Person or Organization) in Linked Open Vocabularies ecosystem. The autocompletion is performed on agent name (e.g. Food and Agriculture Organization) or agent URI (e.g. http://lov.okfn.org/dataset/lov/agents/Food%20and%20Agriculture%20Organization). The user can ask for autocompletion from 1 character.
                     table.apiTable
                       thead
                         tr
@@ -315,8 +336,29 @@ block content
                           td.paramType string
                           td.paramDesc URI or prefixed URI to complete (from 1 character).
                     .apiExample For example, using the Autocomplete Agent API, your app can search for all agents with name or URI including "bern": 
-                      a(href="/dataset/lov/api/v2/agent/autocomplete?q=bern", target="_blank") http://localhost:3000/api/v2/agent/autocomplete?q=bern
-               
+                      a(href="/dataset/lov/api/v2/agent/autocomplete?q=bern", target="_blank") http://lov.okfn.org/dataset/lov/api/v2/agent/autocomplete?q=bern
+              li.apiOperation#infoAgentsv2
+                .apiOperationHeading
+                  h2
+                    span.apiHttpMethod get
+                    span.apiPath /api/v2/agent/info
+                  .apiLabel Info Agent API v2
+                .apiOperationContent
+                  .apiOperationContentContainer
+                    .apiDesc The Info Agent API allows a user to get details about one agent in LOV.
+                    table.apiTable
+                      thead
+                        tr
+                          th Parameter
+                          th Type
+                          th Description
+                      tbody
+                        tr
+                          td.paramName agent
+                          td.paramType string
+                          td.paramDesc URI, AltURI or FullName (as stated in LOV) of an agent in LOV. This parameter is mandatory
+                    .apiExample For example, using the Info Agent API, your app can get the details about W3C agent: 
+                      a(href="/dataset/lov/api/v2/agent/info?agent=W3C", target="_blank") http://lov.okfn.org/dataset/lov/api/v2/agent/info?agent=W3C
       script.
         $(".apiOperationContent").hide()
         $( ".apiOperationHeading" ).click(function() {

@@ -77,7 +77,7 @@ exports.show = function(req, res){
 }
 
  /**
-* Vocabulary List API
+* Agent List API
 */
 exports.apiListAgents = function (req, res) {
   Agent.listAgents(function(err, agents) {
@@ -91,6 +91,26 @@ exports.apiListAgents = function (req, res) {
       nbResults: agents.length  });//console.log(log);
     log.save(function (err){if(err)console.log(err)});
     return standardCallback(req, res, err, agents);
+  })
+}
+
+ /**
+* Agent Info API
+*/
+exports.apiInfoAgent = function (req, res) {
+  if (!(req.query.agent!=null)) return res.send(500, "You must provide a value for 'agent' parameter");
+  Agent.loadFromNameURIAltURI(req.query.agent, function (err, agent) {
+    if (err) return res.send(500, err);
+    //store log in DB
+    var exists = (agent)?1:0;
+    var log = new LogSearch({
+      searchURL: req.originalUrl,
+      date: new Date(),
+      category: "agentInfo",
+      method: "api",
+      nbResults: exists  });//console.log(log);
+    log.save(function (err){if(err)console.log(err)});
+    return standardCallback(req, res, err, agent);
   })
 }
 

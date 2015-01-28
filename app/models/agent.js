@@ -55,6 +55,11 @@ AgentSchema.statics = {
       .exec(cb)
   },
   
+  loadFromNameURIAltURI: function(nameURIAltURI, cb) {
+    this.findOne({ $or: [ //search for altURI or uri or name
+   {name:nameURIAltURI}, {prefUri:nameURIAltURI},{altUris:nameURIAltURI}]},{_id:0}).exec(cb)
+  },
+  
   listAgents: function (cb) {
     this.find({},{_id:0}).sort({'name': 1}).exec(cb)
   },
