@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<rdf:RDF 
+  xml:base="http://labs.mondeca.com/vocab/voaf"
+  xmlns:dc="http://purl.org/dc/terms/"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:vs="http://www.w3.org/2003/06/sw-vocab-status/ns#"
+  xmlns:voaf="http://labs.mondeca.com/vocab/voaf#"
+  xmlns:vann="http://purl.org/vocab/vann/"
+  xmlns:cc="http://creativecommons.org/ns#">
+  
+  <!-- Ontology Information -->
+  <owl:Ontology rdf:about="http://labs.mondeca.com/vocab/voaf">
+	<dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-12-21</dc:issued>
+	<dc:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2011-11-16</dc:modified>
+	<owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.1</owl:versionInfo>
+	<rdfs:comment xml:lang="en">-Version 1.1: depreciation of voaf:exampleDataset replaced by voaf:dataset
+-Version 1: creation</rdfs:comment>
+    <dc:title xml:lang="en">Vocabulary of a Friend</dc:title>
+    <rdf:type rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <voaf:exampleDataset rdf:resource="http://labs.mondeca.com/dataset/lov/lov.rdf"/>
+    <foaf:homepage rdf:resource="http://labs.mondeca.com/vocab/voaf/index.html"/>
+    <dc:contributor>
+      <foaf:Person rdf:about="http://labs.mondeca.com/foaf/mondeca.rdf#lrozat"/>
+    </dc:contributor>
+	<dc:contributor>
+      <foaf:Person rdf:about="http://labs.mondeca.com/foaf/mondeca.rdf#pyv"/>
+    </dc:contributor>
+    <dc:creator>
+      <foaf:Person rdf:about="http://labs.mondeca.com/foaf/mondeca.rdf#bvatant"/>
+    </dc:creator>
+    <dc:description xml:lang="en">A vocabulary to describe linked data vocabularies and their relations.</dc:description>
+    <rdfs:comment xml:lang="en">This is work in progress. Do not consider any element of this ontology as cast in stone.</rdfs:comment>
+    <dc:publisher>
+      <foaf:Organization rdf:about="http://dbpedia.org/resource/Mondeca"/>
+    </dc:publisher>
+	<dc:rights>Copyright © 2011 Mondeca</dc:rights>
+    <cc:license rdf:resource="http://creativecommons.org/licenses/by/3.0/"/>
+	<vann:preferredNamespacePrefix>voaf</vann:preferredNamespacePrefix>
+    <vann:preferredNamespaceUri>http://labs.mondeca.com/vocab/voaf#</vann:preferredNamespaceUri>
+  </owl:Ontology>
+  
+  <!-- Classes -->
+  <owl:Class rdf:about="http://labs.mondeca.com/vocab/voaf#Vocabulary">
+    <rdfs:label xml:lang="en">Vocabulary</rdfs:label>
+    <rdfs:comment xml:lang="en">A vocabulary used in the linked data cloud. An instance of voaf:Vocabulary relies on or is used by at least another instance of voaf:Vocabulary</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://rdfs.org/ns/void#Dataset"/>
+    <!-- The following restriction defines the class in a recursive way : a voaf:Vocabulary must rely on or be used by at least one other voaf:Vocabulary 
+       The recursivity starting point is VOAF itself-->
+    <owl:unionOf rdf:parseType="Collection">
+      <owl:Restriction>
+        <owl:minCardinality>1</owl:minCardinality>
+        <owl:onProperty rdf:resource="http://labs.mondeca.com/vocab/voaf#reliesOn"/>
+      </owl:Restriction>
+      <owl:Restriction>
+        <owl:minCardinality>1</owl:minCardinality>
+        <owl:onProperty rdf:resource="http://labs.mondeca.com/vocab/voaf#usedBy"/>
+      </owl:Restriction>
+    </owl:unionOf>
+	<rdfs:isDefinedBy rdf:resource="http://labs.mondeca.com/vocab/voaf#"/>	
+    <vs:term_status>stable</vs:term_status>
+  </owl:Class>
+  
+  <owl:Class rdf:about="http://labs.mondeca.com/vocab/voaf#VocabularySpace">
+    <rdfs:label xml:lang="en">Vocabulary Space</rdfs:label>
+    <rdfs:comment xml:lang="en">A vocabulary space defines any relevant grouping of vocabularies e.g., designed for similar purposes or domains, or designed by the same publisher or the same project, etc.
+    A vocabulary can belong to zero, one or more vocabulary spaces.</rdfs:comment>
+    <rdfs:comment>Dublin Core properties isPartOf and hasPart are used to link a vocabulary to a vocabulary space</rdfs:comment>
+	<rdfs:isDefinedBy rdf:resource="http://labs.mondeca.com/vocab/voaf#"/>
+    <vs:term_status>testing</vs:term_status>
+  </owl:Class>
+  
+  <!-- Datatype Properties -->
+  
+  <owl:DatatypeProperty rdf:about="http://labs.mondeca.com/vocab/voaf#classNumber">
+    <rdfs:domain rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:label xml:lang="en">number of classes</rdfs:label>
+    <rdfs:comment xml:lang="en">The number of classes defined in the vocabulary namespace.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+	<rdfs:isDefinedBy rdf:resource="http://labs.mondeca.com/vocab/voaf#"/>
+    <vs:term_status>stable</vs:term_status>
+  </owl:DatatypeProperty>
+  
+  <owl:DatatypeProperty rdf:about="http://labs.mondeca.com/vocab/voaf#propertyNumber">
+    <rdfs:domain rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:label xml:lang="en">number of properties</rdfs:label>
+    <rdfs:comment xml:lang="en">The number of properties defined in the vocabulary namespace.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+	<rdfs:isDefinedBy rdf:resource="http://labs.mondeca.com/vocab/voaf#"/>
+    <vs:term_status>stable</vs:term_status>
+  </owl:DatatypeProperty>
+  
+  <!-- Object Properties -->
+  <owl:ObjectProperty rdf:about="http://labs.mondeca.com/vocab/voaf#reliesOn">
+    <rdfs:domain rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:label xml:lang="en">relies on</rdfs:label>
+    <rdfs:comment xml:lang="en">Indicates that the subject vocabulary uses or extends some class or property of the object vocabulary</rdfs:comment>
+    <rdfs:range rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:subPropertyOf rdf:resource="http://rdfs.org/ns/void#vocabulary"/>
+    <rdfs:subPropertyOf rdf:resource="http://purl.org/dc/terms/references"/>
+	<rdfs:isDefinedBy rdf:resource="http://labs.mondeca.com/vocab/voaf#"/>
+    <vs:term_status>stable</vs:term_status>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:about="http://labs.mondeca.com/vocab/voaf#usedBy">
+    <rdfs:domain rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:label xml:lang="en">used by</rdfs:label>
+    <rdfs:comment xml:lang="en">Indicates that the subject vocabulary is used by the object vocabulary</rdfs:comment>
+    <rdfs:range rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <owl:inverseOf rdf:resource="http://labs.mondeca.com/vocab/voaf#reliesOn"/>
+	<rdfs:isDefinedBy rdf:resource="http://labs.mondeca.com/vocab/voaf#"/>
+    <vs:term_status>stable</vs:term_status>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:about="http://labs.mondeca.com/vocab/voaf#metadataVoc">
+    <rdfs:domain rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:label xml:lang="en">metadata vocabulary</rdfs:label>
+    <rdfs:comment xml:lang="en">Indicates that the subject vocabulary uses the object vocabulary in metadata at vocabulary or element level</rdfs:comment>
+    <rdfs:range rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:subPropertyOf rdf:resource="http://labs.mondeca.com/vocab/voaf#reliesOn"/>
+	<rdfs:isDefinedBy rdf:resource="http://labs.mondeca.com/vocab/voaf#"/>
+    <vs:term_status>stable</vs:term_status>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:about="http://labs.mondeca.com/vocab/voaf#extends">
+    <rdfs:domain rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:label xml:lang="en">extends</rdfs:label>
+    <rdfs:comment xml:lang="en">Indicates that the subject vocabulary extends the expressivity of the object vocabulary by declaring subsumption relationships, using object vocabulary class as domain or range of a subject vocabulary property, defining local restrictions etc ...</rdfs:comment>
+    <rdfs:range rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:subPropertyOf rdf:resource="http://labs.mondeca.com/vocab/voaf#reliesOn"/>
+	<rdfs:isDefinedBy rdf:resource="http://labs.mondeca.com/vocab/voaf#"/>
+    <vs:term_status>stable</vs:term_status>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:about="http://labs.mondeca.com/vocab/voaf#specializes">
+    <rdfs:domain rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:label xml:lang="en">specializes</rdfs:label>
+    <rdfs:comment xml:lang="en">Indicates that the subject vocabulary defines some subclasses or subproperties of the object vocabulary, or local restrictions on those.</rdfs:comment>
+    <rdfs:range rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:subPropertyOf rdf:resource="http://labs.mondeca.com/vocab/voaf#reliesOn"/>
+	<rdfs:isDefinedBy rdf:resource="http://labs.mondeca.com/vocab/voaf#"/>
+    <vs:term_status>stable</vs:term_status>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:about="http://labs.mondeca.com/vocab/voaf#generalizes">
+    <rdfs:domain rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:label xml:lang="en">generalizes</rdfs:label>
+    <rdfs:comment xml:lang="en">Indicates that the subject vocabulary generalizes by some superclasses or superproperties the object vocabulary.</rdfs:comment>
+    <rdfs:range rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:subPropertyOf rdf:resource="http://labs.mondeca.com/vocab/voaf#reliesOn"/>
+	<rdfs:isDefinedBy rdf:resource="http://labs.mondeca.com/vocab/voaf#"/>
+    <vs:term_status>stable</vs:term_status>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:about="http://labs.mondeca.com/vocab/voaf#hasEquivalencesWith">
+    <rdfs:domain rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:label xml:lang="en">has equivalences with</rdfs:label>
+    <rdfs:comment xml:lang="en">Indicates that the subject vocabulary declares some equivalent classes or properties with the object vocabulary.</rdfs:comment>
+    <rdfs:range rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:subPropertyOf rdf:resource="http://labs.mondeca.com/vocab/voaf#reliesOn"/>
+	<rdfs:isDefinedBy rdf:resource="http://labs.mondeca.com/vocab/voaf#"/>
+    <vs:term_status>testing</vs:term_status>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:about="http://labs.mondeca.com/vocab/voaf#hasDisjunctionsWith">
+    <rdfs:domain rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:label xml:lang="en">has disjunctions with</rdfs:label>
+    <rdfs:comment xml:lang="en">Indicates that the subject vocabulary declares some dijunct classes with the object vocabulary.</rdfs:comment>
+    <rdfs:range rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:subPropertyOf rdf:resource="http://labs.mondeca.com/vocab/voaf#reliesOn"/>
+	<rdfs:isDefinedBy rdf:resource="http://labs.mondeca.com/vocab/voaf#"/>
+    <vs:term_status>testing</vs:term_status>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:about="http://labs.mondeca.com/vocab/voaf#dataset">
+    <rdfs:domain rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:label xml:lang="en">dataset</rdfs:label>
+    <rdfs:comment xml:lang="en">A dataset using this vocabulary</rdfs:comment>
+    <rdfs:range rdf:resource="http://rdfs.org/ns/void#Dataset"/>
+    <owl:inverseOf rdf:resource="http://rdfs.org/ns/void#vocabulary"/>
+	<rdfs:isDefinedBy rdf:resource="http://labs.mondeca.com/vocab/voaf#"/>
+    <vs:term_status>stable</vs:term_status>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:about="http://labs.mondeca.com/vocab/voaf#exampleDataset">
+    <rdfs:label xml:lang="en">example dataset</rdfs:label>
+	<rdfs:isDefinedBy rdf:resource="http://labs.mondeca.com/vocab/voaf#"/>
+    <vs:term_status>deprecated</vs:term_status>
+	<dc:isReplacedBy rdf:resource="http://labs.mondeca.com/vocab/voaf#dataset"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:about="http://labs.mondeca.com/vocab/voaf#toDoList">
+    <rdfs:label xml:lang="en">to-do list</rdfs:label>
+    <rdfs:comment xml:lang="en">Describes future tasks planned by a resource curator. This property is primarily intended to be used for vocabularies or datasets, but the domain is left open, it can be used for any resource. Use iCalendar Vtodo class and its properties to further describe the task calendar, priorities etc.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2002/12/cal/ical#Vtodo"/>
+	<rdfs:isDefinedBy rdf:resource="http://labs.mondeca.com/vocab/voaf#"/>
+    <vs:term_status>stable</vs:term_status>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:about="http://labs.mondeca.com/vocab/voaf#similar">
+    <rdfs:label xml:lang="en">similar</rdfs:label>
+    <rdfs:comment xml:lang="en">Used to assert that two vocabularies are similar in scope and objectives, independently of the fact that they otherwise refer to each other.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+    <rdfs:range rdf:resource="http://labs.mondeca.com/vocab/voaf#Vocabulary"/>
+	<rdfs:isDefinedBy rdf:resource="http://labs.mondeca.com/vocab/voaf#"/>
+    <vs:term_status>testing</vs:term_status>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+  </owl:ObjectProperty>
+  
+</rdf:RDF>

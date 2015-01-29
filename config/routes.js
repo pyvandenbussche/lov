@@ -37,11 +37,11 @@ var userAuth = [auth.requiresLogin, auth.user.hasAuthorization]
 
 module.exports = function (app, passport,esclient, elasticsearchClient, emailTransporter) {
 
-  app.get('/edition', function(req, res){res.redirect('/edition/lov/')})
+  /*app.get('/edition', function(req, res){res.redirect('/edition/lov/')})
   app.get('/edition/lov', auth.requiresLogin, users.index)
   app.get('/edition/lov/signup', users.signup)
   app.get('/edition/lov/login', users.login)
-  app.get('/edition/lov/logout', users.logout)
+  app.get('/edition/lov/logout', users.logout)*/
   //app.post('/edition/lov/users', users.create.createAgent)
   
   
@@ -87,10 +87,7 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.get('/dataset/lov', vocabularies.index)
   app.get('/dataset/lov/vocabs', function(req, res){search.searchVocabulary(req,res,esclient);})
   app.get('/dataset/lov/vocabs/:vocabId/versions/:vocabId-:date.n3', function(req, res) {
-    console.log(req.vocab._id);
-    console.log(req.params.vocabId);
-    console.log(req.params.date);
-    console.log(require('path').resolve(__dirname+'/../versions/'+req.vocab._id+'/'+req.vocab._id+'_'+req.params.date+'.n3'));
+    res.set('Content-Type', 'text/n3');
     res.download(require('path').resolve(__dirname+'/../versions/'+req.vocab._id+'/'+req.vocab._id+'_'+req.params.date+'.n3'),req.params.vocabId+'-'+req.params.date+'.n3');
 });
   app.get('/dataset/lov/vocabs/:vocabId', vocabularies.show)
@@ -142,13 +139,7 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   //app.get('/tags/:tag', tags.index)
   
   
-  //APIs
-  /*app.get('/suggest/terms', function(req, res){search.apiSuggestTerms(req,res,esclient);})
-  app.get('/autocomplete/terms', function(req, res){search.apiAutocompleteTerms(req,res,esclient);})
-  app.get('/autocomplete/vocabularies', function(req, res){search.apiAutocompleteVocabs(req,res,esclient);})
-  app.get('/search', function(req, res){search.apiSearch(req,res,esclient);})
-  app.get('/searchTest', function(req, res){search.search(req,res,esclient);})*/
-  
+  //APIs  
   app.get('/dataset/lov/api/v2/term/suggest', function(req, res){search.apiSuggestTerms(req,res,esclient);})
   app.get('/dataset/lov/api/v2/term/autocomplete', function(req, res){search.apiAutocompleteTerms(req,res,esclient);})
   app.get('/dataset/lov/api/v2/autocomplete/terms', function(req, res){search.apiAutocompleteTerms(req,res,esclient);})
@@ -172,10 +163,24 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.get('/dataset/lov/api/v1', function(req, res){res.render('api', {});}  )
   app.get('/dataset/lov/api/v2', function(req, res){res.render('api', {});}  )
   app.get('/dataset/lov/apidoc', function(req, res){res.render('api', {});}  )
+  
+  
+  /* Vocommons */
+  app.get('/vocommons', function(req, res){res.redirect('/vocommons/voaf/')});
+  app.get('/vocommons/voaf', function(req, res, next) {
+    req.negotiate({
+        'application/rdf+xml': function() {
+           res.set('Content-Type', 'application/rdf+xml');
+           res.download(require('path').resolve(__dirname+'/../vocommons/voaf/v2.3/voaf_v2.3.rdf'));
+        },
+        'html,default': function() {res.redirect('/vocommons/voaf/v2.3/');}
+    });
+  });
+  
+  app.get('/endpoint/lov', function(req, res){res.redirect('/dataset/lov/sparql')});
   app.get('/dataset/lov/sparql', function(req, res, next) {
     //TODO log SPARQL Queries using the logSearch object ??
-    req.negotiate({
-        'application/sparql-results+json,application/sparql-results+xml,text/tab-separated-values,text/csv,application/json,application/xml': function() {
+    req.negotiate({'application/sparql-results+json,application/sparql-results+xml,text/tab-separated-values,text/csv,application/json,application/xml': function() {
           res.redirect('http://helium.okfnlabs.org:3030/lov/sparql?query='+ encodeURIComponent(req.query.query));
         },
         'html': function() {
@@ -186,19 +191,6 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
         }
     });
   });
-  app.get('/endpoint/lov', function(req, res, next) {
-    //TODO log SPARQL Queries using the logSearch object ??
-    req.negotiate({
-        'application/sparql-results+json,application/sparql-results+xml,text/tab-separated-values,text/csv,application/json,application/xml': function() {
-          res.redirect('http://helium.okfnlabs.org:3030/lov/sparql?query='+ encodeURIComponent(req.query.query));
-        },
-        'html': function() {
-          res.render('endpoint/index', {queryExamples:queryExamples});
-        },
-        'default': function() {
-          res.redirect('http://helium.okfnlabs.org:3030/lov/sparql?query='+ encodeURIComponent(req.query.query));
-        }
-    });
-  });
+  
 
 }

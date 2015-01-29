@@ -1,0 +1,1213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>Vocabulary of a Friend (VOAF)</title>
+		<meta http-equiv="imagetoolbar" content="no"/>
+		<meta name="Description"
+			content="VOAF, a OWL vocabulary enabling the description and interlinking of vocabularies"/>
+		<meta name="keywords" content="linked data, vocabularies"/>
+		<link rel="stylesheet" type="text/css" href="./styles/style.css"/>
+	</head>
+	<body>
+		<div id="container">
+			<div id="header">
+				<noscript>
+					<div class="error-message">Please enable javascript</div>
+				</noscript>
+				<div id="head_left">
+					<table style=" width:100%; margin-top:20px;">
+						<tr style=" width:100%;">
+							<td style=" width:221px;">
+								<a href="http://www.mondeca.com/">
+									<img alt="logo mondeca" id="logo" title="Mondeca"
+										src="./images/mondeca.gif"/>
+								</a>
+							</td>
+							<td style=" width:650px; text-align:center;">
+								<h1>
+									<a href="http://purl.org/vocommons/voaf">Vocabulary of a
+										Friend (VOAF)</a>
+								</h1>
+							</td>
+							<td style=" width:60px; ">
+								<a href="http://okfn.org/" target="_blank">
+									<img style="height:60px;" alt="OKFN logo" id="OKFN"
+										title="OKFN" src="./images/okfn.png"/>
+								</a>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div id="share">
+				<table>
+					<tr>
+						<td style="font-size:12px; width:660px; border-right:1px solid #B5B5B5;">
+							<div>
+								<a href="http://purl.org/vocommons/voaf"
+									target="_blank">VOAF</a> is a vocabulary specification providing
+								elements allowing the description of vocabularies (RDFS vocabularies
+								or OWL ontologies) used in the <a href="http://linkeddata.org/">
+								Linked Data</a> Cloud. In particular it provides properties
+								expressing the different ways such vocabularies can rely on, extend,
+								specify, annotate or otherwise link to each other. It relies itself
+								on <a href="http://purl.org/dc/terms/">Dublin Core</a> and <a
+									href="http://rdfs.org/ns/void">voiD</a>. The name of the
+								vocabulary makes an explicit reference to <a
+									href="http://xmlns.com/foaf/0.1">FOAF</a> because VOAF can be
+								used to define networks of vocabularies in a way similar to the one
+								FOAF is used to define networks of people.</div>
+						</td>
+						<td>
+							<a target="_blank" href="./voaf_v2.3.rdf">
+								<img alt="RDF logo" src="./images/rdf.gif" title="RDF/XML file"
+									height="35" width="32"/>
+							</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<!-- ############### METADATA #################### -->
+			<span style="font-size:18px;">Metadata:</span> 
+			<table id="metadataTable" class="table" cellspacing="0" cellpadding="0" border="0" width="96%">
+				<tr>
+					<td class="tablehead" width="25%">Property</td><td class="tablehead" width="75%">Value</td>
+				</tr>
+				<tr>
+					<td><a href="http://purl.org/dc/terms/creator" target="_blank">Creator</a></td><td><a href="http://data.semanticweb.org/person/bernard-vatant" target="_blank"
+						>Bernard Vatant</a></td>
+				</tr>
+				<tr class="row_odd">
+					<td><a href="http://purl.org/dc/terms/contributor" target="_blank">Contributors</a></td><td><a href="http://data.semanticweb.org/person/lise-rozat" target="_blank">Lise
+						Rozat</a>, <a href="http://data.semanticweb.org/person/pierre-yves-vandenbussche" target="_blank">Pierre-Yves Vandenbussche</a></td>
+				</tr>
+				<tr>
+					<td><a href="http://purl.org/dc/terms/publisher" target="_blank">Publisher</a></td><td><a href="http://dbpedia.org/resource/Open_Knowledge_Foundation" target="_blank">OKFN</a></td>
+				</tr>
+				<tr class="row_odd">
+					<td><a href="http://purl.org/dc/terms/modified" target="_blank">Last modified</a></td><td>2013-05-24</td>
+				</tr>
+				<tr>
+					<td><a href="http://www.w3.org/2003/06/sw-vocab-status/ns#term_status" target="_blank">Status</a></td><td>work in progress</td>
+				</tr>
+				<tr class="row_odd">
+					<td><a href="http://purl.org/vocab/vann/preferredNamespaceUri" target="_blank">Namespace URI</a></td><td>http://purl.org/vocommons/voaf#</td>
+				</tr>
+				<tr>
+					<td><a href="http://purl.org/vocab/vann/preferredNamespacePrefix" target="_blank">Namespace Prefix</a></td><td>voaf</td>
+				</tr>
+				<tr class="row_odd">
+					<td>Latest Version</td><td><a href="http://purl.org/vocommons/voaf" target="_blank">http://purl.org/vocommons/voaf</a></td>
+				</tr>
+				<tr>
+					<td><a href="http://www.w3.org/2002/07/owl#versionInfo" target="_blank">Version Info</a></td><td>2.3</td>
+				</tr>
+				<tr class="row_odd">
+					<td>Previous versions</td>
+					<td>
+						<div><a href="../v2.2" target="_blank">v2.2 (2013-04-24)</a></div>
+						<div><a href="../v2.1" target="_blank">v2.1 (2012-10-15)</a></div>
+						<div><a href="../v2.0" target="_blank">v2.0 (2012-07-03)</a></div>
+						<div><a href="../v1.1" target="_blank">v1.1 (2011-11-16)</a></div>
+						<div><a href="../v1.0" target="_blank">v1.0 (2011-03-11)</a></div>
+					</td>
+				</tr>
+				<tr>
+					<td>Modifications from v2.2 to v2.3</td><td><ul><li>Refined the voaf:dataset to a more complex element with occurrences information and added extra properties to represent metrics of vocabulary elements usage in LOV and LOD</li></ul></td>
+				</tr>
+				<tr class="row_odd">
+					<td>Modifications from v2.1 to v2.2</td><td><ul><li>Added properties to represent metrics of vocabulary elements usage in LOV and LOD</li></ul></td>
+				</tr>
+				<tr> 
+					<td>Modifications from v2.0 to v2.1</td><td><ul><li>Added description of queries used to infer a particular VOAF relation between two vocabularies</li></ul></td>
+				</tr>
+				<tr class="row_odd">
+					<td>Modifications from v1.1 to v2.0</td><td><ul><li>Namespace moved to purl.</li><li>Introduction of versions using FRBR.</li><li>voaf:Vocabulary rdfs:subClassOf  frbr:Work.</li></ul></td>
+				</tr>
+				<tr>
+					<td>Modifications from v1.0 to v1.1</td><td><ul><li>Depreciation of voaf:exampleDataset, replaced by voaf:dataset</li></ul></td>
+				</tr>
+			</table>
+
+			<!-- ############### EXAMPLE #################### -->
+			<div
+				style="margin-top:30px; padding-top:10px; padding-bottom:10px;border-top: 1px solid #B5B5B5; ">
+				<div style="font-size:18px;">Vocabulary in use example:</div>
+				<div style="margin-left:20px; ">The network of vocabularies defined in such a way is described in the <a
+						href="http://lov.okfn.org/dataset/lov" target="_blank">Linked Open
+						Vocabularies</a> dataset</div>
+			</div>
+
+			<!-- ############### CLASSES #################### -->
+			<div>
+				<div style="margin-top:30px; margin-bottom:10px; font-size:18px; padding-top:10px; border-top: 1px solid #B5B5B5;">Classes:</div>
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="Vocabulary" style="font-size:16px;">
+								<b>voaf:Vocabulary</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px; margin-top:5px; margin-bottom:5px;"
+									><i>Vocabulary</i> - A vocabulary used in the linked data cloud.
+								An instance of voaf:Vocabulary relies on or is used by at least
+								another instance of voaf:Vocabulary</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#Vocabulary</td>
+					</tr>
+					<tr>
+						<td>Sub class of:</td>
+						<td><a href="http://rdfs.org/ns/void#Dataset" target="_blank">void:Dataset</a></td>
+					</tr>
+					<tr>
+						<td>Sub class of:</td>
+						<td><a href="http://purl.org/vocab/frbr/core#Work" target="_blank">frbr:Work</a></td>
+					</tr>
+					
+				</table>
+				
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+						cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="VocabularySpace" style="font-size:16px;">
+								<b>voaf:VocabularySpace</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px; margin-top:5px; margin-bottom:5px;"
+								><i>Vocabulary Space</i> - A vocabulary space defines any relevant grouping of vocabularies e.g., designed for similar purposes or domains, or designed by the same publisher or the same project, etc.
+								A vocabulary can belong to zero, one or more vocabulary spaces.
+								Dublin Core properties isPartOf and hasPart are used to link a vocabulary to a vocabulary space</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#VocabularySpace</td>
+					</tr>
+				</table>
+				
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+						cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="DatasetOccurrences" style="font-size:16px;">
+								<b>voaf:DatasetOccurrences</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px; margin-top:5px; margin-bottom:5px;"
+								><i>Dataset occurrences</i> - Class used to store the number of occurences of a vocabulary in a particular dataset</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#DatasetOccurrences</td>
+					</tr>
+				</table>
+			</div>
+
+
+			<!-- ############### PROPERTIES #################### -->
+			<div>
+				<div style="margin-top:20px; margin-bottom:10px; font-size:18px; padding-top:10px; border-top: 1px solid #B5B5B5;">Properties:</div>
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="classNumber" style="font-size:16px;">
+								<b>voaf:classNumber</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>number of classes</i> - The number of classes defined in the
+								vocabulary namespace.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#classNumber</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://www.w3.org/2001/XMLSchema#integer" target="_blank"
+								>xsd:integer</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Associated Query:</td>
+						<td>
+							<div style="font-family:courier new; margin-top:10px; margin-bottom:5px; padding:5px; border:1px solid #B5B5B5;">
+								PREFIX rdfs:&lt;http://www.w3.org/2000/01/rdf-schema#&gt;<br>
+								PREFIX owl:&lt;http://www.w3.org/2002/07/owl#&gt;<br>
+								PREFIX voaf:&lt;http://purl.org/vocommons/voaf#&gt;<br>
+								CONSTRUCT{<br>
+								?vocab voaf:classNumber ?nbClass<br>
+								}<br>
+								WHERE{<br>
+								&emsp;SELECT (COUNT(distinct ?class) AS ?nbClass) ?vocab<br>
+								&emsp;WHERE{<br>
+								&emsp;&emsp;{?class a rdfs:Class.}<br>
+								&emsp;&emsp;UNION{?class a owl:Class.}<br>
+								&emsp;&emsp;?class a ?type.<br>
+								&emsp;&emsp;FILTER(?type!=owl:DeprecatedClass)<br>
+								&emsp;&emsp;?class rdfs:isDefinedBy ?vocab.<br>
+								&emsp;&emsp;?vocab a voaf:Vocabulary.<br>
+								&emsp;}GROUP BY ?vocab<br>
+								}
+							</div>
+							<a href="http://lov.okfn.org/endpoint/lov_aggregator?query=PREFIX+rdfs%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+owl%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0D%0APREFIX+voaf%3A%3Chttp%3A%2F%2Fpurl.org%2Fvocommons%2Fvoaf%23%3E%0D%0A%0D%0ACONSTRUCT%7B%0D%0A%3Fvocab+voaf%3AclassNumber+%3FnbClass%0D%0A%7D%0D%0AWHERE%7B%0D%0ASELECT+%28COUNT%28distinct+%3Fclass%29+AS+%3FnbClass%29+%3Fvocab%0D%0AWHERE%7B%0D%0A%7B%3Fclass+a+rdfs%3AClass.%7D%0D%0AUNION%7B%3Fclass+a+owl%3AClass.%7D%0D%0A%3Fclass+a+%3Ftype.%0D%0AFILTER%28%3Ftype%21%3Dowl%3ADeprecatedClass%29%0D%0A%3Fclass+rdfs%3AisDefinedBy+%3Fvocab.%0D%0A%3Fvocab+a+voaf%3AVocabulary.%0D%0A%7DGROUP+BY+%3Fvocab%0D%0A%7D&format=HTML" target="_blank">
+								<table><tr>
+									<td><img alt="Run query" id="logo" title="Run query" src="./images/play.gif"/></td>
+									<td>Run this query on Linked Open Vocabularies(LOV) data</td>
+								</tr></table>
+							</a>
+						</td>
+					</tr>
+				</table>
+
+				<table style=" margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="propertyNumber" style="font-size:16px;">
+								<b>voaf:propertyNumber</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>number of properties</i> - The number of properties defined
+								in the vocabulary namespace.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#propertyNumber</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://www.w3.org/2001/XMLSchema#integer" target="_blank"
+								>xsd:integer</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Associated Query:</td>
+						<td>
+							<div style="font-family:courier new; margin-top:10px; margin-bottom:5px; padding:5px; border:1px solid #B5B5B5;">
+							PREFIX rdf:&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;<br>
+								PREFIX rdfs:&lt;http://www.w3.org/2000/01/rdf-schema#&gt;<br>
+								PREFIX owl:&lt;http://www.w3.org/2002/07/owl#&gt;<br>
+								PREFIX voaf:&lt;http://purl.org/vocommons/voaf#&gt;<br>
+								CONSTRUCT{<br>
+								?vocab voaf:propertyNumber ?nbProp<br>
+								}<br>
+								WHERE{<br>
+								&emsp;SELECT (COUNT(distinct ?prop) AS ?nbProp) ?vocab<br>
+								&emsp;WHERE{<br>
+								&emsp;&emsp;{?prop a rdf:Property.}<br>
+								&emsp;&emsp;UNION{?prop a owl:ObjectProperty.}<br>
+								&emsp;&emsp;UNION{?prop a owl:DatatypeProperty.}<br>
+								&emsp;&emsp;UNION{?prop a owl:AnnotationProperty.}<br>
+								&emsp;&emsp;UNION{?prop a owl:FunctionalProperty.}<br>
+								&emsp;&emsp;UNION{?prop a owl:OntologyProperty.}<br>
+								&emsp;&emsp;UNION{?prop a owl:AsymmetricProperty.}<br>
+								&emsp;&emsp;UNION{?prop a owl:InverseFunctionalProperty.}<br>
+								&emsp;&emsp;UNION{?prop a owl:IrreflexiveProperty.}<br>
+								&emsp;&emsp;UNION{?prop a owl:ReflexiveProperty.}<br>
+								&emsp;&emsp;UNION{?prop a owl:SymmetricProperty.}<br>
+								&emsp;&emsp;UNION{?prop a owl:TransitiveProperty.}<br>
+								&emsp;&emsp;?prop a ?type.<br>
+								&emsp;&emsp;FILTER(?type!=owl:DeprecatedProperty)<br>
+								&emsp;&emsp;?prop rdfs:isDefinedBy ?vocab.<br>
+								&emsp;&emsp;?vocab a voaf:Vocabulary.<br>
+								&emsp;}GROUP BY ?vocab<br>
+								}
+							</div>
+							<a href="http://lov.okfn.org/endpoint/lov_aggregator?query=PREFIX+rdf%3A%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0A%09%09PREFIX+rdfs%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0A%09%09PREFIX+owl%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0D%0A%09%09PREFIX+voaf%3A%3Chttp%3A%2F%2Fpurl.org%2Fvocommons%2Fvoaf%23%3E%0D%0A%09%09%0D%0A%09%09CONSTRUCT%7B%0D%0A%09%09%3Fvocab+voaf%3ApropertyNumber+%3FnbProp%0D%0A%09%09%7D%0D%0A%09%09WHERE%7B%0D%0A%09%09%09SELECT+%28COUNT%28distinct+%3Fprop%29+AS+%3FnbProp%29+%3Fvocab%0D%0A%09%09%09WHERE%7B%0D%0A%09%09%09%09%7B%3Fprop+a+rdf%3AProperty.%7D%0D%0A%09%09%09%09UNION%7B%3Fprop+a+owl%3AObjectProperty.%7D%0D%0A%09%09%09%09UNION%7B%3Fprop+a+owl%3ADatatypeProperty.%7D%0D%0A%09%09%09%09UNION%7B%3Fprop+a+owl%3AAnnotationProperty.%7D%0D%0A%09%09%09%09UNION%7B%3Fprop+a+owl%3AFunctionalProperty.%7D%0D%0A%09%09%09%09UNION%7B%3Fprop+a+owl%3AOntologyProperty.%7D%0D%0A%09%09%09%09UNION%7B%3Fprop+a+owl%3AAsymmetricProperty.%7D%0D%0A%09%09%09%09UNION%7B%3Fprop+a+owl%3AInverseFunctionalProperty.%7D%0D%0A%09%09%09%09UNION%7B%3Fprop+a+owl%3AIrreflexiveProperty.%7D%0D%0A%09%09%09%09UNION%7B%3Fprop+a+owl%3AReflexiveProperty.%7D%0D%0A%09%09%09%09UNION%7B%3Fprop+a+owl%3ASymmetricProperty.%7D%0D%0A%09%09%09%09UNION%7B%3Fprop+a+owl%3ATransitiveProperty.%7D%0D%0A%09%09%09%09%3Fprop+a+%3Ftype.%0D%0A%09%09%09%09FILTER%28%3Ftype%21%3Dowl%3ADeprecatedProperty%29%0D%0A%09%09%09%09%3Fprop+rdfs%3AisDefinedBy+%3Fvocab.%0D%0A%09%09%09%09%3Fvocab+a+voaf%3AVocabulary.%0D%0A%09%09%09%7DGROUP+BY+%3Fvocab%0D%0A%09%09%7D&format=HTML" target="_blank">
+								<table><tr>
+									<td><img alt="Run query" id="logo" title="Run query" src="./images/play.gif"/></td>
+									<td>Run this query on Linked Open Vocabularies(LOV) data</td>
+								</tr></table>
+							</a>
+						</td>
+					</tr>
+				</table>
+
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="reliesOn" style="font-size:16px;">
+								<b>voaf:reliesOn</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>relies on</i> - Indicates that the subject vocabulary uses
+								or extends some class or property of the object vocabulary</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#reliesOn</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Sub property of:</td>
+						<td>
+							<a href="http://rdfs.org/ns/void#vocabulary" target="_blank"
+								>void:vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Sub property of:</td>
+						<td>
+							<a href="http://purl.org/dc/terms/references" target="_blank"
+								>terms:references</a>
+						</td>
+					</tr>
+				</table>
+
+				<table style="margin-left:20px;  margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="usedBy" style="font-size:16px;">
+								<b>voaf:usedBy</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"><i>used
+									by</i> - Indicates that the subject vocabulary is used by the
+								object vocabulary</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#usedBy</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Inverse of:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#reliesOn">voaf:reliesOn</a>
+						</td>
+					</tr>
+				</table>
+
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="metadataVoc" style="font-size:16px;">
+								<b>voaf:metadataVoc</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>metadata vocabulary</i> - Indicates that the subject
+								vocabulary uses the object vocabulary in metadata at vocabulary or
+								element level</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#metadataVoc</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Sub property of:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#reliesOn">voaf:reliesOn</a>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>Associated Query:</td>
+						<td>
+							<div style="font-family:courier new; margin-top:10px; margin-bottom:5px; padding:5px; border:1px solid #B5B5B5;">
+								PREFIX rdfs:&lt;http://www.w3.org/2000/01/rdf-schema#&gt;<br>
+								PREFIX owl:&lt;http://www.w3.org/2002/07/owl#&gt;<br>
+								PREFIX voaf:&lt;http://purl.org/vocommons/voaf#&gt;<br>
+								CONSTRUCT{<br>
+								&emsp;?vocab1 voaf:metadataVoc ?vocab2<br>
+								}<br>
+								WHERE{<br>
+								&emsp;?elem1 ?elem2 ?o.<br>
+								&emsp;?elem1 rdfs:isDefinedBy ?vocab1.<br>
+								&emsp;?vocab1 a voaf:Vocabulary.<br>
+								&emsp;?elem2 rdfs:isDefinedBy ?vocab2.<br>
+								&emsp;?vocab2 a voaf:Vocabulary.<br>
+								&emsp;FILTER(?vocab1!=?vocab2)<br>
+								}
+							</div>
+						</td>
+					</tr>
+				</table>
+
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="extends" style="font-size:16px;">
+								<b>voaf:extends</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>extends</i> - Indicates that the subject vocabulary extends
+								the expressivity of the object vocabulary by declaring subsumption
+								relationships, using object vocabulary class as domain or range of a
+								subject vocabulary property, defining local restrictions etc
+							...</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#extends</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Sub property of:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#reliesOn">voaf:reliesOn</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Associated Query:</td>
+						<td>
+							<div style="font-family:courier new; margin-top:10px; margin-bottom:5px; padding:5px; border:1px solid #B5B5B5;">
+								PREFIX rdfs:&lt;http://www.w3.org/2000/01/rdf-schema#&gt;<br>
+								PREFIX owl:&lt;http://www.w3.org/2002/07/owl#&gt;<br>
+								PREFIX voaf:&lt;http://purl.org/vocommons/voaf#&gt;<br>
+								CONSTRUCT{<br>
+								&emsp;?vocab1 voaf:extends ?vocab2<br>
+								}<br>
+								WHERE{<br>
+								{?elem1 owl:inverseOf ?elem2. FILTER(!isBlank(?elem2))}<br>
+								&emsp;UNION{?elem1 rdfs:domain ?elem2. FILTER(!isBlank(?elem2))}<br>
+								&emsp;UNION{?elem1 rdfs:range ?elem2. FILTER(!isBlank(?elem2))}<br>
+								&emsp;UNION{?elem2 rdfs:domain ?elem1. FILTER(!isBlank(?elem1))}<br>
+								&emsp;UNION{?elem2 rdfs:range ?elem1. FILTER(!isBlank(?elem1))}<br>
+								&emsp;?elem1 rdfs:isDefinedBy ?vocab1.<br>
+								&emsp;?vocab1 a voaf:Vocabulary.<br>
+								&emsp;?elem2 rdfs:isDefinedBy ?vocab2.<br>
+								&emsp;?vocab2 a voaf:Vocabulary.<br>
+								&emsp;FILTER(?vocab1!=?vocab2)<br>
+								}
+							</div>
+							<a href="http://lov.okfn.org/endpoint/lov_aggregator?query=PREFIX+rdf%3A%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0A%09%09PREFIX+rdfs%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0A%09%09PREFIX+owl%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0D%0A%09%09PREFIX+voaf%3A%3Chttp%3A%2F%2Fpurl.org%2Fvocommons%2Fvoaf%23%3E%0D%0A%09%09%0D%0A%09%09CONSTRUCT%7B%0D%0A%09%09%3Fvocab1+voaf%3Aextends+%3Fvocab2%0D%0A%09%09%7D%0D%0A%09%09WHERE%7B%0D%0A%09%09%7B%3Felem1+owl%3AinverseOf+%3Felem2.+FILTER%28%21isBlank%28%3Felem2%29%29%7D%0D%0A%09%09UNION%7B%3Felem1+rdfs%3Adomain+%3Felem2.+FILTER%28%21isBlank%28%3Felem2%29%29%7D%0D%0A%09%09UNION%7B%3Felem1+rdfs%3Arange+%3Felem2.+FILTER%28%21isBlank%28%3Felem2%29%29%7D%0D%0A%09%09UNION%7B%3Felem2+rdfs%3Adomain+%3Felem1.+FILTER%28%21isBlank%28%3Felem1%29%29%7D%0D%0A%09%09UNION%7B%3Felem2+rdfs%3Arange+%3Felem1.+FILTER%28%21isBlank%28%3Felem1%29%29%7D%0D%0A%09%09%3Felem1+rdfs%3AisDefinedBy+%3Fvocab1.%0D%0A%09%09%3Fvocab1+a+voaf%3AVocabulary.%0D%0A%09%09%3Felem2+rdfs%3AisDefinedBy+%3Fvocab2.%0D%0A%09%09%3Fvocab2+a+voaf%3AVocabulary.%0D%0A%09%09FILTER%28%3Fvocab1%21%3D%3Fvocab2%29%0D%0A%09%09%7D&format=HTML" target="_blank">
+								<table><tr>
+									<td><img alt="Run query" id="logo" title="Run query" src="./images/play.gif"/></td>
+									<td>Run this query on Linked Open Vocabularies(LOV) data</td>
+								</tr></table>
+							</a>
+						</td>
+					</tr>
+				</table>
+
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="specializes" style="font-size:16px;">
+								<b>voaf:specializes</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>specializes</i> - Indicates that the subject vocabulary
+								defines some subclasses or subproperties of the object vocabulary,
+								or local restrictions on those.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#specializes</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Sub property of:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#reliesOn">voaf:reliesOn</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Associated Query:</td>
+						<td>
+							<div style="font-family:courier new; margin-top:10px; margin-bottom:5px; padding:5px; border:1px solid #B5B5B5;">
+								PREFIX rdfs:&lt;http://www.w3.org/2000/01/rdf-schema#&gt;<br>
+								PREFIX owl:&lt;http://www.w3.org/2002/07/owl#&gt;<br>
+								PREFIX voaf:&lt;http://purl.org/vocommons/voaf#&gt;<br>
+								PREFIX skos:&lt;http://www.w3.org/2004/02/skos/core#&gt;<br>
+								CONSTRUCT{<br>
+								&emsp;?vocab1 voaf:specializes ?vocab2<br>
+								}<br>
+								WHERE{<br>
+								&emsp;{?elem1 rdfs:subPropertyOf ?elem2. FILTER(!isBlank(?elem2))}<br>
+								&emsp;UNION{?elem1 rdfs:subClassOf ?elem2. FILTER(!isBlank(?elem2))}<br>
+								&emsp;UNION{?elem1 skos:broadMatch ?elem2. FILTER(!isBlank(?elem2))}<br>
+								&emsp;?elem1 rdfs:isDefinedBy ?vocab1.<br>
+								&emsp;?vocab1 a voaf:Vocabulary.<br>
+								&emsp;?elem2 rdfs:isDefinedBy ?vocab2.<br>
+								&emsp;?vocab2 a voaf:Vocabulary.<br>
+								&emsp;FILTER(?vocab1!=?vocab2)<br>
+								}
+							</div>
+							<a href="http://lov.okfn.org/endpoint/lov_aggregator?query=PREFIX+rdfs%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+voaf%3A%3Chttp%3A%2F%2Fpurl.org%2Fvocommons%2Fvoaf%23%3E%0D%0APREFIX+skos%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E%0D%0A%0D%0ACONSTRUCT%7B%0D%0A%09%3Fvocab1+voaf%3Aspecializes+%3Fvocab2%0D%0A%7D%0D%0AWHERE%7B%0D%0A%09%7B%3Felem1+rdfs%3AsubPropertyOf+%3Felem2.+FILTER%28%21isBlank%28%3Felem2%29%29%7D%0D%0A%09UNION%7B%3Felem1+rdfs%3AsubClassOf+%3Felem2.+FILTER%28%21isBlank%28%3Felem2%29%29%7D%0D%0A%09UNION%7B%3Felem1+skos%3AbroadMatch+%3Felem2.+FILTER%28%21isBlank%28%3Felem2%29%29%7D%0D%0A%09%3Felem1+rdfs%3AisDefinedBy+%3Fvocab1.%0D%0A%09%3Fvocab1+a+voaf%3AVocabulary.%0D%0A%09%3Felem2+rdfs%3AisDefinedBy+%3Fvocab2.%0D%0A%09%3Fvocab2+a+voaf%3AVocabulary.%0D%0A%09FILTER%28%3Fvocab1%21%3D%3Fvocab2%29%0D%0A%7D&format=HTML" target="_blank">
+								<table><tr>
+									<td><img alt="Run query" id="logo" title="Run query" src="./images/play.gif"/></td>
+									<td>Run this query on Linked Open Vocabularies(LOV) data</td>
+								</tr></table>
+							</a>
+						</td>
+					</tr>
+				</table>
+
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="generalizes" style="font-size:16px;">
+								<b>voaf:generalizes</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>generalizes</i> - Indicates that the subject vocabulary
+								generalizes by some superclasses or superproperties the object
+								vocabulary.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#generalizes</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Sub property of:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#reliesOn">voaf:reliesOn</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Associated Query:</td>
+						<td>
+							<div style="font-family:courier new; margin-top:10px; margin-bottom:5px; padding:5px; border:1px solid #B5B5B5;">
+								PREFIX rdf:&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;<br>
+								PREFIX rdfs:&lt;http://www.w3.org/2000/01/rdf-schema#&gt;<br>
+								PREFIX owl:&lt;http://www.w3.org/2002/07/owl#&gt;<br>
+								PREFIX voaf:&lt;http://purl.org/vocommons/voaf#&gt;<br>
+								PREFIX skos:&lt;http://www.w3.org/2004/02/skos/core#&gt;<br>
+								CONSTRUCT{<br>
+								&emsp;?vocab1 voaf:generalizes ?vocab2<br>
+								}<br>
+								WHERE{<br>
+								&emsp;{?elem1 skos:narrowMatch ?elem2. FILTER(!isBlank(?elem2))}<br>
+								&emsp;UNION{?elem2 rdfs:subPropertyOf ?elem1.}<br>
+								&emsp;UNION{?elem1 a owl:Class. ?elem1 owl:unionOf ?union. ?union rdf:first ?elem2.}<br>
+								&emsp;UNION{?elem1 a owl:Class. ?elem1 owl:unionOf ?union. ?union rdf:rest ?union2. ?union2 rdf:first ?elem2.}<br>
+								&emsp;UNION{?elem1 a owl:Class. ?elem1 owl:unionOf ?union. ?union rdf:rest ?union2. ?union2 rdf:rest ?union3. ?union3 rdf:first ?elem2.}<br>
+								&emsp;UNION{?elem1 a owl:Class. ?elem1 owl:unionOf ?union. ?union rdf:rest ?union2. ?union2 rdf:rest ?union3. ?union3 rdf:rest ?union4. ?union4 rdf:first ?elem2.}<br>
+								&emsp;UNION{?elem1 a owl:Class. ?elem1 owl:unionOf ?union. ?union rdf:rest ?union2. ?union2 rdf:rest ?union3. ?union3 rdf:rest ?union4. ?union4 rdf:rest ?union5. ?union5 rdf:first ?elem2.}<br>
+								&emsp;FILTER(!isBlank(?elem2))<br>
+								&emsp;?elem1 rdfs:isDefinedBy ?vocab1.<br>
+								&emsp;?vocab1 a voaf:Vocabulary.<br>
+								&emsp;?elem2 rdfs:isDefinedBy ?vocab2.<br>
+								&emsp;?vocab2 a voaf:Vocabulary.<br>
+								&emsp;FILTER(?vocab1!=?vocab2)<br>
+								}
+							</div>
+							<a href="http://lov.okfn.org/endpoint/lov_aggregator?query=PREFIX+rdf%3A%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0APREFIX+rdfs%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+owl%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0D%0APREFIX+voaf%3A%3Chttp%3A%2F%2Fpurl.org%2Fvocommons%2Fvoaf%23%3E%0D%0APREFIX+skos%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E%0D%0A%0D%0ACONSTRUCT%7B%0D%0A%09%3Fvocab1+voaf%3Ageneralizes+%3Fvocab2%0D%0A%7D%0D%0AWHERE%7B%0D%0A%09%7B%3Felem1+skos%3AnarrowMatch+%3Felem2.+FILTER%28%21isBlank%28%3Felem2%29%29%7D%0D%0A%09UNION%7B%3Felem2+rdfs%3AsubPropertyOf+%3Felem1.%7D%0D%0A%09UNION%7B%3Felem1+a+owl%3AClass.+%3Felem1+owl%3AunionOf+%3Funion.+%3Funion+rdf%3Afirst+%3Felem2.%7D%0D%0A%09UNION%7B%3Felem1+a+owl%3AClass.+%3Felem1+owl%3AunionOf+%3Funion.+%3Funion+rdf%3Arest+%3Funion2.+%3Funion2+rdf%3Afirst+%3Felem2.%7D%0D%0A%09UNION%7B%3Felem1+a+owl%3AClass.+%3Felem1+owl%3AunionOf+%3Funion.+%3Funion+rdf%3Arest+%3Funion2.+%3Funion2+rdf%3Arest+%3Funion3.+%3Funion3+rdf%3Afirst+%3Felem2.%7D%0D%0A%09UNION%7B%3Felem1+a+owl%3AClass.+%3Felem1+owl%3AunionOf+%3Funion.+%3Funion+rdf%3Arest+%3Funion2.+%3Funion2+rdf%3Arest+%3Funion3.+%3Funion3+rdf%3Arest+%3Funion4.+%3Funion4+rdf%3Afirst+%3Felem2.%7D%0D%0A%09UNION%7B%3Felem1+a+owl%3AClass.+%3Felem1+owl%3AunionOf+%3Funion.+%3Funion+rdf%3Arest+%3Funion2.+%3Funion2+rdf%3Arest+%3Funion3.+%3Funion3+rdf%3Arest+%3Funion4.+%3Funion4+rdf%3Arest+%3Funion5.+%3Funion5+rdf%3Afirst+%3Felem2.%7D%0D%0A%09FILTER%28%21isBlank%28%3Felem2%29%29%0D%0A%09%3Felem1+rdfs%3AisDefinedBy+%3Fvocab1.%0D%0A%09%3Fvocab1+a+voaf%3AVocabulary.%0D%0A%09%3Felem2+rdfs%3AisDefinedBy+%3Fvocab2.%0D%0A%09%3Fvocab2+a+voaf%3AVocabulary.%0D%0A%09FILTER%28%3Fvocab1%21%3D%3Fvocab2%29%0D%0A%7D&format=HTML" target="_blank">
+								<table><tr>
+									<td><img alt="Run query" id="logo" title="Run query" src="./images/play.gif"/></td>
+									<td>Run this query on Linked Open Vocabularies(LOV) data</td>
+								</tr></table>
+							</a>
+						</td>
+					</tr>
+				</table>
+
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="hasEquivalencesWith" style="font-size:16px;">
+								<b>voaf:hasEquivalencesWith</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"><i>has
+									equivalences with</i> - Indicates that the subject vocabulary
+								declares some equivalent classes or properties with the object
+								vocabulary.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#hasEquivalencesWith</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Sub property of:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#reliesOn">voaf:reliesOn</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Associated Query:</td>
+						<td>
+							<div style="font-family:courier new; margin-top:10px; margin-bottom:5px; padding:5px; border:1px solid #B5B5B5;">
+								PREFIX rdfs:&lt;http://www.w3.org/2000/01/rdf-schema#&gt;<br>
+								PREFIX owl:&lt;http://www.w3.org/2002/07/owl#&gt;<br>
+								PREFIX voaf:&lt;http://purl.org/vocommons/voaf#&gt;<br>
+								PREFIX skos:&lt;http://www.w3.org/2004/02/skos/core#&gt;<br>
+								CONSTRUCT{<br>
+								&emsp;?vocab1 voaf:hasEquivalencesWith ?vocab2<br>
+								}<br>
+								WHERE{<br>
+								&emsp;{?elem1 owl:equivalentProperty ?elem2.}<br>
+								&emsp;UNION{?elem1 owl:sameAs ?elem2.}<br>
+								&emsp;UNION{?elem1 owl:equivalentClass ?elem2.}<br>
+								&emsp;UNION{?elem2 owl:equivalentProperty ?elem1.}<br>
+								&emsp;UNION{?elem2 owl:equivalentClass ?elem1.}<br>
+								&emsp;UNION{?elem1 skos:exactMatch ?elem2.}<br>
+								&emsp;UNION{?elem2 skos:exactMatch ?elem1.}<br>
+								&emsp;FILTER(!isBlank(?elem2))<br>
+								&emsp;?elem1 rdfs:isDefinedBy ?vocab1.<br>
+								&emsp;?vocab1 a voaf:Vocabulary.<br>
+								&emsp;?elem2 rdfs:isDefinedBy ?vocab2.<br>
+								&emsp;?vocab2 a voaf:Vocabulary.<br>
+								&emsp;FILTER(?vocab1!=?vocab2)<br>
+								}
+							</div>
+							<a href="http://lov.okfn.org/endpoint/lov_aggregator?query=PREFIX+rdfs%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+owl%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0D%0APREFIX+voaf%3A%3Chttp%3A%2F%2Fpurl.org%2Fvocommons%2Fvoaf%23%3E%0D%0APREFIX+skos%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E%0D%0A%0D%0ACONSTRUCT%7B%0D%0A%09%3Fvocab1+voaf%3AhasEquivalencesWith+%3Fvocab2%0D%0A%7D%0D%0AWHERE%7B%0D%0A%09%7B%3Felem1+owl%3AequivalentProperty+%3Felem2.%7D%0D%0A%09UNION%7B%3Felem1+owl%3AsameAs+%3Felem2.%7D%0D%0A%09UNION%7B%3Felem1+owl%3AequivalentClass+%3Felem2.%7D%0D%0A%09UNION%7B%3Felem2+owl%3AequivalentProperty+%3Felem1.%7D%0D%0A%09UNION%7B%3Felem2+owl%3AequivalentClass+%3Felem1.%7D%0D%0A%09UNION%7B%3Felem1+skos%3AexactMatch+%3Felem2.%7D%0D%0A%09UNION%7B%3Felem2+skos%3AexactMatch+%3Felem1.%7D%0D%0A%09FILTER%28%21isBlank%28%3Felem2%29%29%0D%0A%09%3Felem1+rdfs%3AisDefinedBy+%3Fvocab1.%0D%0A%09%3Fvocab1+a+voaf%3AVocabulary.%0D%0A%09%3Felem2+rdfs%3AisDefinedBy+%3Fvocab2.%0D%0A%09%3Fvocab2+a+voaf%3AVocabulary.%0D%0A%09FILTER%28%3Fvocab1%21%3D%3Fvocab2%29%0D%0A%7D&format=HTML" target="_blank">
+								<table><tr>
+									<td><img alt="Run query" id="logo" title="Run query" src="./images/play.gif"/></td>
+									<td>Run this query on Linked Open Vocabularies(LOV) data</td>
+								</tr></table>
+							</a>
+						</td>
+					</tr>
+				</table>
+				
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="hasDisjunctionsWith" style="font-size:16px;">
+								<b>voaf:hasDisjunctionsWith</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"><i>has
+									disjunctions with</i> - Indicates that the subject vocabulary
+								declares some disjunct classes with the object
+								vocabulary.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#hasDisjunctionsWith</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Sub property of:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#reliesOn">voaf:reliesOn</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Associated Query:</td>
+						<td>
+							<div style="font-family:courier new; margin-top:10px; margin-bottom:5px; padding:5px; border:1px solid #B5B5B5;">
+								PREFIX rdfs:&lt;http://www.w3.org/2000/01/rdf-schema#&gt;<br>
+								PREFIX owl:&lt;http://www.w3.org/2002/07/owl#&gt;<br>
+								PREFIX voaf:&lt;http://purl.org/vocommons/voaf#&gt;<br>
+								CONSTRUCT{<br>
+								&emsp;?vocab1 voaf:hasDisjunctionsWith ?vocab2<br>
+								}<br>
+								WHERE{<br>
+								&emsp;?elem1 owl:disjointWith ?elem2. FILTER(!isBlank(?elem2))<br>
+								&emsp;?elem1 rdfs:isDefinedBy ?vocab1.<br>
+								&emsp;?vocab1 a voaf:Vocabulary.<br>
+								&emsp;?elem2 rdfs:isDefinedBy ?vocab2.<br>
+								&emsp;?vocab2 a voaf:Vocabulary.<br>
+								&emsp;FILTER(?vocab1!=?vocab2)<br>
+								}
+							</div>
+							<a href="http://lov.okfn.org/endpoint/lov_aggregator?query=PREFIX+rdfs%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+owl%3A%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0D%0APREFIX+voaf%3A%3Chttp%3A%2F%2Fpurl.org%2Fvocommons%2Fvoaf%23%3E%0D%0A%0D%0ACONSTRUCT%7B%0D%0A%09%3Fvocab1+voaf%3AhasDisjunctionsWith+%3Fvocab2%0D%0A%7D%0D%0AWHERE%7B%0D%0A%09%3Felem1+owl%3AdisjointWith+%3Felem2.+FILTER%28%21isBlank%28%3Felem2%29%29%0D%0A%09%3Felem1+rdfs%3AisDefinedBy+%3Fvocab1.%0D%0A%09%3Fvocab1+a+voaf%3AVocabulary.%0D%0A%09%3Felem2+rdfs%3AisDefinedBy+%3Fvocab2.%0D%0A%09%3Fvocab2+a+voaf%3AVocabulary.%0D%0A%09FILTER%28%3Fvocab1%21%3D%3Fvocab2%29%0D%0A%7D&format=HTML" target="_blank">
+								<table><tr>
+									<td><img alt="Run query" id="logo" title="Run query" src="./images/play.gif"/></td>
+									<td>Run this query on Linked Open Vocabularies(LOV) data</td>
+								</tr></table>
+							</a>
+						</td>
+					</tr>
+				</table>
+				
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="similar" style="font-size:16px;">
+								<b>voaf:similar</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+								><i>similar</i> - Used to assert that two vocabularies are similar in scope and objectives, independently of the fact that they otherwise refer to each other.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#similar</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+								>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+								>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Type :</td>
+						<td>
+							<a href="http://www.w3.org/2002/07/owl#SymmetricProperty">owl:SymmetricProperty</a>
+						</td>
+					</tr>
+				</table>
+				
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="toDoList" style="font-size:16px;">
+								<b>voaf:toDoList</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+								><i>to-do list</i> - Describes future tasks planned by a resource curator. This property is primarily intended to be used for vocabularies or datasets, but the domain is left open, it can be used for any resource. Use iCalendar Vtodo class and its properties to further describe the task calendar, priorities etc.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#toDoList</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://www.w3.org/2002/12/cal/ical#Vtodo" target="_blank"
+								>cal:Vtodo</a>
+						</td>
+					</tr>
+				</table>
+				
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="occurrencesInVocabularies" style="font-size:16px;">
+								<b>voaf:occurrencesInVocabularies</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>occurrences in vocabularies</i> - Vocabulary term occurrences in vocabularies.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#occurrencesInVocabularies</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://www.w3.org/2001/XMLSchema#integer" target="_blank"
+								>xsd:integer</a>
+						</td>
+					</tr>
+				</table>
+				
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="occurrencesInDatasets" style="font-size:16px;">
+								<b>voaf:occurrencesInDatasets</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>occurrences in datasets</i> - Vocabulary term occurrences in datasets.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#occurrencesInDatasets</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://www.w3.org/2001/XMLSchema#integer" target="_blank"
+								>xsd:integer</a>
+						</td>
+					</tr>
+				</table>
+				
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="reusedByVocabularies" style="font-size:16px;">
+								<b>voaf:reusedByVocabularies</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>reused by vocabularies</i> - Distinct number of vocabularies reusing a resource.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#reusedByVocabularies</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://www.w3.org/2001/XMLSchema#integer" target="_blank"
+								>xsd:integer</a>
+						</td>
+					</tr>
+				</table>
+				
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="reusedByDatasets" style="font-size:16px;">
+								<b>voaf:reusedByDatasets</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>reused by datasets</i> - Distinct number of datasets reusing a resource.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#reusedByDatasets</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://www.w3.org/2001/XMLSchema#integer" target="_blank"
+								>xsd:integer</a>
+						</td>
+					</tr>
+				</table>
+				
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="usageInDataset" style="font-size:16px;">
+								<b>voaf:usageInDataset</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>usage in dataset</i> - usage statistics in a dataset</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#usageInDataset</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#DatasetOccurrences" target="_blank"
+							>void:DatasetOccurrences</a>
+						</td>
+					</tr>
+				</table>
+				
+				
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="inDataset" style="font-size:16px;">
+								<b>voaf:inDataset</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>in dataset</i> - dataset in which a vocabulary occurred</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#inDataset</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#DatasetOccurrences"
+							>voaf:DatasetOccurrences</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://rdfs.org/ns/void#Dataset" target="_blank"
+							>void:Dataset</a>
+						</td>
+					</tr>
+				</table>
+				
+				<table style="margin-left:20px; margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="occurrences" style="font-size:16px;">
+								<b>voaf:occurrences</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>occurrences</i> - Number of occurrences of a vocabulary in a dataset</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://purl.org/vocommons/voaf#occurrences</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://purl.org/vocommons/voaf#DatasetOccurrences"
+							>voaf:DatasetOccurrences</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://www.w3.org/2001/XMLSchema#integer" target="_blank"
+								>xsd:integer</a>
+						</td>
+					</tr>
+				</table>
+				
+			</div>
+
+			<div id="legend" style="margin-top:20px;">
+				<div>VOAF is licensed under Creative Commons <a
+						href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a> It is developed in the framework of the <a href="http://datalift.org/">Datalift</a> project and supported by the <a href="http://okfn.org/">Open Knowledge Foundation (OKFN)</a>.</div>
+				<div>If you have any remark, suggestion or question, please <a href="mailto:bernard.vatant@mondeca.com,py.vandenbussche@gmail.com">contact editors</a></div>
+			</div>
+		</div>
+		<script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-32519453-1']);
+            _gaq.push([ '_trackPageview' ]);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type =
+                'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+                'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script') [0];
+                s.parentNode.insertBefore(ga, s);
+            })();</script>
+
+	</body>
+</html>

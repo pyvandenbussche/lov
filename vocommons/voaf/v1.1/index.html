@@ -1,0 +1,752 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<title>Vocabulary of a Friend (VOAF)</title>
+		<meta http-equiv="imagetoolbar" content="no"/>
+		<meta name="Description"
+			content="VOAF, a OWL vocabulary enabling the description and interlinking of vocabularies"/>
+		<meta name="keywords" content="linked data, vocabularies"/>
+		<link rel="stylesheet" type="text/css" href="./styles/style.css"/>
+	</head>
+	<body>
+		<div id="container">
+			<div id="header">
+				<noscript>
+					<div class="error-message">Please enable javascript</div>
+				</noscript>
+				<div id="head_left">
+					<table style=" width:100%; margin-top:20px;">
+						<tr style=" width:100%;">
+							<td style=" width:221px;">
+								<a href="http://www.mondeca.com/">
+									<img alt="logo mondeca" id="logo" title="Mondeca"
+										src="./images/mondeca.gif"/>
+								</a>
+							</td>
+							<td style=" width:522px;">
+								<h1>
+									<a href="http://labs.mondeca.com/vocab/voaf">Vocabulary of a
+										Friend (VOAF)</a>
+								</h1>
+							</td>
+							<td style=" width:167px;">
+								<a href="http://labs.mondeca.com/" target="_blank">
+									<img alt="mondeca labs logo" id="MondecaLabs"
+										title="MondecaLabs" src="./images/labs.gif"/>
+								</a>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div id="share">
+				<table>
+					<tr>
+						<td style="font-size:12px; width:660px; border-right:1px solid #B5B5B5;">
+							<div>
+								<a href="http://labs.mondeca.com/vocab/voaf/voaf.rdf"
+									target="_blank">VOAF</a> is a vocabulary specification providing
+								elements allowing the description of vocabularies (RDFS vocabularies
+								or OWL ontologies) used in the <a href="http://linkeddata.org/"
+									>Linked Data</a> Cloud. In particular it provides properties
+								expressing the different ways such vocabularies can rely on, extend,
+								specify, annotate or otherwise link to each other. It relies itself
+								on <a href="http://purl.org/dc/terms/">Dublin Core</a> and <a
+									href="http://rdfs.org/ns/void">voiD</a>. The name of the
+								vocabulary makes an explicit reference to <a
+									href="http://xmlns.com/foaf/0.1">FOAF</a> because VOAF can be
+								used to define networks of vocabularies in a way similar to the one
+								FOAF is used to define networks of people.</div>
+						</td>
+						<td>
+							<a target="_blank" href="http://labs.mondeca.com/vocab/voaf/voaf.rdf">
+								<img alt="RDF logo" src="./images/rdf.gif" title="RDF/XML file"
+									height="35" width="32"/>
+							</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<!-- ############### METADATA #################### -->
+			<div style="margin-top:10px;">
+				<span style="font-size:18px;">
+					<a href="http://purl.org/dc/terms/creator" target="_blank">Authors:</a>
+				</span>
+				<div style="margin-left:20px;">
+					<a href="http://labs.mondeca.com/foaf/mondeca.rdf#bvatant" target="_blank"
+						>Bernard Vatant</a>
+				</div>
+			</div>
+			<div style="margin-top:10px;">
+				<span style="font-size:18px;">
+					<a href="http://purl.org/dc/terms/contributor" target="_blank">Contributors:</a>
+				</span>
+				<div style="margin-left:20px;">
+					<a href="http://labs.mondeca.com/foaf/mondeca.rdf#lrozat" target="_blank">Lise
+						Rozat</a>, <a href="http://labs.mondeca.com/foaf/mondeca.rdf#pyv" target="_blank">Pierre-Yves Vandenbussche</a>
+				</div>
+			</div>
+			<div style="margin-top:10px;">
+				<span style="font-size:18px;">
+					<a href="http://purl.org/dc/terms/publisher" target="_blank">Publisher:</a>
+				</span>
+				<div style="margin-left:20px;">
+					<a href="http://dbpedia.org/resource/Mondeca" target="_blank">Mondeca</a>
+				</div>
+			</div>
+			<div style="margin-top:10px;">
+				<span style="font-size:18px;">
+					<a href="http://purl.org/dc/terms/modified" target="_blank">Last modified:</a>
+				</span>
+				<div style="margin-left:20px;">2011-11-16</div>
+			</div>
+			<div style="margin-top:10px;">
+				<span style="font-size:18px;">
+					<a href="http://www.w3.org/2003/06/sw-vocab-status/ns#term_status"
+						target="_blank">Status:</a>
+				</span>
+				<div style="margin-left:20px;">work in progress</div>
+			</div>
+			<div style="margin-top:10px;">
+				<span style="font-size:18px;">
+					<a href="http://purl.org/vocab/vann/preferredNamespaceUri" target="_blank"
+						>Namespace URI:</a>
+				</span>
+				<div style="margin-left:20px;">http://labs.mondeca.com/vocab/voaf#</div>
+			</div>
+			<div style="margin-top:10px;">
+				<span style="font-size:18px;">
+					<a href="http://purl.org/vocab/vann/preferredNamespacePrefix" target="_blank"
+						>Namespace Prefix:</a>
+				</span>
+				<div style="margin-left:20px;">voaf</div>
+			</div>
+
+
+			<!-- ############### EXAMPLE #################### -->
+			<div
+				style="margin-top:10px; border-top: 1px solid #B5B5B5; border-bottom: 1px solid #B5B5B5;">
+				<div style="font-size:18px;">Vocabulary in use example:</div>
+				<div>The network of vocabularies defined in such a way is described in the <a
+						href="http://labs.mondeca.com/dataset/lov" target="_blank">Linked Open
+						Vocabularies</a> dataset</div>
+			</div>
+
+			<!-- ############### CLASSES #################### -->
+			<div>
+				<div style="margin-top:20px; margin-bottom:10px; font-size:18px;">Classes:</div>
+				<table style="margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="Vocabulary" style="font-size:16px;">
+								<b>voaf:Vocabulary</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px; margin-top:5px; margin-bottom:5px;"
+									><i>Vocabulary</i> - A vocabulary used in the linked data cloud.
+								An instance of voaf:Vocabulary relies on or is used by at least
+								another instance of voaf:Vocabulary</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://labs.mondeca.com/vocab/voaf#Vocabulary</td>
+					</tr>
+				</table>
+				
+				<table style="margin-top:10px;" width="100%" border="0" cellpadding="0"
+						cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="VocabularySpace" style="font-size:16px;">
+								<b>voaf:VocabularySpace</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px; margin-top:5px; margin-bottom:5px;"
+								><i>Vocabulary Space</i> - A vocabulary space defines any relevant grouping of vocabularies e.g., designed for similar purposes or domains, or designed by the same publisher or the same project, etc.
+								A vocabulary can belong to zero, one or more vocabulary spaces.
+								Dublin Core properties isPartOf and hasPart are used to link a vocabulary to a vocabulary space</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://labs.mondeca.com/vocab/voaf#VocabularySpace</td>
+					</tr>
+				</table>
+			</div>
+
+
+			<!-- ############### PROPERTIES #################### -->
+			<div>
+				<div style="margin-top:20px; margin-bottom:10px; font-size:18px;">Properties:</div>
+				<table style="margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="classNumber" style="font-size:16px;">
+								<b>voaf:classNumber</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>number of classes</i> - The number of classes defined in the
+								vocabulary namespace.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://labs.mondeca.com/vocab/voaf#classNumber</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://www.w3.org/2001/XMLSchema#integer" target="_blank"
+								>xsd:integer</a>
+						</td>
+					</tr>
+				</table>
+
+				<table style="margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="propertyNumber" style="font-size:16px;">
+								<b>voaf:propertyNumber</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>number of properties</i> - The number of properties defined
+								in the vocabulary namespace.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://labs.mondeca.com/vocab/voaf#propertyNumber</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://www.w3.org/2001/XMLSchema#integer" target="_blank"
+								>xsd:integer</a>
+						</td>
+					</tr>
+				</table>
+
+				<table style="margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="reliesOn" style="font-size:16px;">
+								<b>voaf:reliesOn</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>relies on</i> - Indicates that the subject vocabulary uses
+								or extends some class or property of the object vocabulary</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://labs.mondeca.com/vocab/voaf#reliesOn</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Sub property of:</td>
+						<td>
+							<a href="http://rdfs.org/ns/void#vocabulary" target="_blank"
+								>void:vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Sub property of:</td>
+						<td>
+							<a href="http://purl.org/dc/terms/references" target="_blank"
+								>terms:references</a>
+						</td>
+					</tr>
+				</table>
+
+				<table style="margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="usedBy" style="font-size:16px;">
+								<b>voaf:usedBy</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"><i>used
+									by</i> - Indicates that the subject vocabulary is used by the
+								object vocabulary</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://labs.mondeca.com/vocab/voaf#usedBy</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Inverse of:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#reliesOn">voaf:reliesOn</a>
+						</td>
+					</tr>
+				</table>
+
+				<table style="margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="metadataVoc" style="font-size:16px;">
+								<b>voaf:metadataVoc</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>metadata vocabulary</i> - Indicates that the subject
+								vocabulary uses the object vocabulary in metadata at vocabulary or
+								element level</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://labs.mondeca.com/vocab/voaf#metadataVoc</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Sub property of:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#reliesOn">voaf:reliesOn</a>
+						</td>
+					</tr>
+				</table>
+
+				<table style="margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="extends" style="font-size:16px;">
+								<b>voaf:extends</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>extends</i> - Indicates that the subject vocabulary extends
+								the expressivity of the object vocabulary by declaring subsumption
+								relationships, using object vocabulary class as domain or range of a
+								subject vocabulary property, defining local restrictions etc
+							...</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://labs.mondeca.com/vocab/voaf#extends</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Sub property of:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#reliesOn">voaf:reliesOn</a>
+						</td>
+					</tr>
+				</table>
+
+				<table style="margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="specializes" style="font-size:16px;">
+								<b>voaf:specializes</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>specializes</i> - Indicates that the subject vocabulary
+								defines some subclasses or subproperties of the object vocabulary,
+								or local restrictions on those.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://labs.mondeca.com/vocab/voaf#specializes</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Sub property of:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#reliesOn">voaf:reliesOn</a>
+						</td>
+					</tr>
+				</table>
+
+				<table style="margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="generalizes" style="font-size:16px;">
+								<b>voaf:generalizes</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>generalizes</i> - Indicates that the subject vocabulary
+								generalizes by some superclasses or superproperties the object
+								vocabulary.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://labs.mondeca.com/vocab/voaf#generalizes</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Sub property of:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#reliesOn">voaf:reliesOn</a>
+						</td>
+					</tr>
+				</table>
+
+				<table style="margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="hasEquivalencesWith" style="font-size:16px;">
+								<b>voaf:hasEquivalencesWith</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"><i>has
+									equivalences with</i> - Indicates that the subject vocabulary
+								declares some equivalent classes or properties with the object
+								vocabulary.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://labs.mondeca.com/vocab/voaf#hasEquivalencesWith</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Sub property of:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#reliesOn">voaf:reliesOn</a>
+						</td>
+					</tr>
+				</table>
+				
+				<table style="margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="hasDisjunctionsWith" style="font-size:16px;">
+								<b>voaf:hasDisjunctionsWith</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"><i>has
+									disjunctions with</i> - Indicates that the subject vocabulary
+								declares some disjunct classes with the object
+								vocabulary.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://labs.mondeca.com/vocab/voaf#hasDisjunctionsWith</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Sub property of:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#reliesOn">voaf:reliesOn</a>
+						</td>
+					</tr>
+				</table>
+				
+				<table style="margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="similar" style="font-size:16px;">
+								<b>voaf:similar</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+								><i>similar</i> - Used to assert that two vocabularies are similar in scope and objectives, independently of the fact that they otherwise refer to each other.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://labs.mondeca.com/vocab/voaf#similar</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+								>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+								>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Type :</td>
+						<td>
+							<a href="http://www.w3.org/2002/07/owl#SymmetricProperty">owl:SymmetricProperty</a>
+						</td>
+					</tr>
+				</table>
+
+				<table style="margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="dataset" style="font-size:16px;">
+								<b>voaf:dataset</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+									><i>dataset</i> - A dataset using this
+								vocabulary.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://labs.mondeca.com/vocab/voaf#dataset</td>
+					</tr>
+					<tr>
+						<td>Domain:</td>
+						<td>
+							<a href="http://labs.mondeca.com/vocab/voaf#Vocabulary"
+							>voaf:Vocabulary</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://rdfs.org/ns/void#Dataset" target="_blank"
+							>void:Dataset</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Inverse of:</td>
+						<td>
+							<a href="http://rdfs.org/ns/void#vocabulary">void:vocabulary</a>
+						</td>
+					</tr>
+				</table>
+				<table style="margin-top:10px;" width="100%" border="0" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td colspan="2">
+							<div id="toDoList" style="font-size:16px;">
+								<b>voaf:toDoList</b>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div style="font-size:14px;  margin-top:5px; margin-bottom:5px;"
+								><i>to-do list</i> - Describes future tasks planned by a resource curator. This property is primarily intended to be used for vocabularies or datasets, but the domain is left open, it can be used for any resource. Use iCalendar Vtodo class and its properties to further describe the task calendar, priorities etc.</div>
+						</td>
+					</tr>
+					<tr>
+						<td>URI:</td>
+						<td>http://labs.mondeca.com/vocab/voaf#toDoList</td>
+					</tr>
+					<tr>
+						<td>Range:</td>
+						<td>
+							<a href="http://www.w3.org/2002/12/cal/ical#Vtodo" target="_blank"
+								>cal:Vtodo</a>
+						</td>
+					</tr>
+				</table>
+				
+			</div>
+
+			<div id="legend" style="margin-top:20px;">
+				<div>VOAF is licensed under Creative Commons <a
+						href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a> It is
+					developed by <a href="http://labs.mondeca.com/">Mondeca Labs</a> in the
+					framework of the <a href="http://datalift.org/">Datalift </a>project.</div>
+				<div>If you have any remark, suggestion or question, please <a
+						href="mailto:bernard.vatant@mondeca.com" target="_blank">contact
+				Bernard Vatant</a></div>
+			</div>
+		</div>
+		<script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push([ '_setAccount', 'UA-17663461-1' ]);
+            _gaq.push([ '_trackPageview' ]);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type =
+                'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+                'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script') [0];
+                s.parentNode.insertBefore(ga, s);
+            })();</script>
+
+	</body>
+</html>

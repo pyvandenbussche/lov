@@ -26,6 +26,7 @@ module.exports = function (app, config, passport) {
   app.use(express.favicon())
   app.use(express.static(config.root + '/public'))
   app.use(express.static(config.root + '/versions'))
+  app.use('/vocommons',express.static(config.root + '/vocommons'))
 
   // Logging
   // Use winston on production
