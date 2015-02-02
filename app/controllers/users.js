@@ -5,6 +5,7 @@
 
 var mongoose = require('mongoose')
   , User = mongoose.model('User')
+  , Agent = mongoose.model('Agent')
   , utils = require('../../lib/utils')
   , _ = require('underscore')
 
@@ -97,21 +98,28 @@ exports.session = login
  */
 
 exports.create = function (req, res) {
-  var user = new User(req.body)
-  user.provider = 'local'
-  user.save(function (err) {
-    if (err) {
-      return res.render('users/signup', {
-        errors: utils.errors(err.errors),
-        user: user,
-        title: 'Sign up'
-      })
-    }
+  Agent.load(req.body.agentHidden, function (err, agentBinding) {
+    if (err) return err 
+    if (!agentBinding) return new Error('Agent '+agentHidden+' not found')
+    req.body.agent = agentBinding;
+    
+    var user = new User(req.body)
+    console.log(JSON.stringify(user));
+    user.provider = 'local'
+    user.save(function (err) {
+      if (err) {
+        return res.render('users/signup', {
+          errors: utils.errors(err.errors),
+          user: user,
+          title: 'Sign up'
+        })
+      }
 
-    // manually login the user once successfully signed up
-    req.logIn(user, function(err) {
-      if (err) return next(err)
-      return res.redirect('/edition/lov/')
+      // manually login the user once successfully signed up
+      req.logIn(user, function(err) {
+        if (err) return next(err)
+        return res.redirect('/edition/lov/')
+      })
     })
   })
 }
@@ -129,7 +137,7 @@ exports.show = function (req, res) {
 }
 
 exports.index = function(req, res){
-  res.render('edition/index', {
+  res.render('users/index', {
     utils: utils
   })
  }

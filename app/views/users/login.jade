@@ -1,13 +1,30 @@
 extends ../layout/layout
 block content
       section#post.postPink
-          article
-            #login
-              h1 Log in
-              form(action="/agents/session", method="post")
-                input(type='hidden', name='_csrf', value="#{csrf_token}")
-                input(type='email', name="email", placeholder='Email')
-                input(type='password', name="password", placeholder='Password')
-                input.loginButtonLeft(type='submit' value='LOV\' In it!')
-                //-.loginButtonRight
-                  a(href="/signup") Sign up
+        article
+          h1 Log in
+          .clear
+      
+        form(action="/edition/lov/session", method="post" name="TheForm")#fieldSets
+          fieldset
+            #formErrors
+            input(type='hidden', name='_csrf', value="#{csrf_token}")
+            input(type='email', name="email", placeholder='Email')
+            input(type='password', name="password", placeholder='Password')
+            input.loginButtonRight(type='submit' name='submit' value='LOV\' In it!')
+      script.        
+        //form validation before submit
+        new FormValidator('TheForm', [{
+            name: 'email',
+            rules: 'required|valid_email'
+        }], function(errors, event) {
+            if (errors.length > 0) {
+              var errorString = '';
+              for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+                  errorString += errors[i].message + '<br />';
+              }
+              document.getElementById('formErrors').style.display = 'block';
+              document.getElementById('formErrors').innerHTML = errorString;
+              event.returnValue=false;
+            }
+        });

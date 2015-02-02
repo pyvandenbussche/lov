@@ -5,15 +5,16 @@ block content
           a(href='/dataset/lov') Linked Open Vocabularies 
             span (LOV)
       section#featuresBanner
+        if (req.isAuthenticated())
+          .featureWrapper
+            .contribute
+              a(href='/edition/lov') Edit
         .featureWrapper
           .suggest
             a(href='/dataset/lov/suggest') Suggest
         .featureWrapper
           .documentation
             a(href='/dataset/lov/about') Documentation
-        //-.featureWrapper
-          .contribute
-            a(href='/dataset/lov/signup') Contribute
         .featureWrapper
           .community
             a(href='https://plus.google.com/communities/108509791366293651606', target='_blank') Follow

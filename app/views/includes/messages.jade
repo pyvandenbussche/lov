@@ -6,12 +6,9 @@
         li!= inf
 
 - if (typeof errors != 'undefined' && JSON.stringify(errors).length>2)
-  | #{JSON.stringify(errors).length}#{JSON.stringify(errors)}
   .fade.in.alert.alert-block.alert-error
-    button.close(type='button', data-dismiss='alert') ×
-    ul
       - each error in errors
-        li!= error
+        div!= error
 
 - if (typeof success != 'undefined' && success.length)
   .fade.in.alert.alert-block.alert-success

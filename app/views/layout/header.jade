@@ -15,12 +15,9 @@ header
             li.wrpl
               a(title='', href='/dataset/lov/sparql')
                 | SPARQL/Dump
-        //-ul.login(style='position:absolute; top:0; right:0;')
-          if (req.isAuthenticated())
+        if (req.isAuthenticated())
+          ul.editionAuth(style='position:absolute; top:0; right:0;')
             li
-              a(href="/dataset/lov/agents/"+req.user.id, title="Profile") Profile
+              a(href="/edition/lov/users/"+req.user.id, title="Profile") Profile
             li
-              a(href="/dataset/lov/logout", title="logout") Logout
-          else
-            li
-              a(href="/dataset/lov/login", title="Login") Login
+              a(href="/edition/lov/logout", title="logout") Logout

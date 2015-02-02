@@ -1,38 +1,63 @@
 var mongoose = require('mongoose')
   , LocalStrategy = require('passport-local').Strategy
-  , AgentPrivate = mongoose.model('AgentPrivate')
+  , User = mongoose.model('User')
 
 
 module.exports = function (passport, config) {
   // require('./initializer')
 
   // serialize sessions
-  passport.serializeUser(function(agent, done) {
-    done(null, agent.id)
+  passport.serializeUser(function(user, done) {
+    done(null, user.id)
   })
 
   passport.deserializeUser(function(id, done) {
-    AgentPrivate.findOne({ _id: id }, function (err, agent) {
-      done(err, agent)
+    User.findOne({ _id: id }, function (err, user) {
+      done(err, user)
     })
   })
+  
+  passport.use(new LocalStrategy({
+      usernameField: 'email',
+      passwordField: 'password',
+      passReqToCallback : true
+    },
+    function(req, email, password, done) {
+      User.findOne({ email: email }, function (err, user) {
+        if (err) { return done(err) }
+        if (!user) {
+          return done(null, false, { message: 'Invalid email or password.' })
+        }
+        if (!user.authenticate(password)) {
+          return done(null, false, { message: 'Invalid email or password.' })
+        }
+        if (!user.activated === true) {
+          return done(null, false, { message: 'Your user account has not been activated yet.' })
+        }
+        return done(null, user)
+      })
+    }
+  ))
 
   // use local strategy
-  passport.use(new LocalStrategy({
+  /*passport.use(new LocalStrategy({
       usernameField: 'email',
       passwordField: 'password'
     },
     function(email, password, done) {
-      AgentPrivate.findOne({ email: email }, function (err, agent) {
+      User.findOne({ email: email }, function (err, user) {
         if (err) { return done(err) }
-        if (!agent) {
+        if (!user) {
           return done(null, false, { message: 'Unknown user' })
         }
-        if (!agent.authenticate(password)) {
+        if (!user.authenticate(password)) {
           return done(null, false, { message: 'Invalid password' })
         }
-        return done(null, agent)
+        if (!user.activated === true) {
+          return done(null, false, { message: 'Your user account has not been activated yet' })
+        }
+        return done(null, user)
       })
     }
-  ))
+  ))*/
 }

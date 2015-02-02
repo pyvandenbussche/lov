@@ -12,11 +12,11 @@ var mongoose = require('mongoose')
  */
 
 var UserSchema = new Schema({
-  email: { type: String, default: ''},
-  category: { type: String, default: '' },
+  email: { type: String},
+  category: { type: String, default: 'curator' },
   agent: {type : Schema.ObjectId, ref : 'Agent'},
-  hashed_password: { type: String, default: '' },
-  salt: { type: String, default: '' },
+  hashed_password: { type: String},
+  salt: { type: String },
   activated: { type: Boolean, default: false }
 })
 
@@ -32,6 +32,7 @@ UserSchema
     this.hashed_password = this.encryptPassword(password)
   })
   .get(function() { return this._password })
+  
 
 /**
  * Validations
@@ -59,7 +60,7 @@ UserSchema.path('email').validate(function (email, fn) {
       fn(!err && users.length === 0)
     })
   } else fn(true)
-}, 'Email already exists')
+}, 'This email already exists')
 
 UserSchema.path('hashed_password').validate(function (hashed_password) {
   return hashed_password.length

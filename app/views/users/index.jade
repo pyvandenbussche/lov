@@ -1,53 +1,21 @@
-extends ./layout/layout
+extends ../layout/layout
 block content
       section#title.postBlue
         h1(itemprop="name")
-          a(href='/edition/lov') LOV Edition
+          a(href='/edition/lov') LOV Edition 
             span (LOV)
       
       section#posts.default-area
-          article
-            #greenContainer.contents.clear.col-2.split.wrplGreen
+        div.clear.col-2
+          article.wrpl(style="")
+            .wrplGreen(style="padding:1em;width:100%")
               h2 Suggestions
-              
+          article.wrpl
+            .wrplGreen(style="padding:1em;width:100%")
               h2 Versions
-              
-            aside.wrpl
-              .h-padding
-                h2 Statistics
-                .line
-                .asideListFloat
-                  svg#chartElements(style='height:150px;')
-                h2 Expressivity
-                .line
-                .asideListFloat
-                  -if(typeof(lastVersion)!='undefined') 
-                    ul.expressivities
-                      -if(lastVersion.relMetadata.indexOf('http://www.w3.org/1999/02/22-rdf-syntax-ns#')>-1)
-                        li
-                          a.expressivity(href='/dataset/lov/vocabs/rdf') RDF
-                      -if(lastVersion.relMetadata.indexOf('http://www.w3.org/2000/01/rdf-schema#')>-1)
-                        li
-                          a.expressivity(href='/dataset/lov/vocabs/rdfs') RDFS
-                      -if(lastVersion.relMetadata.indexOf('http://www.w3.org/2002/07/owl#')>-1)
-                        li 
-                          a.expressivity(href='/dataset/lov/vocabs/owl') OWL  
-                .clear
-                h2 Tags
-                .line
-                .asideListFloat
-                  -if(vocab.tags && vocab.tags.length>0 )
-                    ul.tagsVocab
-                      - each tag in vocab.tags
-                        li
-                          a.tag(href='/dataset/lov/vocabs?tag='+encodeURIComponent(tag)) #{tag}
-                .clear
-                h2 LOD
-                .line
-                .blabla 
-                  span Vocabulary used in 
-                  a(href='http://stats.lod2.eu/', target='_blank')
-                    b #{(vocab.datasets)?vocab.datasets.length: 0} datasets 
-                  span 
-                .clear
-      
+          article.wrpl(style="")
+            .wrplGreen(style="padding:1em;width:100%")
+              h2 Reviews
+          article.wrpl
+            .wrplGreen(style="padding:1em;width:100%")
+              h2 Users

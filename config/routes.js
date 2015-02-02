@@ -37,27 +37,22 @@ var userAuth = [auth.requiresLogin, auth.user.hasAuthorization]
 
 module.exports = function (app, passport,esclient, elasticsearchClient, emailTransporter) {
 
-  /*app.get('/edition', function(req, res){res.redirect('/edition/lov/')})
+  app.get('/edition', function(req, res){res.redirect('/edition/lov/')})
   app.get('/edition/lov', auth.requiresLogin, users.index)
   app.get('/edition/lov/signup', users.signup)
   app.get('/edition/lov/login', users.login)
-  app.get('/edition/lov/logout', users.logout)*/
-  //app.post('/edition/lov/users', users.create.createAgent)
-  
+  app.get('/edition/lov/logout', users.logout)
+  app.post('/edition/lov/users', users.create)
+  app.post('/edition/lov/session',
+    passport.authenticate('local', {
+     failureRedirect: '/edition/lov/login',
+      failureFlash: true
+    }), users.session)
   
 
 
   // user routes
   //app.param('userId', users.user)
-  
-  //app.get('/signup', users.new)
-  
-  //app.post('/agents', agentsPrivate.createAgent)
-  //app.post('/agents/session',
-  //  passport.authenticate('local', {
-  //   failureRedirect: '/login',
-  //    failureFlash: 'Invalid email or password.'
-  //  }), agentsPrivate.session)
   //app.get('/users/:userId', users.show)
   //app.get('/users/:userId/edit', userAuth, users.edit) //TODO breach security
   //app.put('/users/:userId', userAuth, users.update)//TODO breach security
@@ -66,7 +61,6 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   // agent / user routes
   
   app.get('/dataset/lov/agents', function(req, res){search.searchAgent(req,res,esclient);})
-  //app.get('/agents/autocomplete', agentsPublic.autoComplete)
   app.get('/dataset/lov/agents/:agentId', agents.show)
   app.param('agentId', agents.load)
   //app.put('/agents/:agentId', agentAuth, agentsPublic.update)
@@ -126,9 +120,10 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   
   app.get('/dataset/lov/about', function(req, res){res.render('about', {});}  )
   
+  
   // search
   app.get('/dataset/lov/terms', function(req, res){search.search(req,res,esclient);})
-  app.get('/dataset/lov/searchMulti', function(req, res){searchMulti.search(req,res,esclient);})
+  //app.get('/dataset/lov/searchMulti', function(req, res){searchMulti.search(req,res,esclient);})
   
   //Bot
   app.get('/dataset/lov/suggest', function(req, res){bot.isInLOV(req,res);})
