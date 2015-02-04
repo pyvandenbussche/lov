@@ -1,0 +1,43 @@
+.editionIndexBox{
+  padding:1em;
+  width:100%;
+  position:relative;
+}
+.editionIndexBox h2{
+  padding-left:2em;
+  color: #FFFFFF;
+  font-size: 24px;
+  text-shadow: 1px 1px 5px #646464;
+}
+.editionIndexBox .countItems{
+  position:absolute;
+  background-color: #ffffff;
+  text-align: center;
+  width: 3em;
+  top:0.5em;
+  left:0.5em;
+  min-height: 2em;
+  padding-top:0.5em;
+border:1px solid #545454;
+}
+.editionIndexBox .countItems  .count {
+  font-weight: bold;
+  font-size: 22px;
+  text-align: center;
+  color: #3c3c3c;
+}
+.editionIndexBox .countItems .items {
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 12px;
+  text-align: center;
+  color: #545454;
+}
+
+.editionIndexBox .checkbox{
+  float:right;
+  padding-right:1em;
+  padding-top:0.5em;
+  width:1em;
+  height:1em;
+}

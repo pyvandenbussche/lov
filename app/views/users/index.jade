@@ -17,5 +17,24 @@ block content
             .wrplGreen(style="padding:1em;width:100%")
               h2 Reviews
           article.wrpl
-            .wrplGreen(style="padding:1em;width:100%")
-              h2 Users
+            .wrplGreen.editionIndexBox
+              .editionIndexBoxHeader
+                input#selectAllUsers(type="checkbox")
+              .count-items
+                span.count #{users.length}
+                .clear
+                .items
+                  | #{users.length==1 ? 'user' : 'users'}
+              - if(users && users.length>0)
+                ul#SearchGrid
+                  each usr in users
+                    li(class="SearchBoxperson")
+                      .SearchContainer
+                        div.SearchInnerBox
+                          a.prefix(href='/dataset/lov/agents/#{usr.agent.name}') !{usr.agent.name} 
+                          span - !{usr.category}
+                          .checkbox
+                            input.checkboxUser(type="checkbox" value="#usr._id")
+                          div.uri 
+                              a !{usr.email}
+                        div.hr

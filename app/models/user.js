@@ -133,6 +133,10 @@ UserSchema.statics = {
   listAdmin: function (cb) {
     this.find({category:"admin", activated:true}).exec(cb)
   },
+  
+  listUsersForReview: function (cb) {
+    this.find({activated:false}).populate('agent', 'name').exec(cb)
+  },
 }
 
 mongoose.model('User', UserSchema)

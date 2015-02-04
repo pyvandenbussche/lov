@@ -137,8 +137,11 @@ exports.show = function (req, res) {
 }
 
 exports.index = function(req, res){
-  res.render('users/index', {
-    utils: utils
+  User.listUsersForReview(function (err, users) {
+    res.render('users/index', {
+      utils: utils,
+      users:users
+    })
   })
  }
 
