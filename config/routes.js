@@ -48,7 +48,7 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
      failureRedirect: '/edition/lov/login',
       failureFlash: true
     }), users.session)
-  
+  app.post('/edition/lov/usersReview', auth.requiresLogin, users.reviewBatch)
 
 
   // user routes

@@ -18,23 +18,82 @@ block content
               h2 Reviews
           article.wrpl
             .wrplGreen.editionIndexBox
-              .editionIndexBoxHeader
-                input#selectAllUsers(type="checkbox")
-              .count-items
-                span.count #{users.length}
-                .clear
-                .items
-                  | #{users.length==1 ? 'user' : 'users'}
-              - if(users && users.length>0)
-                ul#SearchGrid
-                  each usr in users
-                    li(class="SearchBoxperson")
-                      .SearchContainer
-                        div.SearchInnerBox
-                          a.prefix(href='/dataset/lov/agents/#{usr.agent.name}') !{usr.agent.name} 
-                          span - !{usr.category}
-                          .checkbox
-                            input.checkboxUser(type="checkbox" value="#usr._id")
-                          div.uri 
-                              a !{usr.email}
-                        div.hr
+              form(action="/edition/lov/usersReview", method="post" id="formUsers")
+                .editionIndexBoxHeader
+                  .title User Review
+                  input#submitUsers(type='submit' name='submit' value='Save')
+                  input#selectAllUsers(type='button' name='selectAll' value='Select all')
+                  input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
+                .count-items
+                  span.count #{users.length}
+                  .clear
+                  .items
+                    | #{users.length==1 ? 'user' : 'users'}
+                - if(users && users.length>0)
+                  ul#editionGridUsers.editionGrid 
+                    each usr in users
+                      li(class="editionBoxperson")
+                        .editionContainer
+                          div.editionInnerBox
+                            .checkbox
+                              input.checkboxUser(type="checkbox" value="#{usr._id}")
+                            img.remove(src="/img/remove.png")
+                            a.prefix(href='/dataset/lov/agents/#{usr.agent.name}') !{usr.agent.name} 
+                            span - !{usr.category}
+                            div.uri !{usr.email}
+                          div.hr
+          script.
+            function changeClassRemove() {
+                $(this).attr('src', function(i, oldSrc) {
+                  if(oldSrc == '/img/remove.png'){
+                    $(this).parent().parent().parent().addClass('inactive');
+                    $(this).parent().find('input:checkbox:first').prop('checked', true);
+                    return '/img/add.png';
+                  }
+                  else{
+                    $(this).parent().parent().parent().removeClass('inactive');
+                    $(this).parent().find('input:checkbox:first').prop('checked', false);
+                    return '/img/remove.png';
+                  } 
+                });
+            }
+            $('.remove').on('click', changeClassRemove);
+            $('#selectAllUsers').click(function() {  //on click 
+                if($(this).val()=='Select all') { // check select status
+                    $(this).val('Deselect all');
+                    $('.checkboxUser').each(function() { //loop through each checkbox
+                        this.checked = true;  //select all checkboxes with class "checkbox1"
+                    });
+                }else{
+                    $('#selectAllUsers').val('Select all');
+                    $('.checkboxUser').each(function() { //loop through each checkbox
+                        this.checked = false; //deselect all checkboxes with class "checkbox1"   
+                    });         
+                }
+            });
+            $("#formUsers").submit( function(eventObj) {
+              var deleteArray = [];
+              var activateArray = [];
+              
+              //add users to delete
+              $('.checkboxUser').each(function() { //loop through each checkbox
+              if($(this).is(':checked') && $(this).parent().parent().parent().parent().attr('class').indexOf('inactive')>-1)
+                 deleteArray.push(this.value);          
+              });          
+              $('<input />').attr('type', 'hidden')
+                  .attr('name', "deleteArray")
+                  .attr('value', JSON.stringify(deleteArray))
+                  .appendTo('#formUsers');
+              
+              //add users to update
+              $('.checkboxUser').each(function() { //loop through each checkbox
+              if($(this).is(':checked') && $(this).parent().parent().parent().parent().attr('class').indexOf('inactive')<0)
+                 activateArray.push(this.value);          
+              });          
+              $('<input />').attr('type', 'hidden')
+                  .attr('name', "activateArray")
+                  .attr('value', JSON.stringify(activateArray))
+                  .appendTo('#formUsers');
+                  
+              return true;
+            });

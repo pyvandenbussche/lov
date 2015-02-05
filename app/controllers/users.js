@@ -5,6 +5,7 @@
 
 var mongoose = require('mongoose')
   , User = mongoose.model('User')
+  , users = require('./users')
   , Agent = mongoose.model('Agent')
   , utils = require('../../lib/utils')
   , _ = require('underscore')
@@ -75,6 +76,13 @@ exports.update = function(req, res){
       user: user,
       errors: err.errors
     })
+  })
+}
+
+exports.reviewBatch = function(req, res){
+  User.processUsersReviewBatch(JSON.parse(req.body.deleteArray), JSON.parse(req.body.activateArray), function (err, nu) {
+    if (err) return err;
+    res.redirect('/edition/lov/')
   })
 }
 

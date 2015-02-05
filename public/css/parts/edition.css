@@ -34,10 +34,101 @@ border:1px solid #545454;
   color: #545454;
 }
 
-.editionIndexBox .checkbox{
+.editionIndexBoxHeader{
+  height:2em;
+}
+.editionIndexBoxHeader .title{
+  float:left;
+  color: #FFFFFF;
+  text-shadow: 1px 1px 5px #646464;
+  text-transform: uppercase;
+}
+.editionIndexBoxHeader #selectAllUsers{
   float:right;
-  padding-right:1em;
-  padding-top:0.5em;
+}
+.editionIndexBoxHeader #submitUsers, .editionIndexBoxHeader #selectAllUsers{
+  float:right;
+  background:#A2DAD2;
+  margin: 0 .5em;
+  margin-top:-.5em;
+  border:0;
+  padding:.5em;
+  font-family:'Open Sans',sans-serif;
+  font-size:100%;
+  color:#000;
+  cursor:pointer;
+  transition:background .3s;
+  -webkit-transition:background .3s;
+}
+.editionIndexBoxHeader #submitUsers:hover, .editionIndexBoxHeader #selectAllUsers:hover{
+  background:#ffffff;
+}
+
+
+/*
+ul.editionGrid > li.editionBoxperson > .editionContainer > .editionInnerBox|.hr
+
+*/
+
+.editionGrid li:first-child {
+  min-height: 3.2em;
+  margin-left: 4.7em;
+}
+.editionGrid li{
+  list-style: none;
+  padding: 0.4em;
+  background-color: #F6F6F6;
+  border-bottom: 0.4em solid #5E9B9B;
+  -webkit-transition: background 0.3s, box-shadow 0.3s;
+  -moz-transition: background 0.3s, box-shadow 0.3s;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.editionGrid li.inactive{
+  background-color: #444747;
+}
+li.editionBoxperson .editionContainer{
+  border-left: 6px solid #82C836;
+}
+.editionInnerBox{
+	padding:0.2em;
+  padding-left:0.6em;
+  overflow:visible;
+}
+.editionInnerBox .hr {
+     background: #dddddd; 
+     width: 90%;
+     margin:auto;
+     height: 1px;
+}
+.editionInnerBox .prefix { 
+  color:#232323; 
+  font-weight: bold;
+  font-size:110%;
+}
+li.inactive .editionInnerBox .prefix {
+  color:#FFFFFF;
+  text-decoration:line-through;
+}
+.editionInnerBox .uri{
+  color:#969696;
+  font-size:80%;
+}
+li.inactive .editionInnerBox span {
+  color:#E6E6E6;
+  text-decoration:line-through;
+}
+.editionInnerBox .remove{
+  float:right;
+  margin-right:.5em;
+  margin-top:0.5em;
+  cursor:pointer;
+  width:1em;
+  height:1em;
+}
+.editionInnerBox .checkbox{
+  float:right;
+  padding-right:.5em;
+  padding-top:0.6em;
   width:1em;
   height:1em;
 }

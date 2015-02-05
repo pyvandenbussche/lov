@@ -65,7 +65,7 @@
   padding:6% 4%;
 }
 
-input[type="button"], input[type="submit"]{
+#fieldSets input[type="button"], #fieldSets input[type="submit"]{
   width:40%;
   background:#f57c20;
   border:0;
@@ -77,7 +77,7 @@ input[type="button"], input[type="submit"]{
   transition:background .3s;
   -webkit-transition:background .3s;
 }
-input[type="button"]:disabled{
+#fieldSets input[type="button"]:disabled{
   cursor:default;
   background:rgb(200,200,200);
 }
@@ -87,7 +87,7 @@ input[type="button"]:disabled{
 }
 
 
-input{
+#fieldSets input{
   width:92%;
   background:#fff;
   margin-bottom:0.5em;
@@ -98,7 +98,7 @@ input{
   color:#555;
 }
 
-input[type="text"]:disabled
+#fieldSets input[type="text"]:disabled
 {
 background:#dddddd;
 }
