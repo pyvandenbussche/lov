@@ -9,6 +9,8 @@ var mongoose = require('mongoose')
   , Agent = mongoose.model('Agent')
   , utils = require('../../lib/utils')
   , _ = require('underscore')
+  , async = require('async')
+  , ObjectId = mongoose.Types.ObjectId
 
 var login = function (req, res) {
   if (req.session.returnTo) {
@@ -80,10 +82,26 @@ exports.update = function(req, res){
 }
 
 exports.reviewBatch = function(req, res){
-  User.processUsersReviewBatch(JSON.parse(req.body.deleteArray), JSON.parse(req.body.activateArray), function (err, nu) {
+  /*User.processUsersReviewBatch(JSON.parse(req.body.deleteArray), JSON.parse(req.body.activateArray), function (err, nu) {
     if (err) return err;
     res.redirect('/edition/lov/')
-  })
+  })*/
+  var deleteArray=JSON.parse(req.body.deleteArray);
+  var activateArray=JSON.parse(req.body.activateArray);
+  var calls = [];
+  for (i = 0; i < deleteArray.length; i++) { 
+    console.log("delete: "+deleteArray[i]);
+    calls.push(function(cb) { User.find({_id:mongoose.Types.ObjectId(deleteArray[i])}).remove().exec(cb)});
+  }
+  for (i = 0; i < activateArray.length; i++) { 
+    console.log("activate: "+activateArray[i]);
+    calls.push(function(cb) { User.update({"_id":new ObjectId(activateArray[i])},{$set:{activated:true}}).exec(cb)});
+  }
+  //console.log(calls);
+  async.parallel(calls, function(err, result) {
+      console.log(result);
+      res.redirect('/edition/lov/')
+    });
 }
 
 /**
