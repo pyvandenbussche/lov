@@ -220,6 +220,12 @@ VocabularySchema.statics = {
       .exec(cb)
   },
   
+  listVocabsForReview: function (agentId, cb) {
+    this.find({publisherIds:agentId},{prefix:1,_id:0,tags:1})
+      .sort({prefix:1})
+      .exec(cb)
+  },
+  
   
   /**
    * List vocabularyprefix with all agents

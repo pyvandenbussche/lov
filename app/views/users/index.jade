@@ -7,9 +7,33 @@ block content
       
       section#posts.default-area
         div.clear.col-2
-          article.wrpl(style="")
-            .wrplGreen(style="padding:1em;width:100%")
-              h2 Suggestions
+          article.wrpl
+            .wrplGreen.editionIndexBox
+              form(action="", method="post" id="formSuggests")
+                .editionIndexBoxHeader
+                  .title Suggestion Review
+                  - if(suggests && suggests.length>0)
+                    input#submitSuggests(type='submit' name='submit' value='Save')                  
+                  input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
+                .count-items
+                  span.count #{suggests.length}
+                  .clear
+                  .items
+                    | #{suggests.length==1 ? 'vocab' : 'vocabs'}
+                - if(suggests && suggests.length>0)
+                  ul#editionGridUsers.editionGrid 
+                    each sugg in suggests
+                      li(class="editionBoxperson")
+                        .editionContainer
+                          div.editionInnerBox
+                            .checkbox
+                              input.checkboxUser(type="checkbox" value="#{sugg._id}")
+                            img.remove(src="/img/remove.png")
+                            a.prefix(href='#{sugg.uri}' target='_blank') #{sugg.uri}
+                            div.uri Suggested by #{sugg.suggestedBy} On #{utils.dateToYMD(sugg.date)}
+                            div.uri 
+                          div.hr
+                          div.uri #{sugg.status}
           article.wrpl
             .wrplGreen(style="padding:1em;width:100%")
               h2 Versions
@@ -21,8 +45,10 @@ block content
               form(action="/edition/lov/usersReview", method="post" id="formUsers")
                 .editionIndexBoxHeader
                   .title User Review
-                  input#submitUsers(type='submit' name='submit' value='Save')
-                  input#selectAllUsers(type='button' name='selectAll' value='Select all')
+                  - if(users && users.length>0)
+                    input#submitUsers(type='submit' name='submit' value='Save')
+                    input#selectAllUsers(type='button' name='selectAll' value='Select all')
+                  
                   input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
                 .count-items
                   span.count #{users.length}

@@ -2,6 +2,7 @@
   padding:1em;
   width:100%;
   position:relative;
+  min-height: 8em;
 }
 .editionIndexBox h2{
   padding-left:2em;
@@ -40,11 +41,9 @@ border:1px solid #545454;
 .editionIndexBoxHeader .title{
   float:left;
   color: #FFFFFF;
-  text-shadow: 1px 1px 5px #646464;
+  font-weight: bold;
+  /*text-shadow: 1px 1px 5px #646464;*/
   text-transform: uppercase;
-}
-.editionIndexBoxHeader #selectAllUsers{
-  float:right;
 }
 .editionIndexBoxHeader #submitUsers, .editionIndexBoxHeader #selectAllUsers{
   float:right;

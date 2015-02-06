@@ -137,58 +137,6 @@ UserSchema.statics = {
   
   listUsersForReview: function (cb) {
     this.find({activated:false}).populate('agent', 'name').exec(cb)
-  },
-  
-  processUsersReviewBatch: function (deleteArray, activateArray, callback) {
-    
-    var _self = this;
-    var calls = [];
-    for (i = 0; i < deleteArray.length; i++) { 
-      console.log("delete: "+deleteArray[i]);
-      //calls.push(function(cb) { return _self.find({_id:mongoose.Types.ObjectId(deleteArray[i])}).remove().exec(cb)});
-    }
-    for (i = 0; i < activateArray.length; i++) { 
-      console.log("activate: "+activateArray[i]);
-      calls.push(function(cb) { return _self.update({_id:activateArray[i]}, {$set:{activated:true}}, function(err, result) {
-        console.log(result);
-        return callback(err);
-      })});
-    }
-    console.log(calls);
-    async.parallel(calls, callback);
-    
-    /*
-    var performers;
-
-performers = {};
-
-async.parallel([
-  function(callback) {
-    return conductor.find({}, function(err, result) {
-      performers.conductor = result;
-      return callback(err);
-    });
-  }, function(callback) {
-    return soloist.find({}, function(err, result) {
-      performers.soloist = result;
-      return callback(err);
-    });
-  }, function(callback) {
-    return orchestra.find({}, function(err, result) {
-      performers.orchestra = result;
-      return callback(err);
-    });
-  }, function(callback) {
-    return chamber.find({}, function(err, result) {
-      performers.chamber = result;
-      return callback(err);
-    });
-  }
-], function(err) {
-  return res.json(performers);
-});
-*/
-    
   }
 }
 

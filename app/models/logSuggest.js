@@ -26,10 +26,10 @@ var LogSuggestSchema = new Schema({
  */
 
 LogSuggestSchema.statics = {
-
-  
-  mostPopularTags: function (nbItemsRequired, cb) {
-    this.find({},{"_id":0}).sort({'nbOccurrences':-1}).limit(nbItemsRequired).exec(cb)
+  list: function (cb) {
+    this.find()
+      .sort({date:-1})
+      .exec(cb)
   },
 }
 

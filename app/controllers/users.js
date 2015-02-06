@@ -7,6 +7,8 @@ var mongoose = require('mongoose')
   , User = mongoose.model('User')
   , users = require('./users')
   , Agent = mongoose.model('Agent')
+  , Vocabulary = mongoose.model('Vocabulary')
+  , LogSuggest = mongoose.model('LogSuggest')
   , utils = require('../../lib/utils')
   , _ = require('underscore')
   , async = require('async')
@@ -82,26 +84,20 @@ exports.update = function(req, res){
 }
 
 exports.reviewBatch = function(req, res){
-  /*User.processUsersReviewBatch(JSON.parse(req.body.deleteArray), JSON.parse(req.body.activateArray), function (err, nu) {
-    if (err) return err;
-    res.redirect('/edition/lov/')
-  })*/
   var deleteArray=JSON.parse(req.body.deleteArray);
   var activateArray=JSON.parse(req.body.activateArray);
-  var calls = [];
-  for (i = 0; i < deleteArray.length; i++) { 
-    console.log("delete: "+deleteArray[i]);
-    calls.push(function(cb) { User.find({_id:mongoose.Types.ObjectId(deleteArray[i])}).remove().exec(cb)});
-  }
-  for (i = 0; i < activateArray.length; i++) { 
-    console.log("activate: "+activateArray[i]);
-    calls.push(function(cb) { User.update({"_id":new ObjectId(activateArray[i])},{$set:{activated:true}}).exec(cb)});
-  }
-  //console.log(calls);
-  async.parallel(calls, function(err, result) {
-      console.log(result);
-      res.redirect('/edition/lov/')
-    });
+  
+  async.each(activateArray, function(id, callback) {
+      User.update({_id:id},{$set:{activated:true}}).exec(callback);
+  }, function(err, result) {
+      if( err ) { return console.log(err); }
+      async.each(deleteArray, function(id, cb) {
+          User.find({_id:id}).remove().exec(cb);
+      }, function(err, result) {
+          if( err ) { return console.log(err); }
+          res.redirect('/edition/lov/');
+      });
+  });
 }
 
 /**
@@ -163,10 +159,13 @@ exports.show = function (req, res) {
 }
 
 exports.index = function(req, res){
-  User.listUsersForReview(function (err, users) {
-    res.render('users/index', {
-      utils: utils,
-      users:users
+  LogSuggest.list(function (err, suggests) {
+    User.listUsersForReview(function (err, users) {
+      res.render('users/index', {
+        utils: utils,
+        users:users,
+        suggests:suggests
+      })
     })
   })
  }
