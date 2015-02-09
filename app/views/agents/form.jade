@@ -1,6 +1,6 @@
 extends ../layout/layout
 block content
-      - var action = '/agents'
+      - var action = '/edition/lov/agents'
       - action += agent.isNew? '' : '/' + agent.id
       section#post.postBlue
         article
@@ -13,21 +13,34 @@ block content
                 input(type='hidden', name='_csrf', value="#{csrf_token}")
                 - if (!agent.isNew)
                   input(type="hidden", name="_method", value="PUT")
-                input#agentHidden(type="hidden", name="agentHidden")
-                #signupRemove.signupRemove(onclick="this.style.display = 'none';document.getElementById('agentHidden').value = '';document.getElementById('user-name-agent').disabled = false;") X
-                input#user-name-agent.typeahead(type='text', name="name", placeholder='Full name', value=agent.name, autocomplete='off')
-                select(name='type')
-                      - var agentTypes = ['person','organization','software agent'];
-                      each agentType in agentTypes
-                        option(value=agentType, selected= agentType == agent.type)= agentType
-                input(type='text', name="prefUri", placeholder='Enter the preferred URI', value=agent.prefUri)
-                label.control-label(for='altUri') Alternative URIs
-                  span(onclick="addInput('altUrisDiv','altUris','');") Add
-                  #altUrisDiv.controls
-                    each altUri in agent.altUris
-                      div
-                        input(type='text', name='altUris[]', value=altUri, style='width:600px;')
-                        span(onClick="this.parentNode.remove();") Remove
+                .metadataFrame
+                  div(class='metadataContainerPerson')
+                    table.metadata-table.noheader.flat-table-3(style="width:100%")
+                      tbody.editionTable
+                        tr
+                          td(style='width:15%;') Full name
+                          td(style='width:85%;')
+                            input(type='text', name="name", value=agent.name)
+                        tr
+                          td Type
+                          td
+                            select(name='type')
+                              - var agentTypes = ['person','organization','software agent'];
+                              each agentType in agentTypes
+                                option(value=agentType, selected= agentType == agent.type)= agentType
+                        tr
+                          td URI
+                          td
+                            input(type='text', name="prefUri", value=agent.prefUri)
+                        tr
+                          td Alternative URIs
+                          td
+                            span(onclick="addInput('altUrisDiv','altUris','');") Add
+                            #altUrisDiv.controls
+                              each altUri in agent.altUris
+                                div
+                                  input(type='text', name='altUris[]', value=altUri, style='width:600px;')
+                                  span(onClick="this.parentNode.remove();") Remove
                 input.loginButtonLeft(type='submit' value='Save')
                 .loginButtonRight
                   a(href="/agents", title="cancel") Cancel
