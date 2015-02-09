@@ -15,77 +15,13 @@ var mongoose = require('mongoose')
  * Load
  */
 
-exports.loadFromName = function(req, res, next, name){
-  Agent.loadFromName(name, function (err, agent) {
+exports.load = function(req, res, next, name){
+  Agent.load(name, function (err, agent) {
     if (err) return next(err)    
     if (!agent) return next(new Error('Agent '+name+' not found'))
     req.agent = agent
     next()
   })
-}
-
-exports.load = function(req, res, next, id){
-  Agent.load(id, function (err, agent) {
-    if (err) return next(err)    
-    if (!agent) return next(new Error('Agent '+id+' not found'))
-    req.agent = agent
-    next()
-  })
-}
-
-/**
- * Edit an agent
- */
-exports.edit = function (req, res) {
-    res.render('agents/edit', {
-      agent: req.agent
-    })
-}
-
-/**
- * Delete an agent
- */
-exports.destroy = function(req, res){
-  var agent = req.agent
-  agent.remove(function(err){
-    req.flash('info', 'Deleted successfully')
-    res.redirect('/dataset/lov/agents')
-  })
-}
-
-/**
- * Create agent
- */
-exports.createAgent = function (req, res) {
-  var agent = new AgentPrivate(req.body)
-  agent.save(function (err) {
-    if (err) {return res.render('500')}
-    return res.redirect('/dataset/lov/agents/' + agent.name)
-  })
-}
-
-
-/**
- * Update agent
- */
-
-exports.update = function(req, res){
-  //var agent = req.agent
-  AgentPrivate.load(req.agent._id, function (err, agent) {
-      if (err){return res.render('500')}
-      agent = _.extend(agent, req.body)
-      if(!req.body.languages)agent.languages=undefined; //trick to remove all elements when no languages
-      console.log(req.body);
-      agent.save(function(err) {
-        if (!err) {
-          return res.redirect('/agents/' + agent._id)
-        }
-        res.render('agents/editPrivate', {
-          agent: agent,
-          errors: err.errors
-        })
-      })
-  });
 }
 
 /**

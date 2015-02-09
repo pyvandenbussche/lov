@@ -58,12 +58,7 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   //users
   app.get('/edition/lov/users', auth.requiresAdmin, users.index)
   app.post('/edition/lov/userChangeCategory', auth.requiresAdmin, users.userChangeCategory)
-  //agents
-  app.get('/edition/lov/agents/:agentId', auth.requiresLogin, agents.edit)
-  app.post('/edition/lov/agents', auth.requiresLogin, agents.createAgent)
-  app.put('/edition/lov/agents/:agentId', auth.requiresLogin, agents.update)
-  app.del('/edition/lov/agents/:agentId', auth.requiresLogin, agents.destroy)
-  app.param('agentId', agents.load)
+  
 
   // user routes
   
@@ -73,15 +68,16 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   //app.put('/users/:userId', userAuth, users.update)//TODO breach security
  
   
-  // agent
+  // agent / user routes
+  
   app.get('/dataset/lov/agents', function(req, res){search.searchAgent(req,res,esclient);})
-  app.get('/dataset/lov/agents/:agentName', agents.show)
-  app.param('agentName', agents.loadFromName)
+  app.get('/dataset/lov/agents/:agentId', agents.show)
+  app.param('agentId', agents.load)
   //app.put('/agents/:agentId', agentAuth, agentsPublic.update)
   //app.get('/agents/new', auth.requiresLogin, agentsPublic.new)
   //app.get('/signup', agentsPrivate.signup)
   
-  
+  //app.post('/agents/private', agentsPrivate.createAgent)
   //app.get('/agents/private/:agentId/edit', agentAuth, agentsPrivate.edit)
   //app.get('/agents/:agentId/edit', agentAuth, agentsPublic.edit)
   //app.put('/agents/private/:agentId', agentAuth, agentsPrivate.update)

@@ -419,25 +419,3 @@ margin-left: auto;
 	background: #f57c20;
 	color: white;
 }
-
-
-
-
-/* edition */
-
-.editionTable input{
-  width:92%;
-  background:#fff;
-  border:1px solid #ccc;
-  padding:0.8em;
-  font-family:'Open Sans',sans-serif;
-  color:#555;
-}
-.editionTable select{
-  width:50%;
-  background:#fff;
-  border:1px solid #ccc;
-  padding:0.8em;
-  font-family:'Open Sans',sans-serif;
-  color:#555;
-}

@@ -49,14 +49,8 @@ AgentSchema.statics = {
    * @param {Function} cb
    * @api private
    */
-  loadFromName: function (name, cb) {
+  load: function (name, cb) {
     this.findOne({name : name})
-      .populate('hasRoleInVocab','prefix')
-      .exec(cb)
-  },
-  
-  load: function (id, cb) {
-    this.findOne({_id : id})
       .populate('hasRoleInVocab','prefix')
       .exec(cb)
   },

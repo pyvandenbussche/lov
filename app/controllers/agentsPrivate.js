@@ -141,17 +141,27 @@ exports.edit = function (req, res) {
  */
 
 exports.update = function(req, res){
-  var agent = req.article;
-  article = _.extend(agent, req.body);
-  agent.save(function(err) {
-    if (!err) {
-      return res.redirect('/edition/lov/agents/' + agent._id)
-    }
-    res.render('dataset/lov/agents/' + agent.name, {
-      agent: agent,
-      errors: err.errors
-    })
-  })
+  //var agent = req.agent
+  AgentPrivate.load(req.agent._id, function (err, agent) {
+      if (err){
+        res.render('agents/editPrivate', {
+          agent: agent,
+          errors: err.errors
+        })
+      }
+      agent = _.extend(agent, req.body)
+      if(!req.body.languages)agent.languages=undefined; //trick to remove all elements when no languages
+      console.log(req.body);
+      agent.save(function(err) {
+        if (!err) {
+          return res.redirect('/agents/' + agent._id)
+        }
+        res.render('agents/editPrivate', {
+          agent: agent,
+          errors: err.errors
+        })
+      })
+  });
 }
 
 /**
