@@ -83,7 +83,7 @@ exports.update = function(req, res){
   })
 }
 
-exports.reviewBatch = function(req, res){
+/*exports.reviewBatch = function(req, res){
   var deleteArray=JSON.parse(req.body.deleteArray);
   var activateArray=JSON.parse(req.body.activateArray);
   
@@ -98,7 +98,7 @@ exports.reviewBatch = function(req, res){
           res.redirect('/edition/lov/');
       });
   });
-}
+}*/
 
 /**
  * Logout
@@ -137,11 +137,12 @@ exports.create = function (req, res) {
         })
       }
 
+      res.redirect('/edition/lov/login')
       // manually login the user once successfully signed up
-      req.logIn(user, function(err) {
+      /*req.logIn(user, function(err) {
         if (err) return next(err)
         return res.redirect('/edition/lov/')
-      })
+      })*/
     })
   })
 }
@@ -158,17 +159,45 @@ exports.show = function (req, res) {
   })
 }
 
+/**
+ * List
+ */
 exports.index = function(req, res){
-  LogSuggest.list(function (err, suggests) {
-    User.listUsersForReview(function (err, users) {
-      res.render('users/index', {
-        utils: utils,
-        users:users,
-        suggests:suggests
+  // TODO: add filters like page size, category, status and search feature
+
+  User.list( function(err, users) {
+    if (err) return res.render('500')
+     res.render('users/index', {
+      utils: utils,
+      users: users
+    })
+  })
+}
+
+exports.userChangeCategory = function(req, res){
+  User.update({_id:req.body.userId},{$set:{category:req.body.category}}).exec(function(err, user) {
+      if (err) return res.render('500')
+      res.redirect('/edition/lov/users');
+  });  
+}
+
+
+/*exports.index = function(req, res){
+console.log(req);
+  Vocabulary.listVocabsForReview(function (err, vocabsForReview) {
+    LogSuggest.list(function (err, suggests) {
+      User.listUsersForReview(function (err, users) {
+        res.render('users/index', {
+          utils: utils,
+          users:users,
+          suggests:suggests,
+          vocabsForReview:vocabsForReview,
+          auth:req.user
+        })
       })
     })
   })
- }
+ }*/
 
 /**
  * Find user by id

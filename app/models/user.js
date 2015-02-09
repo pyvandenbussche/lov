@@ -135,6 +135,19 @@ UserSchema.statics = {
     this.find({category:"admin", activated:true}).exec(cb)
   },
   
+  list: function (cb) {
+    this.find({activated:true}).populate('agent', 'name').exec(
+      function(err, users) {
+        if( err ) { return cb(err, users); }
+        users.sort(function(a,b){
+            return a.agent.name > b.agent.name});
+         users.sort(function(a,b){
+            return a.category > b.category});
+        return cb(err, users);
+        }
+    )
+  },
+  
   listUsersForReview: function (cb) {
     this.find({activated:false}).populate('agent', 'name').exec(cb)
   }

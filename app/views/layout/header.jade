@@ -15,6 +15,10 @@ header
             li.wrpl
               a(title='', href='/dataset/lov/sparql')
                 | SPARQL/Dump
+            if (req.isAuthenticated() && req.user.category === "admin")
+              li.wrpl
+                a(title='', href='/edition/lov/users')
+                  | Users
         if (req.isAuthenticated())
           ul.editionAuth(style='position:absolute; top:0; right:0;')
             li

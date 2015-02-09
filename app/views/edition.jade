@@ -1,0 +1,180 @@
+extends ./layout/layout
+block content
+      section#title.postBlue
+        h1(itemprop="name")
+          a(href='/edition/lov') LOV Edition 
+            span (LOV)
+            
+      section#featuresBanner
+        .featureWrapper
+          .suggest
+            a(href='/dataset/lov/suggest') Vocab
+        .featureWrapper
+          .suggest
+            a(href='/dataset/lov/suggest') Agent
+        - if(auth.category === "admin")       
+          .featureWrapper
+            .suggest
+              a(href='/dataset/lov/suggest') User
+      
+      section#posts.default-area
+        div.clear.col-2
+          article.wrpl
+            .wrplGreen.editionIndexBox
+                .editionIndexBoxHeader
+                  .title Suggestion Review
+                .count-items
+                  span.count #{suggests.length}
+                  .clear
+                  .items
+                    | #{suggests.length==1 ? 'vocab' : 'vocabs'}
+                - if(suggests && suggests.length>0)
+                  ul#editionGridUsers.editionGrid 
+                    each sugg in suggests
+                      li(class="editionBoxSugg")
+                        .editionContainer
+                          div.editionInnerBox
+                            - if(typeof sugg.reviewedBy =="undefined" || !sugg.reviewedBy)
+                              .takeAction
+                                form(action="/edition/lov/suggestTakeAction", method="post")
+                                  img#submitTakeAction(src="/img/take_action.png" title="I'll review it!" onclick="submit();")                 
+                                  input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
+                                  input(type='hidden', name='suggId', value="#{sugg._id}")
+                            - else
+                              - if(""+sugg.reviewedBy._id === ""+auth.agent)
+                                form(action="/edition/lov/suggestCreate", method="post")
+                                  input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
+                                  input(type='hidden', name='suggId', value="#{sugg._id}")
+                                  input.suggestCreate(type='submit' name='submit' value='Create')
+                            a.prefix(href='#{sugg.uri}' target='_blank') #{sugg.uri}
+                            div.uri #{sugg.suggestedBy} - #{utils.dateToYMD(sugg.date)}
+                          div.hr
+                          - if(typeof sugg.reviewedBy !="undefined" && sugg.reviewedBy) 
+                            div.SearchBody
+                              - if(""+sugg.reviewedBy._id === ""+auth.agent)
+                                .statusButton suggested
+                                form.statusActionButton(action="/edition/lov/suggestUpdateStatus", method="post")
+                                  input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
+                                  input(type='hidden', name='suggId', value="#{sugg._id}")
+                                  input(type='hidden', name='status', value="discarded")
+                                  input.statusSubmit(type='submit' name='submit' value='discarded')
+                                form.statusActionButton(action="/edition/lov/suggestUpdateStatus", method="post")
+                                  input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
+                                  input(type='hidden', name='suggId', value="#{sugg._id}")
+                                  input(type='hidden', name='status', value="created")
+                                  input.statusSubmit(type='submit' name='submit' value='created')
+                              - else
+                                div Reviewed by 
+                                  b !{sugg.reviewedBy.name}
+                              
+                            
+          article.wrpl
+            .wrplGreen.editionIndexBox
+              form(action="", method="post" id="formSuggests")
+                .editionIndexBoxHeader
+                  .title Reviews               
+                  input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
+                .count-items
+                  span.count #{vocabsForReview.length}
+                  .clear
+                  .items
+                    | #{vocabsForReview.length==1 ? 'vocab' : 'vocabs'}
+                - if(typeof vocabsForReview != "undefined")
+                  ul#editionGridVocabsReviews.editionGrid 
+                    each vocab in vocabsForReview
+                      li(class="editionBoxRev")
+                        .editionContainer
+                          div.editionInnerBox
+                            a.prefix(href='/dataset/lov/vocabs/#{vocab.prefix}' target='_blank') #{vocab.prefix}
+                            - if(typeof vocab.latestReviewDate != "undefined")
+                              div.uri Last reviewed on #{utils.dateToYMD(vocab.latestReviewDate)}
+                            - else
+                              div.uri Never reviewed
+                          div.hr
+          article.wrpl(style="")
+            .wrplGreen(style="padding:1em;width:100%")
+              h2 Versions
+          - if(auth.category === "admin")          
+            article.wrpl
+              .wrplGreen.editionIndexBox
+                form(action="/edition/lov/usersReview", method="post" id="formUsers")
+                  .editionIndexBoxHeader
+                    .title User Review
+                    - if(users && users.length>0)
+                      input#submitUsers(type='submit' name='submit' value='Save')
+                      input#selectAllUsers(type='button' name='selectAll' value='Select all')
+                    
+                    input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
+                  .count-items
+                    span.count #{users.length}
+                    .clear
+                    .items
+                      | #{users.length==1 ? 'user' : 'users'}
+                  - if(users && users.length>0)
+                    ul#editionGridUsers.editionGrid 
+                      each usr in users
+                        li(class="editionBoxperson")
+                          .editionContainer
+                            div.editionInnerBox
+                              .checkbox
+                                input.checkboxUser(type="checkbox" value="#{usr._id}")
+                              img.remove(src="/img/remove.png")
+                              a.prefix(href='/dataset/lov/agents/#{usr.agent.name}') !{usr.agent.name} 
+                              span - !{usr.category}
+                              div.uri !{usr.email}
+                            div.hr
+          script.
+            function changeClassRemove() {
+                $(this).attr('src', function(i, oldSrc) {
+                  if(oldSrc == '/img/remove.png'){
+                    $(this).parent().parent().parent().addClass('inactive');
+                    $(this).parent().find('input:checkbox:first').prop('checked', true);
+                    return '/img/add.png';
+                  }
+                  else{
+                    $(this).parent().parent().parent().removeClass('inactive');
+                    $(this).parent().find('input:checkbox:first').prop('checked', false);
+                    return '/img/remove.png';
+                  } 
+                });
+            }
+            $('.remove').on('click', changeClassRemove);
+            $('#selectAllUsers').click(function() {  //on click 
+                if($(this).val()=='Select all') { // check select status
+                    $(this).val('Deselect all');
+                    $('.checkboxUser').each(function() { //loop through each checkbox
+                        this.checked = true;  //select all checkboxes with class "checkbox1"
+                    });
+                }else{
+                    $('#selectAllUsers').val('Select all');
+                    $('.checkboxUser').each(function() { //loop through each checkbox
+                        this.checked = false; //deselect all checkboxes with class "checkbox1"   
+                    });         
+                }
+            });
+            $("#formUsers").submit( function(eventObj) {
+              var deleteArray = [];
+              var activateArray = [];
+              
+              //add users to delete
+              $('.checkboxUser').each(function() { //loop through each checkbox
+              if($(this).is(':checked') && $(this).parent().parent().parent().parent().attr('class').indexOf('inactive')>-1)
+                 deleteArray.push(this.value);          
+              });          
+              $('<input />').attr('type', 'hidden')
+                  .attr('name', "deleteArray")
+                  .attr('value', JSON.stringify(deleteArray))
+                  .appendTo('#formUsers');
+              
+              //add users to update
+              $('.checkboxUser').each(function() { //loop through each checkbox
+              if($(this).is(':checked') && $(this).parent().parent().parent().parent().attr('class').indexOf('inactive')<0)
+                 activateArray.push(this.value);          
+              });          
+              $('<input />').attr('type', 'hidden')
+                  .attr('name', "activateArray")
+                  .attr('value', JSON.stringify(activateArray))
+                  .appendTo('#formUsers');
+                  
+              return true;
+            });

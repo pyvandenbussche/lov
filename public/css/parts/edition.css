@@ -45,7 +45,7 @@ border:1px solid #545454;
   /*text-shadow: 1px 1px 5px #646464;*/
   text-transform: uppercase;
 }
-.editionIndexBoxHeader #submitUsers, .editionIndexBoxHeader #selectAllUsers{
+.editionIndexBoxHeader #submitUsers, .editionIndexBoxHeader #selectAllUsers, .editionInnerBox .suggestCreate{
   float:right;
   background:#A2DAD2;
   margin: 0 .5em;
@@ -61,6 +61,10 @@ border:1px solid #545454;
 }
 .editionIndexBoxHeader #submitUsers:hover, .editionIndexBoxHeader #selectAllUsers:hover{
   background:#ffffff;
+}
+.editionInnerBox .suggestCreate:hover{
+  background: #3d3d3d;
+  color:white;
 }
 
 
@@ -85,9 +89,28 @@ ul.editionGrid > li.editionBoxperson > .editionContainer > .editionInnerBox|.hr
 .editionGrid li.inactive{
   background-color: #444747;
 }
+
+.editionGrid li .hr {
+     background: #dddddd; 
+     width: 90%;
+     margin:auto;
+     height: 1px;
+}
+
 li.editionBoxperson .editionContainer{
   border-left: 6px solid #82C836;
+  overflow:hidden;
 }
+li.editionBoxSugg .editionContainer{
+  border-left: 6px solid #9A69BD;
+  overflow:hidden;
+}
+li.editionBoxRev .editionContainer{
+  border-left: 6px solid #969696;
+  overflow:hidden;
+}
+
+
 .editionInnerBox{
 	padding:0.2em;
   padding-left:0.6em;
@@ -130,4 +153,67 @@ li.inactive .editionInnerBox span {
   padding-top:0.6em;
   width:1em;
   height:1em;
+}
+
+.editionInnerBox #submitTakeAction{
+  float:right;
+  width:1em;
+  height:1.5em;
+  cursor:pointer;
+}
+
+
+.SearchBody .statusActionButton, .SearchBody .statusButton{
+  float:left;
+}
+.SearchBody .statusButton{
+  margin: .2em;
+  border:0;
+  padding:.2em .4em;
+  border-radius: 2px;
+  background: #f57c20;
+  color: white;
+  -webkit-transition: background 0.3s, box-shadow 0.3s;
+  -moz-transition: background 0.3s, box-shadow 0.3s;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.SearchBody .statusSubmit{
+  background:#D6D6D6;
+  margin: .2em;
+  border:0;
+  padding:.2em .4em;
+  border-radius: 2px;
+  cursor:pointer;
+  -webkit-transition: background 0.3s, box-shadow 0.3s;
+  -moz-transition: background 0.3s, box-shadow 0.3s;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.SearchBody .statusSubmit:hover{
+  background: #3d3d3d;
+  color:white;
+}
+
+.SearchInnerBox .actionBar{
+  float:right;
+}
+.SearchInnerBox .actionBarAction{
+  margin-right:.5em;
+  margin-top:0.5em;
+  cursor:pointer;
+  width:1.2em;
+  height:1.2em;
+}
+
+.SearchInnerBox .inlineEdit{
+  width:.8em;
+  height:.8em;
+  margin-left:.5em;
+  cursor:pointer;
+}
+
+#title .editActionH1{
+  float:right;
+  height:1em;
+  width:1em;
+  cursor:pointer;
 }

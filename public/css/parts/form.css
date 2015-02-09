@@ -87,7 +87,7 @@
 }
 
 
-#fieldSets input{
+#fieldSets input, .featureWrapper .search input, .searchWrapper input{
   width:92%;
   background:#fff;
   margin-bottom:0.5em;

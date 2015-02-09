@@ -1,125 +1,47 @@
 extends ../layout/layout
 block content
-      section#title.postBlue
-        h1(itemprop="name")
-          a(href='/edition/lov') LOV Edition 
-            span (LOV)
+      section#post.postBlue
+        article
+          header.wrpl.w-3-3
+            h1 Users
       
-      section#posts.default-area
-        div.clear.col-2
-          article.wrpl
-            .wrplGreen.editionIndexBox
-              form(action="", method="post" id="formSuggests")
-                .editionIndexBoxHeader
-                  .title Suggestion Review
-                  - if(suggests && suggests.length>0)
-                    input#submitSuggests(type='submit' name='submit' value='Save')                  
-                  input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
-                .count-items
-                  span.count #{suggests.length}
-                  .clear
-                  .items
-                    | #{suggests.length==1 ? 'vocab' : 'vocabs'}
-                - if(suggests && suggests.length>0)
-                  ul#editionGridUsers.editionGrid 
-                    each sugg in suggests
-                      li(class="editionBoxperson")
-                        .editionContainer
-                          div.editionInnerBox
-                            .checkbox
-                              input.checkboxUser(type="checkbox" value="#{sugg._id}")
-                            img.remove(src="/img/remove.png")
-                            a.prefix(href='#{sugg.uri}' target='_blank') #{sugg.uri}
-                            div.uri Suggested by #{sugg.suggestedBy} On #{utils.dateToYMD(sugg.date)}
-                            div.uri 
-                          div.hr
-                          div.uri #{sugg.status}
-          article.wrpl
-            .wrplGreen(style="padding:1em;width:100%")
-              h2 Versions
-          article.wrpl(style="")
-            .wrplGreen(style="padding:1em;width:100%")
-              h2 Reviews
-          article.wrpl
-            .wrplGreen.editionIndexBox
-              form(action="/edition/lov/usersReview", method="post" id="formUsers")
-                .editionIndexBoxHeader
-                  .title User Review
-                  - if(users && users.length>0)
-                    input#submitUsers(type='submit' name='submit' value='Save')
-                    input#selectAllUsers(type='button' name='selectAll' value='Select all')
-                  
-                  input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
-                .count-items
-                  span.count #{users.length}
-                  .clear
-                  .items
-                    | #{users.length==1 ? 'user' : 'users'}
-                - if(users && users.length>0)
-                  ul#editionGridUsers.editionGrid 
-                    each usr in users
-                      li(class="editionBoxperson")
-                        .editionContainer
-                          div.editionInnerBox
-                            .checkbox
-                              input.checkboxUser(type="checkbox" value="#{usr._id}")
-                            img.remove(src="/img/remove.png")
-                            a.prefix(href='/dataset/lov/agents/#{usr.agent.name}') !{usr.agent.name} 
-                            span - !{usr.category}
-                            div.uri !{usr.email}
-                          div.hr
-          script.
-            function changeClassRemove() {
-                $(this).attr('src', function(i, oldSrc) {
-                  if(oldSrc == '/img/remove.png'){
-                    $(this).parent().parent().parent().addClass('inactive');
-                    $(this).parent().find('input:checkbox:first').prop('checked', true);
-                    return '/img/add.png';
-                  }
-                  else{
-                    $(this).parent().parent().parent().removeClass('inactive');
-                    $(this).parent().find('input:checkbox:first').prop('checked', false);
-                    return '/img/remove.png';
-                  } 
-                });
-            }
-            $('.remove').on('click', changeClassRemove);
-            $('#selectAllUsers').click(function() {  //on click 
-                if($(this).val()=='Select all') { // check select status
-                    $(this).val('Deselect all');
-                    $('.checkboxUser').each(function() { //loop through each checkbox
-                        this.checked = true;  //select all checkboxes with class "checkbox1"
-                    });
-                }else{
-                    $('#selectAllUsers').val('Select all');
-                    $('.checkboxUser').each(function() { //loop through each checkbox
-                        this.checked = false; //deselect all checkboxes with class "checkbox1"   
-                    });         
-                }
-            });
-            $("#formUsers").submit( function(eventObj) {
-              var deleteArray = [];
-              var activateArray = [];
-              
-              //add users to delete
-              $('.checkboxUser').each(function() { //loop through each checkbox
-              if($(this).is(':checked') && $(this).parent().parent().parent().parent().attr('class').indexOf('inactive')>-1)
-                 deleteArray.push(this.value);          
-              });          
-              $('<input />').attr('type', 'hidden')
-                  .attr('name', "deleteArray")
-                  .attr('value', JSON.stringify(deleteArray))
-                  .appendTo('#formUsers');
-              
-              //add users to update
-              $('.checkboxUser').each(function() { //loop through each checkbox
-              if($(this).is(':checked') && $(this).parent().parent().parent().parent().attr('class').indexOf('inactive')<0)
-                 activateArray.push(this.value);          
-              });          
-              $('<input />').attr('type', 'hidden')
-                  .attr('name', "activateArray")
-                  .attr('value', JSON.stringify(activateArray))
-                  .appendTo('#formUsers');
-                  
-              return true;
-            });
+      section#posts.default-area.postSearchResults
+        - if (typeof(users) !== 'undefined' && users.length>0)
+          #greenContainer.contents.clear.col-2.split.wrplGreen
+            .count-items
+                span.count #{users.length}
+                .clear
+                .items
+                  | #{users.length==1 ? 'user' : 'users'}
+              ul#SearchGrid
+                each user, i in users
+                  li(class="SearchBoxperson")
+                    .SearchContainer
+                      div.SearchInnerBox
+                        div.actionBar
+                          img.actionBarAction(src="/img/key.png")
+                          img.actionBarAction(src="/img/remove.png")
+                        a.prefix(href='/dataset/lov/agents/#{user.agent.name}') !{user.agent.name}
+                        div.uri 
+                          a(href="mailto:#{user.email}") !{user.email}
+                          img.inlineEdit(src="/img/edit_small.png")
+                      div.hr
+                      div.SearchBody
+                        div(style="float:left")
+                          - if(user.category === "curator")
+                            .statusButton curator
+                          - else
+                            form.statusActionButton(action="/edition/lov/userChangeCategory", method="post")
+                              input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
+                              input(type='hidden', name='userId', value="#{user._id}")
+                              input(type='hidden', name='category', value="curator")
+                              input.statusSubmit(type='submit' name='submit' value='curator')
+                          - if(user.category === "admin")
+                            .statusButton admin
+                          - else
+                            form.statusActionButton(action="/edition/lov/userChangeCategory", method="post")
+                              input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
+                              input(type='hidden', name='userId', value="#{user._id}")
+                              input(type='hidden', name='category', value="admin")
+                              input.statusSubmit(type='submit' name='submit' value='admin')
+                        .clear

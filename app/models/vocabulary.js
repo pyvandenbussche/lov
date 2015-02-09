@@ -220,10 +220,38 @@ VocabularySchema.statics = {
       .exec(cb)
   },
   
-  listVocabsForReview: function (agentId, cb) {
-    this.find({publisherIds:agentId},{prefix:1,_id:0,tags:1})
+  listVocabsForReview: function (cb) {
+    this.find({},{prefix:1,_id:0,reviews:1})
       .sort({prefix:1})
-      .exec(cb)
+      .exec(function(err, vocabs) {
+          if( err ) { return cb(err, vocabs); }
+          var vocs = [];
+          for (i in vocabs) {
+            var voc = vocabs[i];
+            if(voc.reviews && voc.reviews.length>0){
+              var latestReviewDate = null;
+              for (j in voc.reviews) {
+                var review = voc.reviews[j];
+                if(review.createdAt){
+                  if(latestReviewDate == null || latestReviewDate < review.createdAt)latestReviewDate=review.createdAt;
+                }
+              }
+              if(latestReviewDate == null )vocs.push({prefix:voc.prefix});
+              else{
+                var td=new Date();
+                td.setMonth(td.getMonth()-11);
+                if(latestReviewDate<td)vocs.push({prefix:voc.prefix, latestReviewDate:latestReviewDate});
+              }
+            }else vocs.push({prefix:voc.prefix});
+          }
+          //sort by review date
+          vocs.sort(function(a,b){
+            if(typeof a.latestReviewDate == "undefined")return -1;
+            if(typeof b.latestReviewDate == "undefined")return 1;
+            return a.latestReviewDate > b.latestReviewDate});
+          return cb(err, vocs);
+        }
+      )
   },
   
   

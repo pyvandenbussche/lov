@@ -17,7 +17,8 @@ var LogSuggestSchema = new Schema({
   suggestedBy: {type : String},
   uri: {type : String},
   date: {type: Date},
-  status: {type : String} 
+  status: {type : String} ,
+  reviewedBy: { type : String, ref : 'Agent' }
 })
 
 
@@ -28,9 +29,17 @@ var LogSuggestSchema = new Schema({
 LogSuggestSchema.statics = {
   list: function (cb) {
     this.find()
+      .populate('reviewedBy', 'name')
       .sort({date:-1})
       .exec(cb)
   },
+  
+  listActive: function (cb) {
+    this.find({$nor: [ {status:"discarded"},{status:"created"}]})
+      .populate('reviewedBy', 'name')
+      .sort({date:-1})
+      .exec(cb)
+  }
 }
 
 mongoose.model('LogSuggest', LogSuggestSchema)

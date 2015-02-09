@@ -14,6 +14,14 @@ exports.requiresLogin = function (req, res, next) {
   next()
 }
 
+exports.requiresAdmin = function (req, res, next) {
+  if (!req.isAuthenticated() || req.user.category != "admin") {
+    req.session.returnTo = req.originalUrl
+    return res.redirect('edition/lov/login')
+  }
+  next()
+}
+
 
 /*
  *  User authorization routing middleware

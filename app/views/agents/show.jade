@@ -3,6 +3,9 @@ block content
       section#title.postBlue
         h1 #{agent.name} 
           span (!{agent.type.charAt(0).toUpperCase() + agent.type.slice(1)})
+          if (req.isAuthenticated())
+            a(href='/edition/lov/agents/#{agent._id}')
+              img.editActionH1(src='/img/edit_grey.png')
       section#posts.default-area
           article
             #greenContainer.contents.clear.col-2.split.wrplGreen

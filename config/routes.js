@@ -11,6 +11,7 @@ var async = require('async');
 var users = require('../app/controllers/users')
   , vocabularies = require('../app/controllers/vocabularies')
   , languages = require('../app/controllers/languages')
+  , edition = require('../app/controllers/edition')
   , agents = require('../app/controllers/agents')
   , agentsPublic = require('../app/controllers/agentsPublic')
   , agentsPrivate = require('../app/controllers/agentsPrivate')
@@ -37,8 +38,10 @@ var userAuth = [auth.requiresLogin, auth.user.hasAuthorization]
 
 module.exports = function (app, passport,esclient, elasticsearchClient, emailTransporter) {
 
+  /* ########### Edition ########### */
+  //root and authentication
   app.get('/edition', function(req, res){res.redirect('/edition/lov/')})
-  app.get('/edition/lov', auth.requiresLogin, users.index)
+  app.get('/edition/lov', auth.requiresLogin, edition.index)
   app.get('/edition/lov/signup', users.signup)
   app.get('/edition/lov/login', users.login)
   app.get('/edition/lov/logout', users.logout)
@@ -48,10 +51,17 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
      failureRedirect: '/edition/lov/login',
       failureFlash: true
     }), users.session)
-  app.post('/edition/lov/usersReview', auth.requiresLogin, users.reviewBatch)
-
+  //global actions
+  app.post('/edition/lov/usersReview', auth.requiresLogin, edition.reviewUsersBatch)
+  app.post('/edition/lov/suggestTakeAction', auth.requiresLogin, edition.suggestTakeAction)
+  app.post('/edition/lov/suggestUpdateStatus', auth.requiresLogin, edition.suggestUpdateStatus)
+  //users
+  app.get('/edition/lov/users', auth.requiresAdmin, users.index)
+  app.post('/edition/lov/userChangeCategory', auth.requiresAdmin, users.userChangeCategory)
+  
 
   // user routes
+  
   //app.param('userId', users.user)
   //app.get('/users/:userId', users.show)
   //app.get('/users/:userId/edit', userAuth, users.edit) //TODO breach security
