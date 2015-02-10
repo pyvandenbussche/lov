@@ -118,3 +118,34 @@
   .metadata-table .lang{
     color:#008F00;
   }
+ 
+  .editionTable {
+		border-collapse:collapse;
+		border: none;
+    width:100%;
+    border-radius: 3px;
+   -webkit-border-radius: 3px;
+   -moz-border-radius: 3px;
+	}
+	.editionTable th, .editionTable tr {
+		border-top: 1px solid #dddddd;
+	}
+  .editionTable tr {
+		-webkit-transition: background 0.3s, box-shadow 0.3s;
+		-moz-transition: background 0.3s, box-shadow 0.3s;
+		transition: background 0.3s, box-shadow 0.3s;
+	}
+  .editionTable tbody tr:hover {
+		background: rgba(0,0,0,0.05);
+	}
+  .editionTable tr:first-child {
+		border-top: 0px;
+	}
+  .editionTable td{
+		color: #3c3c3c;
+		padding: .5em;
+		text-shadow: 0 0 1px rgba(255,255,255,0.1);
+	}
+  .editionTable td:first-child {
+		width:20%;
+	}

@@ -5,21 +5,22 @@ block content
       section#post.postBlue
         article
           header.wrpl.w-3-3
-            h1 #{agent.name}
+            h1 #{agent.name?agent.name:'Create a new Agent'}
       section#posts.default-area
           article
             #greenContainer.contents.clear.col-2.split.wrplGreen
-              form(method="post", action=action)
+              form(method='post' action=action name='TheForm')
                 input(type='hidden', name='_csrf', value="#{csrf_token}")
                 - if (!agent.isNew)
                   input(type="hidden", name="_method", value="PUT")
                 .metadataFrame
+                  #formErrors
                   div(class='metadataContainerPerson')
-                    table.metadata-table.noheader.flat-table-3(style="width:100%")
-                      tbody.editionTable
+                    table.editionTable
+                      tbody
                         tr
-                          td(style='width:15%;') Full name
-                          td(style='width:85%;')
+                          td Full name
+                          td
                             input(type='text', name="name", value=agent.name)
                         tr
                           td Type
@@ -39,8 +40,42 @@ block content
                             #altUrisDiv.controls
                               each altUri in agent.altUris
                                 div
-                                  input(type='text', name='altUris[]', value=altUri, style='width:600px;')
+                                  input(type='text', name='altUris[]', value=altUri)
                                   span(onClick="this.parentNode.remove();") Remove
-                input.loginButtonLeft(type='submit' value='Save')
-                .loginButtonRight
-                  a(href="/agents", title="cancel") Cancel
+                .editionActionBar
+                  input.editionSaveButtonRight(type='submit' name='submit' value='Save')
+                  a.editionCancelButtonRight(href="/dataset/lov/agents/#{agent.name}", title="cancel") Cancel
+                  .clear
+                  
+      script.
+        function addInput(divName,dataArray,value){
+            var newdiv = document.createElement('div');
+            newdiv.innerHTML = "<input type='text' name='"+dataArray+"[]', value='"+value+"'><span onClick='this.parentNode.remove();'>Remove</span>";
+            document.getElementById(divName).appendChild(newdiv);
+        }
+        
+        
+        //form validation before submit
+        new FormValidator('TheForm', [{
+            name: 'name',
+            display: 'Full name',
+            rules: 'required'
+        }, {
+            name: 'prefUri',
+            display: 'URI',
+            rules: 'required|valid_url'
+        }, {
+            name: 'altUris[]',
+            display: 'Alternative URIs',
+            rules: 'valid_url'
+        }], function(errors, event) {
+            if (errors.length > 0) {
+              var errorString = '';
+              for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+                  errorString += errors[i].message + '<br />';
+              }
+              document.getElementById('formErrors').style.display = 'block';
+              document.getElementById('formErrors').innerHTML = errorString;
+              event.returnValue=false;
+            }
+        });

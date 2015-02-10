@@ -15,12 +15,24 @@ exports.requiresLogin = function (req, res, next) {
 }
 
 exports.requiresAdmin = function (req, res, next) {
-  if (!req.isAuthenticated() || req.user.category != "admin") {
+  if (req.isAuthenticated() && req.user.category === "admin") {
+    next()
+  }
+  else{
     req.session.returnTo = req.originalUrl
     return res.redirect('edition/lov/login')
   }
-  next()
 }
+exports.requiresAdminOrUser = function (req, res, next) {
+  if (req.isAuthenticated() && (req.user.category === "admin" || ''+req.userObj._id === ''+req.user.id)) {
+    next()
+  }
+  else{
+    req.session.returnTo = req.originalUrl
+    return res.redirect('edition/lov/login')
+  }
+}
+
 
 
 /*

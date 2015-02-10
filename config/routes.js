@@ -58,9 +58,14 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   //users
   app.get('/edition/lov/users', auth.requiresAdmin, users.index)
   app.post('/edition/lov/userChangeCategory', auth.requiresAdmin, users.userChangeCategory)
+  app.del('/edition/lov/users/:userId', auth.requiresAdmin, users.destroy)
+  app.get('/edition/lov/users/:userId', auth.requiresAdminOrUser, users.edit)
+  app.put('/edition/lov/users/:userId', auth.requiresAdminOrUser, users.update)
+  app.param('userId', users.load)
   //agents
+  app.get('/edition/lov/agents/new', auth.requiresLogin, agents.new);
   app.get('/edition/lov/agents/:agentId', auth.requiresLogin, agents.edit)
-  app.post('/edition/lov/agents', auth.requiresLogin, agents.createAgent)
+  app.post('/edition/lov/agents', auth.requiresLogin, agents.create)
   app.put('/edition/lov/agents/:agentId', auth.requiresLogin, agents.update)
   app.del('/edition/lov/agents/:agentId', auth.requiresLogin, agents.destroy)
   app.param('agentId', agents.load)
@@ -81,12 +86,7 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   //app.get('/agents/new', auth.requiresLogin, agentsPublic.new)
   //app.get('/signup', agentsPrivate.signup)
   
-  
-  //app.get('/agents/private/:agentId/edit', agentAuth, agentsPrivate.edit)
-  //app.get('/agents/:agentId/edit', agentAuth, agentsPublic.edit)
-  //app.put('/agents/private/:agentId', agentAuth, agentsPrivate.update)
-  //app.del('/agents/:agentId', agentAuth, agentsPublic.destroy)
-  
+    
   
   // vocabs routes
 

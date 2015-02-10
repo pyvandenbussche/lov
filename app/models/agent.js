@@ -33,7 +33,6 @@ var AgentSchema = new Schema({
   prefUri: {type : String, default : '', trim : true},
   name: {type : String, default : '', trim : true},
   altUris: {type: [], get: getAltUris, set: setAltUris},
-  hasRoleInVocab: [{ type: Schema.ObjectId, ref: 'Vocabulary' }],
   'type': {type : String, default : '', trim : true}
 })
 
@@ -51,13 +50,11 @@ AgentSchema.statics = {
    */
   loadFromName: function (name, cb) {
     this.findOne({name : name})
-      .populate('hasRoleInVocab','prefix')
       .exec(cb)
   },
   
   load: function (id, cb) {
     this.findOne({_id : id})
-      .populate('hasRoleInVocab','prefix')
       .exec(cb)
   },
   

@@ -11,11 +11,11 @@ block content
             a(href='/dataset/lov/suggest') Vocab
         .featureWrapper
           .suggest
-            a(href='/dataset/lov/suggest') Agent
+            a(href='/edition/lov/agents/new') Agent
         - if(auth.category === "admin")       
           .featureWrapper
             .suggest
-              a(href='/dataset/lov/suggest') User
+              a(href='/edition/lov/signup') User
       
       section#posts.default-area
         div.clear.col-2
@@ -57,12 +57,12 @@ block content
                                   input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
                                   input(type='hidden', name='suggId', value="#{sugg._id}")
                                   input(type='hidden', name='status', value="discarded")
-                                  input.statusSubmit(type='submit' name='submit' value='discarded')
+                                  .statusSubmit discarded
                                 form.statusActionButton(action="/edition/lov/suggestUpdateStatus", method="post")
                                   input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
                                   input(type='hidden', name='suggId', value="#{sugg._id}")
                                   input(type='hidden', name='status', value="created")
-                                  input.statusSubmit(type='submit' name='submit' value='created')
+                                  .statusSubmit created
                               - else
                                 div Reviewed by 
                                   b !{sugg.reviewedBy.name}
@@ -123,6 +123,7 @@ block content
                               span - !{usr.category}
                               div.uri !{usr.email}
                             div.hr
+          #dialog(style='display:none;') Are you sure you want to update the status? This will remove the vocabulary from this view.
           script.
             function changeClassRemove() {
                 $(this).attr('src', function(i, oldSrc) {
@@ -177,4 +178,26 @@ block content
                   .appendTo('#formUsers');
                   
               return true;
+            });
+            $(document).ready(function () {
+              // get confirmation
+              $('.statusSubmit').click(function(e){
+                e.preventDefault();
+                var currentForm = $(this).parents('form:first');
+                  $('#dialog').dialog({
+                    resizable: false,
+                    height:250,
+                    modal: true,
+                    buttons: {
+                        'Confirm': function() {
+                            currentForm.submit();
+                        },
+                        Cancel: function() {
+                          currentForm=null;
+                          $(this).dialog('close');
+                        }
+                    }
+                  });
+                return false;
+              });
             });

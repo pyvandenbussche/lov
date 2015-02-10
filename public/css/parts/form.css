@@ -426,7 +426,7 @@ margin-left: auto;
 /* edition */
 
 .editionTable input{
-  width:92%;
+  width:90%;
   background:#fff;
   border:1px solid #ccc;
   padding:0.8em;
@@ -441,3 +441,32 @@ margin-left: auto;
   font-family:'Open Sans',sans-serif;
   color:#555;
 }
+
+.editionActionBar{
+  padding-top:1em;
+}
+
+.editionSaveButtonRight, .editionCancelButtonRight{
+  float:right;
+  background:#A2DAD2;
+  margin: 0 .5em;
+  margin-top:-.5em;
+  border:0;
+  padding:.5em;
+  font-family:'Open Sans',sans-serif;
+  font-size:100%;
+  color:#000;
+  cursor:pointer;
+  transition:background .3s;
+  -webkit-transition:background .3s;
+}
+.editionSaveButtonRight:hover{
+  background:#f57c20;
+  color:white;
+}
+.editionCancelButtonRight:hover{
+  background: #3d3d3d;
+  color:white;
+}
+
+

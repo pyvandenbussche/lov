@@ -59,7 +59,7 @@ exports.signup = function (req, res) {
 
 exports.edit = function (req, res) {
   res.render('users/edit', {
-    user: req.user
+    user: req.userObj
   })
 }
 
@@ -68,14 +68,17 @@ exports.edit = function (req, res) {
  */
 
 exports.update = function(req, res){
-  var user = req.user
-  user = _.extend(user, req.body)
+  var user = req.userObj  
+  user.email = req.body.email
+  if(req.body.password && req.body.password.length>0){
+    user.password=req.body.password;
+  }
 
   user.save(function(err) {
     if (!err) {
-      return res.redirect('edition/lov/users/' + user._id)
+      req.flash('info', 'User updated successfully')
+      return res.redirect('/edition/lov')
     }
-    console.log(err.errors)
     res.render('users/edit', {
       user: user,
       errors: err.errors
@@ -120,7 +123,7 @@ exports.session = login
  */
 
 exports.create = function (req, res) {
-  Agent.load(req.body.agentHidden, function (err, agentBinding) {
+  Agent.loadFromName(req.body.agentHidden, function (err, agentBinding) {
     if (err) return err 
     if (!agentBinding) return new Error('Agent '+agentHidden+' not found')
     req.body.agent = agentBinding;
@@ -156,6 +159,26 @@ exports.show = function (req, res) {
   res.render('users/show', {
     title: user.name,
     user: user
+  })
+}
+
+exports.load = function(req, res, next, id){
+  User.load(id, function (err, user) {
+    if (err) return next(err)    
+    if (!user) return next(new Error('User '+id+' not found'))
+    req.userObj = user
+    next()
+  })
+}
+
+/**
+ * Delete a user
+ */
+exports.destroy = function(req, res){
+  var user = req.userObj
+  user.remove(function(err){
+    req.flash('info', 'User deleted successfully')
+    res.redirect('/edition/lov/users')
   })
 }
 

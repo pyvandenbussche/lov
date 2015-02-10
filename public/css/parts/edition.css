@@ -59,6 +59,9 @@ border:1px solid #545454;
   transition:background .3s;
   -webkit-transition:background .3s;
 }
+.editionInnerBox .suggestCreate{
+  margin-top:0;
+}
 .editionIndexBoxHeader #submitUsers:hover, .editionIndexBoxHeader #selectAllUsers:hover{
   background:#ffffff;
 }

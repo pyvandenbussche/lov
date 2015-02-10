@@ -130,6 +130,11 @@ UserSchema.methods = {
 }
 
 UserSchema.statics = {
+  load: function (id, cb) {
+    this.findOne({_id : id})
+      .populate('agent', 'name')
+      .exec(cb)
+  },
   
   listAdmin: function (cb) {
     this.find({category:"admin", activated:true}).exec(cb)

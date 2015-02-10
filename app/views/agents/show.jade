@@ -4,8 +4,32 @@ block content
         h1 #{agent.name} 
           span (!{agent.type.charAt(0).toUpperCase() + agent.type.slice(1)})
           if (req.isAuthenticated())
+            a(href='#')
+              img#agentDelete.editActionH1(src='/img/remove.png')
             a(href='/edition/lov/agents/#{agent._id}')
               img.editActionH1(src='/img/edit_grey.png')
+            form(action='/edition/lov/agents/#{agent._id}' method='post' name='formDelete' id='formDelete')
+              input(type='hidden', name='_csrf', value="#{csrf_token}")
+              input(type="hidden", name="_method", value="DELETE")
+      #dialog(style='display:none;') Are you sure you want to delete this agent?
+      script.
+        $(document).ready(function () {
+          $('#agentDelete').click(function(){
+              $('#dialog').dialog({
+                resizable: false,
+                height:200,
+                modal: true,
+                buttons: {
+                    'Confirm Deletion': function() {
+                        $('form#formDelete').submit();
+                    },
+                    Cancel: function() {
+                        $(this).dialog('close');
+                    }
+                }
+              });
+          });
+        });
       section#posts.default-area
           article
             #greenContainer.contents.clear.col-2.split.wrplGreen

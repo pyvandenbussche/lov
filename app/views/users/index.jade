@@ -19,12 +19,17 @@ block content
                     .SearchContainer
                       div.SearchInnerBox
                         div.actionBar
-                          img.actionBarAction(src="/img/key.png")
-                          img.actionBarAction(src="/img/remove.png")
+                          form(action='/edition/lov/users/#{user._id}' method='post' name='formEdit')
+                            input(type='hidden', name='_csrf', value="#{csrf_token}")
+                            input(type="hidden", name="_method", value="GET")
+                            img.changeUser.actionBarAction(src="/img/edit_small.png" onclick="submit();")
+                          form(action='/edition/lov/users/#{user._id}' method='post' name='formDelete')
+                            input(type='hidden', name='_csrf', value="#{csrf_token}")
+                            input(type="hidden", name="_method", value="DELETE")
+                            img.removeUser.actionBarAction(src="/img/remove.png")
                         a.prefix(href='/dataset/lov/agents/#{user.agent.name}') !{user.agent.name}
                         div.uri 
                           a(href="mailto:#{user.email}") !{user.email}
-                          img.inlineEdit(src="/img/edit_small.png")
                       div.hr
                       div.SearchBody
                         div(style="float:left")
@@ -45,3 +50,25 @@ block content
                               input(type='hidden', name='category', value="admin")
                               input.statusSubmit(type='submit' name='submit' value='admin')
                         .clear
+          #dialog(style='display:none;') Are you sure you want to delete this user?
+          script.
+            $(document).ready(function () {
+              // delete a user
+              $('.removeUser').click(function(){
+                var currentForm = $(this).parents('form:first');
+                  $('#dialog').dialog({
+                    resizable: false,
+                    height:200,
+                    modal: true,
+                    buttons: {
+                        'Confirm Deletion': function() {
+                            currentForm.submit();
+                        },
+                        Cancel: function() {
+                          currentForm=null;
+                          $(this).dialog('close');
+                        }
+                    }
+                  });
+              });
+            });

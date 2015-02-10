@@ -56,13 +56,19 @@ exports.destroy = function(req, res){
 /**
  * Create agent
  */
-exports.createAgent = function (req, res) {
-  var agent = new AgentPrivate(req.body)
+exports.create = function (req, res) {
+  var agent = new Agent(req.body)
   agent.save(function (err) {
     if (err) {return res.render('500')}
     return res.redirect('/dataset/lov/agents/' + agent.name)
   })
 }
+
+exports.new = function (req, res){
+  res.render('agents/new', {
+    agent: new Agent({})
+  });
+};
 
 
 /**
@@ -70,22 +76,14 @@ exports.createAgent = function (req, res) {
  */
 
 exports.update = function(req, res){
-  //var agent = req.agent
-  AgentPrivate.load(req.agent._id, function (err, agent) {
-      if (err){return res.render('500')}
-      agent = _.extend(agent, req.body)
-      if(!req.body.languages)agent.languages=undefined; //trick to remove all elements when no languages
-      console.log(req.body);
-      agent.save(function(err) {
-        if (!err) {
-          return res.redirect('/agents/' + agent._id)
-        }
-        res.render('agents/editPrivate', {
-          agent: agent,
-          errors: err.errors
-        })
-      })
-  });
+  var agent = req.agent;
+  agent = _.extend(agent, req.body)
+  agent.save(function(err) {
+    if (err) {
+      return res.render('500')
+    }
+    res.redirect('/dataset/lov/agents/' + agent.name)
+  })
 }
 
 /**
