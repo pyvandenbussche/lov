@@ -1,0 +1,400 @@
+extends ../layout/layout
+block content
+      - var action = '/edition/lov/vocabs'
+      - action += vocab.isNew? '' : '/' + vocab.id
+      section#post.postBlue
+        article
+          header.wrpl.w-3-3
+            if(vocab.isNew)
+              h1 Create a new Vocabulary
+            else
+              h1
+                a(href='#{vocab.prefix}')
+                  | #{vocab.titles[0].value} 
+                  span (#{vocab.prefix})
+      section#posts.default-area
+          article
+            form(method='post' action=action name='TheForm')
+              #greenContainer.contents.clear.col-2.split.wrplGreen
+                input(type='hidden', name='_csrf', value="#{csrf_token}")
+                - if (!vocab.isNew)
+                  input(type="hidden", name="_method", value="PUT")
+                .metadataFrame
+                  #formErrors
+                  div(class='metadataContainerVocab')
+                    table.editionTable
+                      tbody
+                        tr
+                          td URI
+                          td
+                            if(stdout)
+                              .fieldSuggestions
+                                if(stdout.uriInputSearch)
+                                  .fieldSug
+                                    span.fieldSugLabel(title='URI given as input by the user') URI Input: 
+                                    span.fieldSugValue #{stdout.uriInputSearch}
+                                    img.fieldSugActionInput(src='/img/validate.png' title='use this value')
+                                if(stdout.uriDeclared)
+                                  .fieldSug
+                                    span.fieldSugLabel(title='URI declared as of type ontology') URI Declared: 
+                                    span.fieldSugValue #{stdout.uriDeclared}
+                                    img.fieldSugActionInput(src='/img/validate.png' title='use this value')
+                            - if(stdout && !vocab.uri) vocab.uri=stdout.uri;
+                            input#inputVocabUri(type='text' name="uri" value=vocab.uri class='#{(stdout && stdout.uri && ""+stdout.uri!==""+vocab.uri)?"conflict":""}')
+                        tr
+                          td isDefinedBy 
+                            span.fieldPrecision (Only if deref on URI is not working)
+                          td
+                            input#inputVocabIsDefinedBy(type='text' name="isDefinedBy" value=vocab.isDefinedBy placeholder='Only if necessary')
+                        tr
+                          td Namespace
+                          td
+                            if(stdout)
+                              .fieldSuggestions
+                                if(stdout.nspMostUsed)
+                                  .fieldSug
+                                    span.fieldSugLabel(title='namespace most used in the vocabulary file') Most Used: 
+                                    span.fieldSugValue #{stdout.nspMostUsed}
+                                    img.fieldSugActionInput(src='/img/validate.png' title='use this value')
+                                if(stdout.nspVannPref)
+                                  .fieldSug
+                                    span.fieldSugLabel(title='namespace declared as vann preferred namespace URI') Vann Preferred: 
+                                    span.fieldSugValue #{stdout.nspVannPref}
+                                    img.fieldSugActionInput(src='/img/validate.png' title='use this value')
+                                if(stdout.nspClosest)
+                                  .fieldSug
+                                    span.fieldSugLabel(title='closest namespace from the list of declared namespaces to the input URI (using levenshtein distance)') URI Closest Match: 
+                                    span.fieldSugValue #{stdout.nspClosest}
+                                    img.fieldSugActionInput(src='/img/validate.png' title='use this value')
+                                if(stdout.nspDefault)
+                                  .fieldSug
+                                    span.fieldSugLabel(title='default namespace (xml:base) without prefix') Default Base Nsp: 
+                                    span.fieldSugValue #{stdout.nspDefault}
+                                    img.fieldSugActionInput(src='/img/validate.png' title='use this value')
+                            - if(stdout && !vocab.nsp) vocab.nsp=stdout.nsp;
+                            input#inputVocabNsp(type='text', name="nsp", value=vocab.nsp)
+                            
+                        tr
+                          td Prefix
+                          td
+                            if(stdout)
+                              .fieldSuggestions
+                                if(stdout.prefixVannPref)
+                                  .fieldSug
+                                    span.fieldSugLabel(title='prefix declared as vann preferred prefix') Vann Preferred: 
+                                    span.fieldSugValue #{stdout.prefixVannPref}
+                                    img.fieldSugActionInput(src='/img/validate.png' title='use this value')
+                                if(stdout.prefixAssociatedNsp)
+                                  .fieldSug
+                                    span.fieldSugLabel(title='prefix associated to the LOV best namespace guess') Nsp Prefix: 
+                                    span.fieldSugValue #{stdout.prefixAssociatedNsp}
+                                    img.fieldSugActionInput(src='/img/validate.png' title='use this value')
+                            - if(stdout && !vocab.prefix) vocab.prefix=stdout.prefix;
+                            input#inputVocabPrefix(type='text', name="prefix", value=vocab.prefix)
+                            
+                        tr
+                          td Titles
+                            img.fieldWithLangAddAction(src='/img/add_grey.png' onclick="addTextareaLang('titlesTd','titles','titlesLangs','','');")
+                          td#titlesTd
+                            if(stdout)
+                              .fieldSuggestions
+                                if(stdout.titles)
+                                  each title in stdout.titles
+                                    .fieldSug
+                                      span.fieldSugLabel Title: 
+                                      span.fieldSugValue "#{title.value}"
+                                      if(title.lang)
+                                        span.fieldSugLang @#{title.lang}
+                                      img.fieldSugActionTextareaLangTitle(src='/img/validate.png' title='use this value')
+                            if(vocab.titles)
+                              each title in vocab.titles
+                                - addTextareaLang('titlesTd','titles','titlesLangs',title.value,title.lang)
+                        tr
+                          td Descriptions
+                            img.fieldWithLangAddAction(src='/img/add_grey.png' onclick="addTextareaLang('descriptionsTd','descriptions','descriptionsLangs','','');")
+                          td#descriptionsTd
+                            if(stdout)
+                              .fieldSuggestions
+                                if(stdout.descriptions)
+                                  each description in stdout.descriptions
+                                    .fieldSug
+                                      span.fieldSugLabel Description: 
+                                      span.fieldSugValue "#{description.value}"
+                                      if(description.lang)
+                                        span.fieldSugLang @#{description.lang}
+                                      img.fieldSugActionTextareaLangDescription(src='/img/validate.png' title='use this value')
+                            if(vocab.descriptions)
+                              each description in vocab.descriptions
+                                - addTextareaLang('descriptionsTd','descriptions','descriptionsLangs',description.value,description.lang)
+                        tr
+                          td First Issued 
+                            span.fieldPrecision (Date in yyyy-MM-dd format)
+                          td
+                            if(stdout)
+                              .fieldSuggestions
+                                if(stdout.dateIssued)
+                                  .fieldSug
+                                    span.fieldSugLabel(title='as defined in the ontology') Issued: 
+                                    span.fieldSugValue #{stdout.dateIssued}
+                                    img.fieldSugActionInput(src='/img/validate.png' title='use this value')
+                            - if(stdout && !vocab.dateIssued) vocab.issuedAt=stdout.dateIssued;
+                            input#inputVocabIssuedAt(type='text' name="issuedAt" value=utils.dateToYMD(vocab.issuedAt) placeholder='yyyy-MM-dd')
+                        tr
+                          td Homepage 
+                          td
+                            input#inputVocabHomepage(type='text' name="homepage" value=vocab.homepage placeholder='Optional')
+                                
+              #greenContainer.contents.clear.col-2.split.wrplGreen
+                .metadataFrame
+                  div(class='metadataContainerVocab')
+                    table.editionTable
+                      tbody
+                        tr
+                          td Creators
+                            img.fieldAgentAddAction.fieldCreatorsAddAction(src='/img/add_grey.png')
+                          td#creatorsTd
+                            if(stdout)
+                              .fieldSuggestions
+                                if(stdout.creators && stdout.creators.length>0)
+                                  each creator in stdout.creators
+                                    .fieldSug
+                                      if(creator.id)
+                                        span.fieldSugLabel Creator IN LOV: 
+                                        span.fieldSugValue #{creator.name}
+                                        span.fieldSugHidden #{JSON.stringify(creator)}
+                                        img.fieldSugActionAgentComplete(src='/img/validate.png' title='use this value')
+                                      else
+                                        if(creator.prefUri)
+                                          span.fieldSugLabel Creator URI: 
+                                          span.fieldSugValue #{(creator.name)? creator.name+' ('+creator.prefUri:creator.prefUri}
+                                          span.fieldSugHidden #{JSON.stringify(creator)}
+                                          img.fieldAgentAddAction.fieldCreatorsAddAction(src='/img/validate.png' title='use this value')
+                            //-div.AgentThumb
+                              div.agentThumbInnerBodyperson
+                                div.agentThumbName Toby Inkster
+                                div.agentThumbPrefUri http://tobyinkster.co.uk/#i
+                                img.agentThumbRemove(src='/img/remove_white.png')
+                        tr
+                          td Contributors
+                            img.fieldAgentAddAction.fieldContributorsAddAction(src='/img/add_grey.png')
+                          td#contributorsTd
+                            if(stdout)
+                              .fieldSuggestions
+                                if(stdout.contributors && stdout.contributors.length>0)
+                                  each agent in stdout.contributors
+                                    .fieldSug
+                                      if(agent.id)
+                                        span.fieldSugLabel Contributor IN LOV: 
+                                        span.fieldSugValue #{agent.name}
+                                        span.fieldSugHidden #{JSON.stringify(agent)}
+                                        img.fieldSugActionAgentComplete(src='/img/validate.png' title='use this value')
+                                      else
+                                        if(agent.prefUri)
+                                          span.fieldSugLabel Contributor URI: 
+                                          span.fieldSugValue #{(agent.name)? agent.name+' ('+agent.prefUri+')':agent.prefUri}
+                                          span.fieldSugHidden #{JSON.stringify(agent)}
+                                          img.fieldAgentAddAction.fieldContributorsAddAction(src='/img/validate.png' title='use this value')
+                            //-div.AgentThumb
+                              div.agentThumbInnerBodyperson
+                                div.agentThumbName Toby Inkster
+                                div.agentThumbPrefUri http://tobyinkster.co.uk/#i
+                                img.agentThumbRemove(src='/img/remove_white.png')
+                        tr
+                          td Publishers
+                            img.fieldAgentAddAction.fieldPublishersAddAction(src='/img/add_grey.png')
+                          td#publishersTd
+                            if(stdout)
+                              .fieldSuggestions
+                                if(stdout.publishers && stdout.publishers.length>0)
+                                  each agent in stdout.publishers
+                                    .fieldSug
+                                      if(agent.id)
+                                        span.fieldSugLabel Publishers IN LOV: 
+                                        span.fieldSugValue #{agent.name}
+                                        span.fieldSugHidden #{JSON.stringify(agent)}
+                                        img.fieldSugActionAgentComplete(src='/img/validate.png' title='use this value')
+                                      else
+                                        if(agent.prefUri)
+                                          span.fieldSugLabel Publisher URI: 
+                                          span.fieldSugValue #{(agent.name)? agent.name+' ('+agent.prefUri+')':agent.prefUri}
+                                          span.fieldSugHidden #{JSON.stringify(agent)}
+                                          img.fieldAgentAddAction.fieldPublishersAddAction(src='/img/validate.png' title='use this value')
+                            //-div.AgentThumb
+                              div.agentThumbInnerBodyperson
+                                div.agentThumbName Toby Inkster
+                                div.agentThumbPrefUri http://tobyinkster.co.uk/#i
+                                img.agentThumbRemove(src='/img/remove_white.png')
+            form(method='post' action=action name='agentCreationOnTheFlyForm' id='agentCreationOnTheFlyForm' title='Get Or Create an Agent')
+              input(type='hidden', name='_csrf', value="#{csrf_token}")
+              input(type="hidden", name="_method", value="PUT")
+              #agentCreationOnTheFlyClue
+              .metadataFrame
+                #agentCreationOnTheFlyErrors
+                div(class='metadataContainerPerson')
+                  table.editionTable
+                    tbody
+                      tr
+                        td Full name
+                        td
+                          input#agentNameAutocomplete(type='text', name="name", autocomplete='off')
+                      tr
+                        td Type
+                        td
+                          select(name='type')
+                            - var agentTypes = ['person','organization','software agent'];
+                            each agentType in agentTypes
+                              option(value=agentType)= agentType
+                      tr
+                        td URI
+                        td
+                          input(type='text', name="prefUri")
+      script.
+        function addTextareaLang(divName,dataArray,langArray,value,lang){
+            var newdiv = document.createElement('div');
+              var textarea = document.createElement("textarea");
+              textarea.className  = 'textareaWithLang';
+              textarea.name ='"+dataArray+"[]';
+              textarea.rows = '2';
+              textarea.innerHTML= value;
+            newdiv.appendChild(textarea);
+              var select = document.createElement("select");
+              select.className ='selectWithLang';
+              select.name='"+langArray+"[]';
+              populateLangCombobox(select, lang)
+            newdiv.appendChild(select);
+              var image = document.createElement("img");
+              image.className ='imageWithLangRemoveAction';
+              image.src='/img/remove.png';
+              image.addEventListener('click', function(){ this.parentNode.remove();}, false);
+            newdiv.appendChild(image);
+            document.getElementById(divName).appendChild(newdiv);
+        }
+        function populateLangCombobox(selectElem, lang){
+          if(!lang)lang='en';
+          var languages=!{JSON.stringify(langs)};
+          for(var i = 0; i < languages.length; i++) {
+              var opt = languages[i];
+              var el = document.createElement("option");
+              el.textContent = opt.label;
+              if(lang && lang===opt.iso639P1Code) el.selected = true;
+              el.value = opt.iso639P1Code;
+              selectElem.appendChild(el);
+          }
+        }
+        function addAgent(agentsDiv, agentJson){
+            var newdiv = document.createElement('div');
+            newdiv.className  = 'AgentThumb';
+              var inner = document.createElement('div');
+              inner.className  = 'agentThumbInnerBodyperson';
+                var name = document.createElement('div');
+                name.className  = 'agentThumbName';
+                name.innerHTML= agentJson.name;
+              inner.appendChild(name);
+                var prefUri = document.createElement('div');
+                prefUri.className  = 'agentThumbPrefUri';
+                prefUri.innerHTML= (agentJson.prefUri)?agentJson.prefUri:'';
+              inner.appendChild(prefUri);
+                var image = document.createElement("img");
+                image.className ='agentThumbRemove';
+                image.src='/img/remove_white.png';
+                image.addEventListener('click', function(){ this.parentNode.parentNode.remove();}, false);
+              inner.appendChild(image);
+            newdiv.appendChild(inner);
+            document.getElementById(agentsDiv).appendChild(newdiv);
+        }
+        $('.conflict').after('<img src="/img/alert.png" style="margin-left:-1.7em; margin-bottom:-.3em; height:1.2em; width:1.2em;" />');
+        $('.fieldSugActionInput').click(function() {  //on click 
+            var txt =$(this).prev('.fieldSugValue').text();
+            $(this).parent().parent().parent().children('input').val(txt);
+        });
+        $('.fieldSugActionTextareaLangTitle').click(function() {  //on click 
+            var lang =$(this).prev('.fieldSugLang').text();
+            var txt =$(this).prev().prev('.fieldSugValue').text();
+            if(!txt)txt =$(this).prev('.fieldSugValue').text();
+            addTextareaLang('titlesTd','titles','titlesLangs',txt.substring(1,txt.length-1),(lang)?lang.substring(1,lang.length):'');
+        });
+        $('.fieldSugActionTextareaLangDescription').click(function() {  //on click 
+            var lang =$(this).prev('.fieldSugLang').text();
+            var txt =$(this).prev().prev('.fieldSugValue').text();
+            if(!txt)txt =$(this).prev('.fieldSugValue').text();
+            addTextareaLang('descriptionsTd','descriptions','descriptionsLangs',txt.substring(1,txt.length-1), (lang)?lang.substring(1,lang.length):'');
+        });
+        
+        $('.fieldSugActionAgentComplete').click(function() {  //on click 
+            var agentJson =JSON.parse($(this).prev('.fieldSugHidden').text());
+            addAgent('creatorsTd',agentJson);
+        });
+        $(document).ready(function () {
+        
+          $('.fieldAgentAddAction').click(function(e){
+            e.preventDefault();
+            var currentForm= $('#agentCreationOnTheFlyForm');
+            if($(this).hasClass('fieldCreatorsAddAction')){
+              currentForm.removeClass("publisherForm");
+              currentForm.removeClass("contributorForm");
+              currentForm.addClass("creatorForm");
+            }else{
+              if($(this).hasClass('fieldContributorsAddAction')){
+                currentForm.removeClass("publisherForm");
+                currentForm.addClass("contributorForm");
+                currentForm.removeClass("creatorForm");
+              }
+              else{
+                currentForm.addClass("publisherForm");
+                currentForm.removeClass("contributorForm");
+                currentForm.removeClass("creatorForm");
+              }
+            }
+            var clue = $(this).prev('.fieldSugHidden').text();
+            if(clue){
+              clue = JSON.parse(clue);
+              $('#agentCreationOnTheFlyClue').text((clue.name)?clue.name+" ("+clue.prefUri+")":clue.prefUri);
+            }
+            
+              $('#agentCreationOnTheFlyForm').dialog({
+                resizable: false,
+                height:400,
+                width:800,
+                modal: true,
+                buttons: {
+                    'Confirm': function() {
+                        currentForm.submit();
+                    },
+                    Cancel: function() {
+                      currentForm=null;
+                      $(this).dialog('close');
+                    }
+                }
+              });
+            return false;
+          });
+          $( "#agentNameAutocomplete" ).autocomplete({
+              minLength: 1,
+              source: function (request, response) {
+               $.ajax({
+                 url: "/dataset/lov/api/v2/agent/autoCompleteFull",
+                 data: { q: request.term },
+                 dataType: "json",
+                 success: response,
+                 error: function () {
+                     response([]);
+                 }
+              });
+             },
+              position: {my : "left top",at: "left bottom"},
+              messages: {noResults: '',results: function() {}},
+              select : function(event, ui) {
+                  if($('#agentCreationOnTheFlyForm').hasClass('creatorForm')) addAgent('creatorsTd',ui.item);
+                  if($('#agentCreationOnTheFlyForm').hasClass('contributorForm')) addAgent('contributorsTd',ui.item);
+                  if($('#agentCreationOnTheFlyForm').hasClass('publisherForm')) addAgent('publishersTd',ui.item);
+                  $('#agentCreationOnTheFlyForm').dialog('close')
+              },
+             open: function(event, ui) {$(".ui-autocomplete").css("z-index", 1000);}
+          }).data( "uiAutocomplete" )._renderItem = function( ul, item ) {
+           return $( "<li></li>" )
+             .data( "item", item )
+             .append( "<a>" + item.name +"</a>")
+             .appendTo( ul );
+          };
+        });
+        

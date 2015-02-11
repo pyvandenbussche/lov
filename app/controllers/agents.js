@@ -205,3 +205,21 @@ exports.autoComplete = function(req, res) {
       }
    });
 }
+
+exports.autoCompleteFull = function(req, res) {
+   var regex = new RegExp(req.query["q"], 'i');
+   var query = Agent.find({$or: [{name: regex},{prefUri: regex}]}).sort({name:1}).limit(10);
+        
+      // Execute query in a callback and return agents list
+  query.exec(function(err, agents) {
+      if (!err) {
+         res.send(agents, {
+            'Content-Type': 'application/json'
+         }, 200);
+      } else {
+         res.send(JSON.stringify(err), {
+            'Content-Type': 'application/json'
+         }, 404);
+      }
+   });
+}

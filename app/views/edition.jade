@@ -8,7 +8,7 @@ block content
       section#featuresBanner
         .featureWrapper
           .suggest
-            a(href='/dataset/lov/suggest') Vocab
+            a.createVocab(href='#') Vocab
         .featureWrapper
           .suggest
             a(href='/edition/lov/agents/new') Agent
@@ -42,9 +42,9 @@ block content
                                   input(type='hidden', name='suggId', value="#{sugg._id}")
                             - else
                               - if(""+sugg.reviewedBy._id === ""+auth.agent)
-                                form(action="/edition/lov/suggestCreate", method="post")
+                                form(action="/edition/lov/vocabs/new", method="post")
                                   input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
-                                  input(type='hidden', name='suggId', value="#{sugg._id}")
+                                  input(type='hidden', name='uri', value="#{sugg.uri}")
                                   input.suggestCreate(type='submit' name='submit' value='Create')
                             a.prefix(href='#{sugg.uri}' target='_blank') #{sugg.uri}
                             div.uri #{sugg.suggestedBy} - #{utils.dateToYMD(sugg.date)}
@@ -123,6 +123,12 @@ block content
                               span - !{usr.category}
                               div.uri !{usr.email}
                             div.hr
+          #dialogCreateVocab(title="Enter the URI for the vocabulary to create") 
+            #dialogCreateVocabError
+            form(action="/edition/lov/vocabs/new", method="post" name="formDialogCreateVocab" id="formDialogCreateVocab")
+              fieldset.editionTable
+                input(type='hidden', name='_csrf', value="#{csrf_token}")
+                input(type="text" name="uri" placeholder="vocabulary URI")
           #dialog(style='display:none;') Are you sure you want to update the status? This will remove the vocabulary from this view.
           script.
             function changeClassRemove() {
@@ -199,5 +205,42 @@ block content
                     }
                   });
                 return false;
+              });
+              
+              //add a new vocab form
+              $('.createVocab').click(function(e){
+                e.preventDefault();
+                  $('#dialogCreateVocab').dialog({
+                    resizable: false,
+                    height:250,
+                    width:600,
+                    modal: true,
+                    buttons: {
+                        'Confirm': function() {
+                            $('#formDialogCreateVocab').submit();
+                        },
+                        Cancel: function() {
+                          $(this).dialog('close');
+                        }
+                    }
+                  });
+                return false;
+              });
+              
+              
+              //form validation before submit
+              new FormValidator('formDialogCreateVocab', [{
+                  name: 'uri',
+                  rules: 'required|valid_url'
+              }], function(errors, event) {
+                  if (errors.length > 0) {
+                    var errorString = '';
+                    for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+                        errorString += errors[i].message + '<br />';
+                    }
+                    document.getElementById('dialogCreateVocabError').style.display = 'block';
+                    document.getElementById('dialogCreateVocabError').innerHTML = errorString;
+                    event.returnValue=false;
+                  }
               });
             });

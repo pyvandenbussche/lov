@@ -425,7 +425,7 @@ margin-left: auto;
 
 /* edition */
 
-.editionTable input{
+.editionTable input, .editionTable textarea{
   width:90%;
   background:#fff;
   border:1px solid #ccc;
@@ -440,6 +440,22 @@ margin-left: auto;
   padding:0.8em;
   font-family:'Open Sans',sans-serif;
   color:#555;
+}
+.editionTable textarea.textareaWithLang{
+  width:63%;
+  height: auto;
+  float:left;
+}
+.imageWithLangRemoveAction{
+  height:1em;
+  width:1em;
+  padding:1em .5em;
+  cursor:pointer;
+}
+
+.editionTable select.selectWithLang{
+  width:20%;
+  float:left;
 }
 
 .editionActionBar{

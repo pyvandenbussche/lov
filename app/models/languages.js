@@ -32,6 +32,9 @@ LanguageSchema.statics = {
   load: function (id, cb) {
     this.findOne({_id : id}).exec(cb)
   },
+  listAllSortByP1Codes: function (cb) {
+    this.find().sort({'iso639P1Code':1}).exec(cb)
+  },
   
   loadByIso639P3PCode: function (iso639P3PCode, cb) {
     this.findOne({'iso639P3PCode' : iso639P3PCode}).exec(cb)

@@ -60,11 +60,6 @@ var VocabularySchema = new Schema({
     agentId: { type : String, ref : 'Agent' },
     createdAt: { type : Date}
   }],
-  comments: [{
-    body: { type : String, default : '' },
-    agentId: { type : String, ref : 'Agent' },
-    createdAt: { type : Date}
-  }],
   versions: [{
     name: { type : String, default : '' },
     fileURL: { type : String, default : '' },

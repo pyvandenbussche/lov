@@ -13,8 +13,6 @@ var users = require('../app/controllers/users')
   , languages = require('../app/controllers/languages')
   , edition = require('../app/controllers/edition')
   , agents = require('../app/controllers/agents')
-  , agentsPublic = require('../app/controllers/agentsPublic')
-  , agentsPrivate = require('../app/controllers/agentsPrivate')
   , auth = require('./middlewares/authorization')
   , search = require('../app/controllers/search')
   , searchMulti = require('../app/controllers/searchMulti')
@@ -69,24 +67,14 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.put('/edition/lov/agents/:agentId', auth.requiresLogin, agents.update)
   app.del('/edition/lov/agents/:agentId', auth.requiresLogin, agents.destroy)
   app.param('agentId', agents.load)
+  //vocabs
+  app.post('/edition/lov/vocabs/new', auth.requiresLogin, vocabularies.create)
 
-  // user routes
-  
-  //app.param('userId', users.user)
-  //app.get('/users/:userId', users.show)
-  //app.get('/users/:userId/edit', userAuth, users.edit) //TODO breach security
-  //app.put('/users/:userId', userAuth, users.update)//TODO breach security
- 
-  
   // agent
   app.get('/dataset/lov/agents', function(req, res){search.searchAgent(req,res,esclient);})
   app.get('/dataset/lov/agents/:agentName', agents.show)
   app.param('agentName', agents.loadFromName)
-  //app.put('/agents/:agentId', agentAuth, agentsPublic.update)
-  //app.get('/agents/new', auth.requiresLogin, agentsPublic.new)
-  //app.get('/signup', agentsPrivate.signup)
-  
-    
+
   
   // vocabs routes
 
@@ -158,6 +146,7 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.get('/dataset/lov/api/v2/search', function(req, res){search.apiSearch(req,res,esclient);})
   
   app.get('/dataset/lov/api/v2/agent/autocomplete', agents.autoComplete)
+  app.get('/dataset/lov/api/v2/agent/autocompleteFull', agents.autoCompleteFull)
   app.get('/dataset/lov/api/v2/agent/search', function(req, res){search.apiSearchAgent(req,res,esclient);})
   app.get('/dataset/lov/api/v2/agent/list', function(req, res){agents.apiListAgents(req,res);})
   app.get('/dataset/lov/api/v2/agent/info', function(req, res){agents.apiInfoAgent(req,res);})

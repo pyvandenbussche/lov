@@ -220,3 +220,69 @@ li.inactive .editionInnerBox span {
   width:1em;
   cursor:pointer;
 }
+
+
+/* Vocab edition */
+.fieldSuggestions{
+  padding: .3em 0em .3em 1em;
+  font-size:90%;
+  color:#5E9B9B;
+}
+.fieldSuggestions .fieldSug .fieldSugLabel{
+  font-style: italic;
+}
+.fieldSuggestions .fieldSug .fieldSugValue{
+  
+}
+.fieldSuggestions .fieldSug .fieldSugActionInput{
+  padding-left:.5em;
+  cursor:pointer;
+  height:1em;
+  width:1em;
+}
+.fieldSuggestions .fieldSug .fieldSugLang{
+  color:#426C6C;
+}
+.fieldWithLangAddAction, .fieldSugActionTextareaLangDescription, .fieldSugActionTextareaLangTitle, .fieldAgentAddAction{
+  height:1em;
+  width:1em;
+  cursor:pointer;
+  padding-left:.5em;
+}
+.fieldSugHidden{
+  display:none;
+}
+.fieldPrecision{
+  color:#9E9E9E;
+  font-size:90%;
+}
+
+.AgentThumb{
+  float:left;
+  border-radius: 4px;
+  padding:.5em;
+  padding-right:1.5em;
+  margin:0 .4em .4em 0;
+  background-color: #444747;
+  color: #fbfbfb;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3) inset;
+  -o-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3) inset;
+  -moz-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3) inset;
+  -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3) inset;
+}
+.agentThumbInnerBodyperson{
+  position:relative;
+  border-left: 6px solid #82C836;
+  padding-left:.3em;
+}
+.agentThumbPrefUri{
+  color: #888888;
+}
+.agentThumbRemove{
+  position:absolute;
+  top:0;
+  right:-1.2em;
+  height:.8em;
+  width:.8em;
+  cursor:pointer;
+}

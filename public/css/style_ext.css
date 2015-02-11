@@ -711,7 +711,7 @@ form input:focus {
   color: #3c3c3c;
   text-shadow: 1px 1px 0px white;
 }
-form textarea {
+form textarea.special {
   border-radius: 4px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -748,7 +748,7 @@ form textarea {
   height: 250px;
   min-height: 250px;
 }
-form textarea:focus {
+form textarea.scpecial:focus {
   border-color: white;
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
   -o-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
