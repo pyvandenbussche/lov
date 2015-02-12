@@ -445,6 +445,7 @@ margin-left: auto;
   width:63%;
   height: auto;
   float:left;
+  margin-right:.5em;
 }
 .imageWithLangRemoveAction{
   height:1em;
