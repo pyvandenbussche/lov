@@ -128,9 +128,19 @@ VocabularySchema.statics = {
 
   load: function (prefix, cb) {
     this.findOne({ prefix : prefix })
-      .populate('creatorIds', 'name')
-      .populate('contributorIds', 'name')
-      .populate('publisherIds', 'name')
+      .populate('creatorIds', 'name prefUri')
+      .populate('contributorIds', 'name prefUri')
+      .populate('publisherIds', 'name prefUri')
+      .populate('reviews.agentId', 'name prefUri')
+      .populate('versions.languageIds', 'label iso639P3PCode')
+      .exec(cb)
+  },
+  
+  loadId: function (id, cb) {
+    this.findOne({ _id : id })
+      .populate('creatorIds', 'name prefUri')
+      .populate('contributorIds', 'name prefUri')
+      .populate('publisherIds', 'name prefUri')
       .populate('reviews.agentId', 'name')
       .populate('versions.languageIds', 'label iso639P3PCode')
       .exec(cb)

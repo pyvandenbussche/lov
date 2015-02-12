@@ -68,8 +68,14 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.del('/edition/lov/agents/:agentId', auth.requiresLogin, agents.destroy)
   app.param('agentId', agents.load)
   //vocabs
-  app.post('/edition/lov/vocabs/new', auth.requiresLogin, vocabularies.create)
-
+  app.post('/edition/lov/vocabs/new', auth.requiresLogin, vocabularies.new)
+  app.get('/edition/lov/vocabs/:vocabPx', auth.requiresLogin, vocabularies.edit)
+  //app.get('/vocabs/new', auth.requiresLogin, vocabularies.new)
+  //app.post('/vocabs', auth.requiresLogin, vocabularies.create)
+  //app.get('/vocabs/:vocabPx/edit', articleAuth, vocabularies.edit)
+  //app.put('/vocabs/:vocabPx', articleAuth, vocabularies.update)
+  //app.del('/vocabs/:vocabPx', articleAuth, vocabularies.destroy)
+  
   // agent
   app.get('/dataset/lov/agents', function(req, res){search.searchAgent(req,res,esclient);})
   app.get('/dataset/lov/agents/:agentName', agents.show)
@@ -82,11 +88,11 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.get('/dataset', function(req, res){res.redirect('/dataset/lov/')})
   app.get('/dataset/lov', vocabularies.index)
   app.get('/dataset/lov/vocabs', function(req, res){search.searchVocabulary(req,res,esclient);})
-  app.get('/dataset/lov/vocabs/:vocabId/versions/:vocabId-:date.n3', function(req, res) {
+  app.get('/dataset/lov/vocabs/:vocabPx/versions/:vocabPx-:date.n3', function(req, res) {
     res.set('Content-Type', 'text/n3');
     res.download(require('path').resolve(__dirname+'/../versions/'+req.vocab._id+'/'+req.vocab._id+'_'+req.params.date+'.n3'),req.params.vocabId+'-'+req.params.date+'.n3');
 });
-  app.get('/dataset/lov/vocabs/:vocabId', vocabularies.show)
+  app.get('/dataset/lov/vocabs/:vocabPx', vocabularies.show)
   app.get('/dataset/lov/details/vocabulary:vocabularyid', function(req, res) {
     var vocabularyId=req.param('vocabularyid');
     if(vocabularyId){
@@ -97,10 +103,10 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   });
   //app.get('/vocabs/new', auth.requiresLogin, vocabularies.new)
   //app.post('/vocabs', auth.requiresLogin, vocabularies.create)
-  //app.get('/vocabs/:vocabId/edit', articleAuth, vocabularies.edit)
-  //app.put('/vocabs/:vocabId', articleAuth, vocabularies.update)
-  //app.del('/vocabs/:vocabId', articleAuth, vocabularies.destroy)
-  app.param('vocabId', vocabularies.load)
+  //app.get('/vocabs/:vocabPx/edit', articleAuth, vocabularies.edit)
+  //app.put('/vocabs/:vocabPx', articleAuth, vocabularies.update)
+  //app.del('/vocabs/:vocabPx', articleAuth, vocabularies.destroy)
+  app.param('vocabPx', vocabularies.load)
   
 
   // languages routes
@@ -156,6 +162,8 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.get('/dataset/lov/api/v2/vocabulary/list', function(req, res){vocabularies.apiListVocabs(req,res);})
   app.get('/dataset/lov/api/v2/vocabulary/search', function(req, res){search.apiSearchVocabs(req,res,esclient);})
   app.get('/dataset/lov/api/v2/vocabulary/info', function(req, res){vocabularies.apiInfoVocab(req,res);})
+  
+  app.get('/dataset/lov/api/v2/tags/list', function(req, res){vocabularies.apiTags(req,res);})
   
   app.get('/dataset/lov/api', function(req, res){res.render('api', {});}  )
   app.get('/dataset/lov/api/v1', function(req, res){res.render('api', {});}  )

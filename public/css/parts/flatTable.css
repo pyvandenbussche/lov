@@ -119,6 +119,9 @@
     color:#008F00;
   }
  
+ 
+ /*edition*/
+ 
   .editionTable {
 		border-collapse:collapse;
 		border: none;
@@ -147,5 +150,5 @@
 		text-shadow: 0 0 1px rgba(255,255,255,0.1);
 	}
   .editionTable td:first-child {
-		width:20%;
+		width:15%;
 	}

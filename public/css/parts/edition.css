@@ -214,7 +214,7 @@ li.inactive .editionInnerBox span {
   cursor:pointer;
 }
 
-#title .editActionH1{
+#title .editActionH1, #post .editActionH1{
   float:right;
   height:1em;
   width:1em;
@@ -243,7 +243,7 @@ li.inactive .editionInnerBox span {
 .fieldSuggestions .fieldSug .fieldSugLang{
   color:#426C6C;
 }
-.fieldWithLangAddAction, .fieldSugActionTextareaLangDescription, .fieldSugActionTextareaLangTitle, .fieldAgentAddAction{
+.fieldWithLangAddAction, .fieldSugActionTextareaLangDescription, .fieldSugActionTextareaLangTitle, .fieldAgentAddAction, .fieldReviewAddAction, .fieldTagsAddAction{
   height:1em;
   width:1em;
   cursor:pointer;
@@ -284,5 +284,24 @@ li.inactive .editionInnerBox span {
   right:-1.2em;
   height:.8em;
   width:.8em;
+  cursor:pointer;
+}
+.imageTagRemoveAction{
+  position:absolute;
+  top:.5em;
+  right:.2em;
+  height:.6em;
+  width:.6em;
+  cursor:pointer;
+}
+
+.reviewProv{
+  color: #5E9B9B;
+  padding:.2em 0 .7em 1em;
+}
+.col-1.wrplGreen{
+  width:100%;
+}
+.tagFromList{
   cursor:pointer;
 }

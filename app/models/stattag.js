@@ -26,10 +26,12 @@ var StattagSchema = new Schema({
 
 StattagSchema.statics = {
 
-  
+  list: function (cb) {
+    this.find({},{"_id":0}).sort({'label':1}).exec(cb)
+  },
   mostPopularTags: function (nbItemsRequired, cb) {
     this.find({},{"_id":0}).sort({'nbOccurrences':-1}).limit(nbItemsRequired).exec(cb)
-  },
+  }
 }
 
 mongoose.model('Stattag', StattagSchema)

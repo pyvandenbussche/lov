@@ -58,6 +58,16 @@ exports.apiListVocabs = function (req, res) {
 }
 
  /**
+* Vocabulary Tags List API
+*/
+exports.apiTags = function (req, res) {
+  Stattag.list(function(err, tags) {
+    if (err) return res.render('500')
+    return standardCallback(req, res, err, tags);
+  })
+}
+
+ /**
 * Vocabulary Info API
 */
 exports.apiInfoVocab = function (req, res) {
@@ -110,6 +120,19 @@ exports.load = function(req, res, next, prefix){
   Vocabulary.load(prefix, function (err, vocab) {
     if (err) return next(err)    
     if (!vocab) return next(new Error('Vocabulary '+prefix+' not found'))
+    req.vocab = vocab
+    next()
+  })
+}
+
+ /**
+ * Load
+ */
+
+exports.loadId = function(req, res, next, id){
+  Vocabulary.loadId(id, function (err, vocab) {
+    if (err) return next(err)    
+    if (!vocab) return next(new Error('Vocabulary '+id+' not found'))
     req.vocab = vocab
     next()
   })
@@ -228,7 +251,32 @@ exports.show = function(req, res){
   })
 }
 
-exports.create = function (req, res) {
+exports.edit = function (req, res) {
+  Language.listAll(function(err, langs) {
+    if (err) return res.render('500')
+    Stattag.list(function(err, listTags) {
+      if (err) return res.render('500')
+    
+  
+      //var stdout={"nbTriplesWithoutInf":410,"uri":"http://ontology.eil.utoronto.ca/icontact.owl","uriInputSearch":"http://ontology.eil.utoronto.ca/icontact.rdf","uriDeclared":"http://ontology.eil.utoronto.ca/icontact.owl","nsp":"http://ontology.eil.utoronto.ca/icontact.owl#","nspMostUsed":"http://ontology.eil.utoronto.ca/icontact.owl#","nspVannPref":"http://ontology.eil.utoronto.ca/icontact.owl#","nspDefault":"http://www.w3.org/2002/07/owl#","prefix":"ic","prefixAssociatedNsp":"ic","nbClasses":18,"nbProperties":37,"nbInstances":7,"nbDatatypes":0,"languages":[{"id":"54b2be018433ca9ccf1c0e0c","uri":"http://id.loc.gov/vocabulary/iso639-2/eng","label":"English","iso639P3PCode":"eng","iso639P1Code":"en"}],"titles":[{"value":"International Contact Ontology: Addresses, phone numbers and emails.","lang":"fr"}],"descriptions":[{"value":"International Contact Ontology: \n\nhttp://ontology.eil.utoronto.ca/icontact.html\n\nThis ontology provides basic classes and more detailed properties for  representating international street addresses, phone numbers and emails.  Rather than using existing ontologies, such as vcard, it was decided to create a new one as the vcard and foaf ignore the details of international addresses, phone numbers, etc.\n","lang":"en"}],"dateModified":"25 December 2014","relMetadata":[{"nbTriplesWithoutInf":0,"uri":"http://creativecommons.org/ns","nsp":"http://creativecommons.org/ns#","prefix":"cc","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0},{"nbTriplesWithoutInf":0,"uri":"http://purl.org/dc/terms/","nsp":"http://purl.org/dc/terms/","prefix":"dcterms","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0},{"nbTriplesWithoutInf":0,"uri":"http://purl.org/vocab/vann/","nsp":"http://purl.org/vocab/vann/","prefix":"vann","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0},{"nbTriplesWithoutInf":0,"uri":"http://www.w3.org/1999/02/22-rdf-syntax-ns#","nsp":"http://www.w3.org/1999/02/22-rdf-syntax-ns#","prefix":"rdf","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0},{"nbTriplesWithoutInf":0,"uri":"http://www.w3.org/2000/01/rdf-schema#","nsp":"http://www.w3.org/2000/01/rdf-schema#","prefix":"rdfs","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0},{"nbTriplesWithoutInf":0,"uri":"http://www.w3.org/2002/07/owl","nsp":"http://www.w3.org/2002/07/owl#","prefix":"owl","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0},{"nbTriplesWithoutInf":0,"uri":"http://www.w3.org/ns/adms","nsp":"http://www.w3.org/ns/adms#","prefix":"adms","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0}],"relSpecializes":[{"nbTriplesWithoutInf":0,"uri":"http://www.w3.org/2000/01/rdf-schema#","nsp":"http://www.w3.org/2000/01/rdf-schema#","prefix":"rdfs","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0}],"relGeneralizes":[{"nbTriplesWithoutInf":0,"uri":"http://schema.org/","nsp":"http://schema.org/","prefix":"schema","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0}],"relExtends":[{"nbTriplesWithoutInf":0,"uri":"http://www.w3.org/2001/XMLSchema","nsp":"http://www.w3.org/2001/XMLSchema#","prefix":"xsd","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0}],"relEquivalent":[],"relDisjunc":[],"relImports":[]}
+
+      //var stdout={"nbTriplesWithoutInf":167,"uri":"http://ontologi.es/doap-deps#","uriInputSearch":"http://ontologi.es/doap-deps#","uriDeclared":"http://ontologi.es/doap-deps#","nsp":"http://ontologi.es/doap-deps#","nspMostUsed":"http://ontologi.es/doap-deps#","nspClosest":"http://ontologi.es/doap-deps#","prefix":"deps","prefixAssociatedNsp":"deps","nbClasses":11,"nbProperties":20,"nbInstances":14,"nbDatatypes":6,"languages":[],"titles":[{"value":"DOAP Dependencies","lang":""}],"descriptions":[{"value":"an extension to DOAP for describing a project\u0027s requirements","lang":""}],"dateIssued":"2013-07-31","dateModified":"2013-07-31","creators":[{"id":"54b2be028433ca9ccf1c0ec9","prefUri":"http://tobyinkster.co.uk/#i","name":"Toby Inkster","altUris":[],"type":"person"}],"relMetadata":[{"nbTriplesWithoutInf":0,"uri":"http://purl.org/dc/terms/","nsp":"http://purl.org/dc/terms/","prefix":"dcterms","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0},{"nbTriplesWithoutInf":0,"uri":"http://www.w3.org/1999/02/22-rdf-syntax-ns#","nsp":"http://www.w3.org/1999/02/22-rdf-syntax-ns#","prefix":"rdf","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0},{"nbTriplesWithoutInf":0,"uri":"http://www.w3.org/2000/01/rdf-schema#","nsp":"http://www.w3.org/2000/01/rdf-schema#","prefix":"rdfs","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0}],"relSpecializes":[{"nbTriplesWithoutInf":0,"uri":"http://www.w3.org/2000/01/rdf-schema#","nsp":"http://www.w3.org/2000/01/rdf-schema#","prefix":"rdfs","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0}],"relGeneralizes":[],"relExtends":[{"nbTriplesWithoutInf":0,"uri":"http://usefulinc.com/ns/doap#","nsp":"http://usefulinc.com/ns/doap#","prefix":"doap","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0},{"nbTriplesWithoutInf":0,"uri":"http://www.w3.org/2002/07/owl","nsp":"http://www.w3.org/2002/07/owl#","prefix":"owl","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0}],"relEquivalent":[],"relDisjunc":[],"relImports":[]}
+      
+      var stdout={"nbTriplesWithoutInf":104,"uri":"http://www.ics.forth.gr/isl/oncm/core","uriInputSearch":"http://www.ics.forth.gr/isl/oncm/core.owl","uriDeclared":"http://www.ics.forth.gr/isl/oncm/core","nsp":"http://www.ics.forth.gr/isl/oncm/core#","nspMostUsed":"http://www.ics.forth.gr/isl/oncm/core#","nspDefault":"http://www.ics.forth.gr/isl/oncm/core#","prefix":"onc","prefixAssociatedNsp":"onc","nbClasses":8,"nbProperties":13,"nbInstances":0,"nbDatatypes":0,"languages":[{"id":"54b2be018433ca9ccf1c0e0c","uri":"http://id.loc.gov/vocabulary/iso639-2/eng","label":"English","iso639P3PCode":"eng","iso639P1Code":"en"}],"titles":[{"value":"Open NEE Configuration Model","lang":"en"},{"value":"The Open NEE Configuration Model","lang":"en"}],"descriptions":[{"value":"The Open NEE Configuration Model defines a Linked Data-based model for describing a configuration supported by a Named Entity Extraction (NEE) service. It is based on the model proposed in \"Configuring Named Entity Extraction through Real-Time Exploitation of Linked Data\" (http://dl.acm.org/citation.cfm?doid\u003d2611040.2611085) for configuring such services, and allows a NEE service to describe and publish as Linked Data its entity mining capabilities, but also to be dynamically configured.","lang":"en"}],"creators":[{"prefUri":"http://users.ics.forth.gr/~fafalios"}],"contributors":[{"prefUri":"http://users.ics.forth.gr/~tzitzik"}],"relMetadata":[{"nbTriplesWithoutInf":0,"uri":"http://purl.org/dc/terms/","nsp":"http://purl.org/dc/terms/","prefix":"dcterms","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0},{"nbTriplesWithoutInf":0,"uri":"http://www.w3.org/1999/02/22-rdf-syntax-ns#","nsp":"http://www.w3.org/1999/02/22-rdf-syntax-ns#","prefix":"rdf","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0},{"nbTriplesWithoutInf":0,"uri":"http://www.w3.org/2000/01/rdf-schema#","nsp":"http://www.w3.org/2000/01/rdf-schema#","prefix":"rdfs","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0},{"nbTriplesWithoutInf":0,"uri":"http://www.w3.org/2002/07/owl","nsp":"http://www.w3.org/2002/07/owl#","prefix":"owl","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0}],"relSpecializes":[{"nbTriplesWithoutInf":0,"uri":"http://www.w3.org/2000/01/rdf-schema#","nsp":"http://www.w3.org/2000/01/rdf-schema#","prefix":"rdfs","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0},{"nbTriplesWithoutInf":0,"uri":"http://www.w3.org/2004/02/skos/core","nsp":"http://www.w3.org/2004/02/skos/core#","prefix":"skos","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0}],"relGeneralizes":[],"relExtends":[{"nbTriplesWithoutInf":0,"uri":"http://www.w3.org/2000/01/rdf-schema#","nsp":"http://www.w3.org/2000/01/rdf-schema#","prefix":"rdfs","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0}],"relEquivalent":[],"relDisjunc":[],"relImports":[{"nbTriplesWithoutInf":0,"uri":"http://www.w3.org/2004/02/skos/","nbClasses":0,"nbProperties":0,"nbInstances":0,"nbDatatypes":0}]}
+
+      res.render('vocabularies/edit', {
+        stdout:stdout,
+        vocab: req.vocab,
+        langs: langs,
+        listTags:listTags,
+        profile:req.user,
+        utils: utils
+      });
+    });
+  });
+}
+
+exports.new = function (req, res) {
   //test if the vocabulary already exist or not
   if (!req.body.uri) { //control that q param is present
       req.flash('error', 'You must specify a vocabulary URI')
@@ -254,6 +302,7 @@ exports.create = function (req, res) {
             stdout:stdout,
             vocab: new Vocabulary({}),
             langs: langs,
+            profile:req.user,
             utils: utils
           });
         });

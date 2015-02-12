@@ -1,5 +1,6 @@
 extends ../layout/layout
 block content
+
       - var action = '/edition/lov/vocabs'
       - action += vocab.isNew? '' : '/' + vocab.id
       section#post.postBlue
@@ -15,7 +16,7 @@ block content
       section#posts.default-area
           article
             form(method='post' action=action name='TheForm')
-              #greenContainer.contents.clear.col-2.split.wrplGreen
+              #greenContainer.contents.clear.col-1.wrplGreen
                 input(type='hidden', name='_csrf', value="#{csrf_token}")
                 - if (!vocab.isNew)
                   input(type="hidden", name="_method", value="PUT")
@@ -94,7 +95,7 @@ block content
                             
                         tr
                           td Titles
-                            img.fieldWithLangAddAction(src='/img/add_grey.png' onclick="addTextareaLang('titlesTd','titles','titlesLangs','','');")
+                            img.fieldWithLangAddAction.fieldWithLangAddActionTitle(src='/img/add_grey.png')
                           td#titlesTd
                             if(stdout)
                               .fieldSuggestions
@@ -108,10 +109,18 @@ block content
                                       img.fieldSugActionTextareaLangTitle(src='/img/validate.png' title='use this value')
                             if(vocab.titles)
                               each title in vocab.titles
-                                - addTextareaLang('titlesTd','titles','titlesLangs',title.value,title.lang)
+                                div
+                                  textarea.textareaWithLang(name='titles[]' rows='2') #{title.value}
+                                  select.selectWithLang(name='titlesLangs[]')
+                                    each lang in langs
+                                      - if(lang.iso639P1Code === title.lang)
+                                        option(value='#{lang.iso639P1Code)' selected) #{lang.label}
+                                      - else
+                                        option(value='#{lang.iso639P1Code)') #{lang.label}
+                                  img.imageWithLangRemoveAction(src='/img/remove.png' onClick='this.parentNode.remove();')
                         tr
                           td Descriptions
-                            img.fieldWithLangAddAction(src='/img/add_grey.png' onclick="addTextareaLang('descriptionsTd','descriptions','descriptionsLangs','','');")
+                            img.fieldWithLangAddAction.fieldWithLangAddActionDescription(src='/img/add_grey.png')
                           td#descriptionsTd
                             if(stdout)
                               .fieldSuggestions
@@ -125,7 +134,15 @@ block content
                                       img.fieldSugActionTextareaLangDescription(src='/img/validate.png' title='use this value')
                             if(vocab.descriptions)
                               each description in vocab.descriptions
-                                - addTextareaLang('descriptionsTd','descriptions','descriptionsLangs',description.value,description.lang)
+                                div
+                                  textarea.textareaWithLang(name='descriptions[]' rows='2') #{description.value}
+                                  select.selectWithLang(name='descriptionsLangs[]')
+                                    each lang in langs
+                                      - if(lang.iso639P1Code === description.lang)
+                                        option(value='#{lang.iso639P1Code)' selected) #{lang.label}
+                                      - else
+                                        option(value='#{lang.iso639P1Code)') #{lang.label}
+                                  img.imageWithLangRemoveAction(src='/img/remove.png' onClick='this.parentNode.remove();')
                         tr
                           td First Issued 
                             span.fieldPrecision (Date in yyyy-MM-dd format)
@@ -137,14 +154,13 @@ block content
                                     span.fieldSugLabel(title='as defined in the ontology') Issued: 
                                     span.fieldSugValue #{stdout.dateIssued}
                                     img.fieldSugActionInput(src='/img/validate.png' title='use this value')
-                            - if(stdout && !vocab.dateIssued) vocab.issuedAt=stdout.dateIssued;
+                            - if(stdout && !vocab.issuedAt) vocab.issuedAt=stdout.dateIssued;
                             input#inputVocabIssuedAt(type='text' name="issuedAt" value=utils.dateToYMD(vocab.issuedAt) placeholder='yyyy-MM-dd')
                         tr
                           td Homepage 
                           td
                             input#inputVocabHomepage(type='text' name="homepage" value=vocab.homepage placeholder='Optional')
-                                
-              #greenContainer.contents.clear.col-2.split.wrplGreen
+              #greenContainer.contents.clear.col-1.wrplGreen
                 .metadataFrame
                   div(class='metadataContainerVocab')
                     table.editionTable
@@ -169,11 +185,13 @@ block content
                                           span.fieldSugValue #{(creator.name)? creator.name+' ('+creator.prefUri:creator.prefUri}
                                           span.fieldSugHidden #{JSON.stringify(creator)}
                                           img.fieldAgentAddAction.fieldCreatorsAddAction(src='/img/validate.png' title='use this value')
-                            //-div.AgentThumb
-                              div.agentThumbInnerBodyperson
-                                div.agentThumbName Toby Inkster
-                                div.agentThumbPrefUri http://tobyinkster.co.uk/#i
-                                img.agentThumbRemove(src='/img/remove_white.png')
+                            if(vocab.creatorIds)
+                              each agent in vocab.creatorIds
+                                div.AgentThumb
+                                  div.agentThumbInnerBodyperson
+                                    div.agentThumbName #{agent.name}
+                                    div.agentThumbPrefUri #{agent.prefUri}
+                                    img.agentThumbRemove(src='/img/remove_white.png' onClick='this.parentNode.parentNode.remove();')
                         tr
                           td Contributors
                             img.fieldAgentAddAction.fieldContributorsAddAction(src='/img/add_grey.png')
@@ -194,11 +212,13 @@ block content
                                           span.fieldSugValue #{(agent.name)? agent.name+' ('+agent.prefUri+')':agent.prefUri}
                                           span.fieldSugHidden #{JSON.stringify(agent)}
                                           img.fieldAgentAddAction.fieldContributorsAddAction(src='/img/validate.png' title='use this value')
-                            //-div.AgentThumb
-                              div.agentThumbInnerBodyperson
-                                div.agentThumbName Toby Inkster
-                                div.agentThumbPrefUri http://tobyinkster.co.uk/#i
-                                img.agentThumbRemove(src='/img/remove_white.png')
+                            if(vocab.contributorIds)
+                              each agent in vocab.contributorIds
+                                div.AgentThumb
+                                  div.agentThumbInnerBodyperson
+                                    div.agentThumbName #{agent.name}
+                                    div.agentThumbPrefUri #{agent.prefUri}
+                                    img.agentThumbRemove(src='/img/remove_white.png' onClick='this.parentNode.parentNode.remove();')
                         tr
                           td Publishers
                             img.fieldAgentAddAction.fieldPublishersAddAction(src='/img/add_grey.png')
@@ -219,12 +239,50 @@ block content
                                           span.fieldSugValue #{(agent.name)? agent.name+' ('+agent.prefUri+')':agent.prefUri}
                                           span.fieldSugHidden #{JSON.stringify(agent)}
                                           img.fieldAgentAddAction.fieldPublishersAddAction(src='/img/validate.png' title='use this value')
-                            //-div.AgentThumb
-                              div.agentThumbInnerBodyperson
-                                div.agentThumbName Toby Inkster
-                                div.agentThumbPrefUri http://tobyinkster.co.uk/#i
-                                img.agentThumbRemove(src='/img/remove_white.png')
-            form(method='post' action=action name='agentCreationOnTheFlyForm' id='agentCreationOnTheFlyForm' title='Get Or Create an Agent')
+                            if(vocab.publisherIds)
+                              each agent in vocab.publisherIds
+                                div.AgentThumb
+                                  div.agentThumbInnerBodyperson
+                                    div.agentThumbName #{agent.name}
+                                    div.agentThumbPrefUri #{agent.prefUri}
+                                    img.agentThumbRemove(src='/img/remove_white.png' onClick='this.parentNode.parentNode.remove();')
+              #greenContainer.contents.clear.col-1.wrplGreen
+                .metadataFrame
+                  div(class='metadataContainerVocab')
+                    table.editionTable
+                      tbody
+                        tr
+                          td Tags
+                            img.fieldTagsAddAction(src='/img/add_grey.png')
+                          td#tagsTd
+                            ul#tagsUl.tagsVocab
+                              if(vocab.tags)
+                                each tag in vocab.tags
+                                  li
+                                    span.tag #{tag}
+                                    img.imageTagRemoveAction(src='/img/remove_white.png' onClick='this.parentNode.remove();')
+                        tr
+                          td Reviews
+                            img.fieldReviewAddAction(src='/img/add_grey.png')
+                          td#reviewsTd
+                            if(vocab.reviews)
+                              each review in vocab.reviews
+                                div
+                                  textarea.textAreaReview(name='reviews[]' rows='2') #{review.body}
+                                  img.imageWithLangRemoveAction(src='/img/remove.png' onClick(this.parentNode.remove();))
+                                  div.clear.reviewProv
+                                    span By 
+                                    span #{review.agentId.name} 
+                                    span on 
+                                    span #{utils.dateToYMD(review.createdAt)}
+                                
+            #listOfTags(title='Select a Tag' style='display:none;')
+              ul.tagsVocab
+                each tag in listTags
+                  li
+                    span.tag.tagFromList #{tag.label}
+                                
+            form(method='post' action=action name='agentCreationOnTheFlyForm' id='agentCreationOnTheFlyForm' title='Get Or Create an Agent' style='display:none;')
               input(type='hidden', name='_csrf', value="#{csrf_token}")
               input(type="hidden", name="_method", value="PUT")
               #agentCreationOnTheFlyClue
@@ -248,7 +306,57 @@ block content
                         td URI
                         td
                           input(type='text', name="prefUri")
+              
+                          
       script.
+        function addTag(tagName){
+          var li = document.createElement('li');
+             var span = document.createElement('span');
+             span.className  = 'tag';
+             span.innerHTML= tagName;
+          li.appendChild(span);
+              var image = document.createElement("img");
+              image.className ='imageTagRemoveAction';
+              image.src='/img/remove_white.png';
+              image.addEventListener('click', function(){ this.parentNode.remove();}, false);
+          li.appendChild(image);
+          document.getElementById('tagsUl').appendChild(li);
+        }
+        function addReview(divName,dataArray,langArray,value,lang){
+          var today = new Date();
+          var d = today.getDate();
+          var m = today.getMonth()+1;
+          var y = today.getFullYear();
+          
+            var newdiv = document.createElement('div');
+              var textarea = document.createElement("textarea");
+              textarea.className  = 'textAreaReview';
+              textarea.name ='"+dataArray+"[]';
+              textarea.rows = '2';
+              textarea.innerHTML= value;
+            newdiv.appendChild(textarea);
+              var image = document.createElement("img");
+              image.className ='imageWithLangRemoveAction';
+              image.src='/img/remove.png';
+              image.addEventListener('click', function(){ this.parentNode.remove();}, false);
+            newdiv.appendChild(image);
+              var agentDate = document.createElement('div');
+              agentDate.className  = 'clear reviewProv';
+                var span1 = document.createElement('span');
+                span1.innerHTML= 'By ';
+              agentDate.appendChild(span1);
+                var span2 = document.createElement('span');
+                span2.innerHTML= 'Me';
+              agentDate.appendChild(span2);
+                var span3 = document.createElement('span');
+                span3.innerHTML= ' on ';
+              agentDate.appendChild(span3);
+                var span4 = document.createElement('span');
+                span4.innerHTML= y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
+              agentDate.appendChild(span4);
+            newdiv.appendChild(agentDate);
+            document.getElementById(divName).appendChild(newdiv);
+        }
         function addTextareaLang(divName,dataArray,langArray,value,lang){
             var newdiv = document.createElement('div');
               var textarea = document.createElement("textarea");
@@ -324,7 +432,31 @@ block content
             var agentJson =JSON.parse($(this).prev('.fieldSugHidden').text());
             addAgent('creatorsTd',agentJson);
         });
+        
+        $('.fieldReviewAddAction').click(function() {  //on click 
+            addReview('reviewsTd','titles','titlesLangs','','');
+        });
+        $('.fieldWithLangAddActionTitle').click(function() {  //on click 
+          addTextareaLang('titlesTd','titles','titlesLangs','','');
+        });
+        $('.fieldWithLangAddActionDescription').click(function() {  //on click 
+          addTextareaLang('descriptionsTd','descriptions','descriptionsLangs','','');
+        });
+        
         $(document).ready(function () {
+          $('.tagFromList').click(function(e){
+            addTag($(this).text());
+            $('#listOfTags').dialog('close');
+          });
+        
+          $('.fieldTagsAddAction').click(function(e){
+            $('#listOfTags').dialog({
+              resizable: false,
+              height:600,
+              width:800,
+              modal: true
+            });
+          });
         
           $('.fieldAgentAddAction').click(function(e){
             e.preventDefault();

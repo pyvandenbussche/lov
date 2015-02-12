@@ -451,10 +451,17 @@ margin-left: auto;
   width:1em;
   padding:1em .5em;
   cursor:pointer;
+  float:left;
 }
 
 .editionTable select.selectWithLang{
   width:20%;
+  float:left;
+}
+
+.editionTable textarea.textAreaReview{
+  width:85%;
+  height: auto;
   float:left;
 }
 
