@@ -70,8 +70,8 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   //vocabs
   app.post('/edition/lov/vocabs/new', auth.requiresLogin, vocabularies.new)
   app.get('/edition/lov/vocabs/:vocabPx', auth.requiresLogin, vocabularies.edit)
-  //app.get('/vocabs/new', auth.requiresLogin, vocabularies.new)
-  //app.post('/vocabs', auth.requiresLogin, vocabularies.create)
+  app.post('/edition/lov/vocabs', auth.requiresLogin, vocabularies.create)
+  app.put('/edition/lov/vocabs/:vocabPx', auth.requiresLogin, vocabularies.update)
   //app.get('/vocabs/:vocabPx/edit', articleAuth, vocabularies.edit)
   //app.put('/vocabs/:vocabPx', articleAuth, vocabularies.update)
   //app.del('/vocabs/:vocabPx', articleAuth, vocabularies.destroy)

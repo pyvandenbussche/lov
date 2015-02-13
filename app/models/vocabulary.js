@@ -32,55 +32,55 @@ var setTags = function (tags) {
  */
 
 var VocabularySchema = new Schema({
-  uri: {type : String, default : '', trim : true},
-  nsp: {type : String, default : '', trim : true},
-  prefix: {type : String, default : '', trim : true},
+  uri: {type : String, trim : true},
+  nsp: {type : String, trim : true},
+  prefix: {type : String, trim : true},
   titles: [{
-    value: {type : String, default : '', trim : true},
-    lang: {type : String, default : '', trim : true},
+    value: {type : String, trim : true},
+    lang: {type : String, trim : true},
   }],
   descriptions: [{
-    value: {type : String, default : '', trim : true},
-    lang: {type : String, default : '', trim : true},
+    value: {type : String, trim : true},
+    lang: {type : String, trim : true},
   }],
-  tags: [{ type : String}],
+  tags: [{ type : String, trim : true}],
   issuedAt  : {type : Date}, //first publication of the vocabulary on the WEB (not in LOV)
   createdInLOVAt  : {type : Date}, //creation of the record in LOV
   lastModifiedInLOVAt  : {type : Date}, //last modification of the record in LOV (either by the BOT or a curator)
   lastDeref  : {type : Date}, //Last date of successful dereferentiation by the BOT
-	commentDeref: {type : String}, //if !=null means there has been an error during the dereferentiation
+	commentDeref: {type : String, trim : true}, //if !=null means there has been an error during the dereferentiation
   
-  homepage: {type : String, default : '', trim : true},
-  isDefinedBy: {type : String, default : '', trim : true},
-  creatorIds: [{ type : String, ref : 'Agent' }],
-  contributorIds: [{ type : String, ref : 'Agent' }],
-  publisherIds: [{ type : String, ref : 'Agent' }],
+  homepage: {type : String, trim : true},
+  isDefinedBy: {type : String, trim : true},
+  creatorIds: [{ type : String, ref : 'Agent', trim : true }],
+  contributorIds: [{ type : String, ref : 'Agent', trim : true }],
+  publisherIds: [{ type : String, ref : 'Agent', trim : true }],
   reviews: [{
-    body: { type : String, default : '' },
-    agentId: { type : String, ref : 'Agent' },
+    body: { type : String, trim : true },
+    agentId: { type : String, ref : 'Agent', trim : true },
     createdAt: { type : Date}
   }],
   versions: [{
-    name: { type : String, default : '' },
-    fileURL: { type : String, default : '' },
+    name: { type : String, trim : true },
+    fileURL: { type : String, trim : true},
     issued: { type : Date},
-    classNumber: { type : String, default : '' },
-    propertyNumber: { type : String, default : '' },
-    instanceNumber: { type : String, default : '' },
-    datatypeNumber: { type : String, default : '' },
-    languageIds: [{ type : String, ref : 'Language' }],
-    relMetadata: [{ type : String}],
-    relDisjunc: [{ type : String}],
-    relEquivalent: [{ type : String}],
-    relExtends: [{ type : String}],
-    relGeneralizes: [{ type : String}],
-    relImports: [{ type : String}],
-    relSpecializes: [{ type : String}]
+    classNumber: { type : String, trim : true},
+    propertyNumber: { type : String, trim : true},
+    instanceNumber: { type : String, trim : true },
+    datatypeNumber: { type : String, trim : true },
+    languageIds: [{ type : String, ref : 'Language', trim : true }],
+    relMetadata: [{ type : String, trim : true}],
+    relDisjunc: [{ type : String, trim : true}],
+    relEquivalent: [{ type : String, trim : true}],
+    relExtends: [{ type : String, trim : true}],
+    relGeneralizes: [{ type : String, trim : true}],
+    relImports: [{ type : String, trim : true}],
+    relSpecializes: [{ type : String, trim : true}]
   }],
   datasets: [{
-    uri: { type : String, default : '' },
+    uri: { type : String, trim : true },
     label: { type : String, ref : 'Agent' },
-    occurrences: { type : String}
+    occurrences: { type : String, trim : true}
   }],
   
   /*

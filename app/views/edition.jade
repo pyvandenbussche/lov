@@ -85,7 +85,7 @@ block content
                       li(class="editionBoxRev")
                         .editionContainer
                           div.editionInnerBox
-                            a.prefix(href='/dataset/lov/vocabs/#{vocab.prefix}' target='_blank') #{vocab.prefix}
+                            a.prefix(href='/dataset/lov/vocabs/#{vocab.prefix}') #{vocab.prefix}
                             - if(typeof vocab.latestReviewDate != "undefined")
                               div.uri Last reviewed on #{utils.dateToYMD(vocab.latestReviewDate)}
                             - else

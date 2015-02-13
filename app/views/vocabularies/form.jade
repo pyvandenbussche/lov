@@ -1,8 +1,8 @@
 extends ../layout/layout
 block content
-
+      //- used to extract information form in JSON: https://github.com/maxatwork/form2js
       - var action = '/edition/lov/vocabs'
-      - action += vocab.isNew? '' : '/' + vocab.id
+      - action += vocab.isNew? '' : '/' + vocab.prefix
       section#post.postBlue
         article
           header.wrpl.w-3-3
@@ -15,11 +15,15 @@ block content
                   span (#{vocab.prefix})
       section#posts.default-area
           article
-            form(method='post' action=action name='TheForm')
+            form(method='post' action=action name='TheForm' id='TheForm')
               #greenContainer.contents.clear.col-1.wrplGreen
                 input(type='hidden', name='_csrf', value="#{csrf_token}")
+                input(type='hidden', value="1000" disabled="disabled", id='cptOverall')
+                input(type="hidden", name="lastModifiedInLOVAt", value="#{utils.dateToYMD(new Date())}")
                 - if (!vocab.isNew)
                   input(type="hidden", name="_method", value="PUT")
+                - else
+                  input(type="hidden", name="createdInLOVAt", value="#{utils.dateToYMD(new Date())}")
                 .metadataFrame
                   #formErrors
                   div(class='metadataContainerVocab')
@@ -108,15 +112,15 @@ block content
                                         span.fieldSugLang @#{title.lang}
                                       img.fieldSugActionTextareaLangTitle(src='/img/validate.png' title='use this value')
                             if(vocab.titles)
-                              each title in vocab.titles
+                              each title, i in vocab.titles
                                 div
-                                  textarea.textareaWithLang(name='titles[]' rows='2') #{title.value}
-                                  select.selectWithLang(name='titlesLangs[]')
+                                  textarea.textareaWithLang(name='titles[#{i}].value' rows='2') #{title.value}
+                                  select.selectWithLang(name='titles[#{i}].lang')
                                     each lang in langs
                                       - if(lang.iso639P1Code === title.lang)
-                                        option(value='#{lang.iso639P1Code)' selected) #{lang.label}
+                                        option(value='#{lang.iso639P1Code}' selected) #{lang.label}
                                       - else
-                                        option(value='#{lang.iso639P1Code)') #{lang.label}
+                                        option(value='#{lang.iso639P1Code}') #{lang.label}
                                   img.imageWithLangRemoveAction(src='/img/remove.png' onClick='this.parentNode.remove();')
                         tr
                           td Descriptions
@@ -133,15 +137,15 @@ block content
                                         span.fieldSugLang @#{description.lang}
                                       img.fieldSugActionTextareaLangDescription(src='/img/validate.png' title='use this value')
                             if(vocab.descriptions)
-                              each description in vocab.descriptions
+                              each description, i in vocab.descriptions
                                 div
-                                  textarea.textareaWithLang(name='descriptions[]' rows='2') #{description.value}
-                                  select.selectWithLang(name='descriptionsLangs[]')
+                                  textarea.textareaWithLang(name='descriptions[#{i}].value' rows='2') #{description.value}
+                                  select.selectWithLang(name='descriptions[#{i}].lang')
                                     each lang in langs
                                       - if(lang.iso639P1Code === description.lang)
-                                        option(value='#{lang.iso639P1Code)' selected) #{lang.label}
+                                        option(value='#{lang.iso639P1Code}' selected) #{lang.label}
                                       - else
-                                        option(value='#{lang.iso639P1Code)') #{lang.label}
+                                        option(value='#{lang.iso639P1Code}') #{lang.label}
                                   img.imageWithLangRemoveAction(src='/img/remove.png' onClick='this.parentNode.remove();')
                         tr
                           td First Issued 
@@ -168,7 +172,7 @@ block content
                         tr
                           td Creators
                             img.fieldAgentAddAction.fieldCreatorsAddAction(src='/img/add_grey.png')
-                          td#creatorsTd
+                          td#creatorIds
                             if(stdout)
                               .fieldSuggestions
                                 if(stdout.creators && stdout.creators.length>0)
@@ -189,13 +193,14 @@ block content
                               each agent in vocab.creatorIds
                                 div.AgentThumb
                                   div.agentThumbInnerBodyperson
+                                    input(type='hidden' name='creatorIds[]' value='#{agent._id}' )
                                     div.agentThumbName #{agent.name}
                                     div.agentThumbPrefUri #{agent.prefUri}
                                     img.agentThumbRemove(src='/img/remove_white.png' onClick='this.parentNode.parentNode.remove();')
                         tr
                           td Contributors
                             img.fieldAgentAddAction.fieldContributorsAddAction(src='/img/add_grey.png')
-                          td#contributorsTd
+                          td#contributorIds
                             if(stdout)
                               .fieldSuggestions
                                 if(stdout.contributors && stdout.contributors.length>0)
@@ -216,13 +221,14 @@ block content
                               each agent in vocab.contributorIds
                                 div.AgentThumb
                                   div.agentThumbInnerBodyperson
+                                    input(type='hidden' name='contributorIds[]' value='#{agent._id}' )
                                     div.agentThumbName #{agent.name}
                                     div.agentThumbPrefUri #{agent.prefUri}
                                     img.agentThumbRemove(src='/img/remove_white.png' onClick='this.parentNode.parentNode.remove();')
                         tr
                           td Publishers
                             img.fieldAgentAddAction.fieldPublishersAddAction(src='/img/add_grey.png')
-                          td#publishersTd
+                          td#publisherIds
                             if(stdout)
                               .fieldSuggestions
                                 if(stdout.publishers && stdout.publishers.length>0)
@@ -243,6 +249,7 @@ block content
                               each agent in vocab.publisherIds
                                 div.AgentThumb
                                   div.agentThumbInnerBodyperson
+                                    input(type='hidden' name='publisherIds[]' value='#{agent._id}' )
                                     div.agentThumbName #{agent.name}
                                     div.agentThumbPrefUri #{agent.prefUri}
                                     img.agentThumbRemove(src='/img/remove_white.png' onClick='this.parentNode.parentNode.remove();')
@@ -261,21 +268,29 @@ block content
                                   li
                                     span.tag #{tag}
                                     img.imageTagRemoveAction(src='/img/remove_white.png' onClick='this.parentNode.remove();')
+                                    input(type='hidden' name='tags[]' value='#{tag}' )
                         tr
                           td Reviews
                             img.fieldReviewAddAction(src='/img/add_grey.png')
-                          td#reviewsTd
+                          td#reviewsTd(class='#{req.user.agent}')
                             if(vocab.reviews)
-                              each review in vocab.reviews
+                              each review, i in vocab.reviews
                                 div
-                                  textarea.textAreaReview(name='reviews[]' rows='2') #{review.body}
+                                  textarea.textAreaReview(name='reviews[#{i}].body' rows='2') #{review.body}
                                   img.imageWithLangRemoveAction(src='/img/remove.png' onClick(this.parentNode.remove();))
                                   div.clear.reviewProv
                                     span By 
                                     span #{review.agentId.name} 
                                     span on 
                                     span #{utils.dateToYMD(review.createdAt)}
-                                
+                                  input(type='hidden' name='reviews[#{i}].agentId' value='#{review.agentId._id}' )
+                                  input(type='hidden' name='reviews[#{i}].createdAt' value='#{utils.dateToYMD(review.createdAt)}' )
+              #greenContainer.contents.clear.col-1.wrplGreen
+                .editionActionBar
+                  input.editionSaveButtonRight(type='button' name='submit' value='Save')
+                  a.editionCancelButtonRight(href="/dataset/lov/", title="cancel") Cancel
+                  .clear
+                #jsonResult
             #listOfTags(title='Select a Tag' style='display:none;')
               ul.tagsVocab
                 each tag in listTags
@@ -320,18 +335,26 @@ block content
               image.src='/img/remove_white.png';
               image.addEventListener('click', function(){ this.parentNode.remove();}, false);
           li.appendChild(image);
+              var Id = document.createElement('input');
+              Id.type  = 'hidden';
+              Id.name= 'tags[]';    
+              Id.value= tagName;   
+          li.appendChild(Id);
           document.getElementById('tagsUl').appendChild(li);
         }
         function addReview(divName,dataArray,langArray,value,lang){
+          var cptVal = document.getElementById('cptOverall').value;
+          cptVal++;
           var today = new Date();
           var d = today.getDate();
           var m = today.getMonth()+1;
           var y = today.getFullYear();
+          var currentUserId = document.getElementById('reviewsTd').className;
           
             var newdiv = document.createElement('div');
               var textarea = document.createElement("textarea");
               textarea.className  = 'textAreaReview';
-              textarea.name ='"+dataArray+"[]';
+              textarea.name ='reviews['+cptVal+'].body';
               textarea.rows = '2';
               textarea.innerHTML= value;
             newdiv.appendChild(textarea);
@@ -355,19 +378,33 @@ block content
                 span4.innerHTML= y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
               agentDate.appendChild(span4);
             newdiv.appendChild(agentDate);
+                var Id = document.createElement('input');
+                Id.type  = 'hidden';
+                Id.name= 'reviews['+cptVal+'].agentId';    
+                Id.value= currentUserId; 
+            newdiv.appendChild(Id);
+                var created = document.createElement('input');
+                created.type  = 'hidden';
+                created.name= 'reviews['+cptVal+'].createdAt';    
+                created.value= y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d); 
+            newdiv.appendChild(created);            
             document.getElementById(divName).appendChild(newdiv);
+            document.getElementById('cptOverall').value = cptVal;
         }
-        function addTextareaLang(divName,dataArray,langArray,value,lang){
+        function addTextareaLang(divName,dataArray,value,lang){
+            var cptVal = document.getElementById('cptOverall').value;
+            cptVal++;
+        
             var newdiv = document.createElement('div');
               var textarea = document.createElement("textarea");
               textarea.className  = 'textareaWithLang';
-              textarea.name ='"+dataArray+"[]';
+              textarea.name =dataArray+'['+cptVal+'].value';
               textarea.rows = '2';
               textarea.innerHTML= value;
             newdiv.appendChild(textarea);
               var select = document.createElement("select");
               select.className ='selectWithLang';
-              select.name='"+langArray+"[]';
+              select.name=dataArray+'['+cptVal+'].lang';
               populateLangCombobox(select, lang)
             newdiv.appendChild(select);
               var image = document.createElement("img");
@@ -376,6 +413,7 @@ block content
               image.addEventListener('click', function(){ this.parentNode.remove();}, false);
             newdiv.appendChild(image);
             document.getElementById(divName).appendChild(newdiv);
+            document.getElementById('cptOverall').value = cptVal;
         }
         function populateLangCombobox(selectElem, lang){
           if(!lang)lang='en';
@@ -400,8 +438,13 @@ block content
               inner.appendChild(name);
                 var prefUri = document.createElement('div');
                 prefUri.className  = 'agentThumbPrefUri';
-                prefUri.innerHTML= (agentJson.prefUri)?agentJson.prefUri:'';
+                prefUri.innerHTML= (agentJson.prefUri)?agentJson.prefUri:'';              
               inner.appendChild(prefUri);
+                var Id = document.createElement('input');
+                Id.type  = 'hidden';
+                Id.name= agentsDiv+'[]';    
+                Id.value= agentJson._id;     
+              inner.appendChild(Id);
                 var image = document.createElement("img");
                 image.className ='agentThumbRemove';
                 image.src='/img/remove_white.png';
@@ -410,6 +453,33 @@ block content
             newdiv.appendChild(inner);
             document.getElementById(agentsDiv).appendChild(newdiv);
         }
+        
+        function test(){
+          var formData = form2js('TheForm', '.', true,
+              function(node){ //custom node process
+                  //var dataName = node.getAttribute ? node.getAttribute('name') : '';
+
+                  if (node.id && node.id == 'inputVocabIssuedAt'){
+                    var date = new Date(node.value);
+                     return { 'issuedAt': date};
+                  }
+              });
+          //document.getElementById('jsonResult').innerHTML = JSON.stringify(formData, null, '\t');
+          $.ajax({
+              type: "POST",
+              url: $('#TheForm').attr('action'),
+              // The key needs to match your method's input parameter (case-sensitive).
+              data: JSON.stringify(formData, null, '\t'),
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              success: function(data){window.location.replace(data.redirect);},
+              failure: function(errMsg) {
+                 document.getElementById('jsonResult').innerHTML = errMsg;
+              }
+          });
+        }
+        
+        
         $('.conflict').after('<img src="/img/alert.png" style="margin-left:-1.7em; margin-bottom:-.3em; height:1.2em; width:1.2em;" />');
         $('.fieldSugActionInput').click(function() {  //on click 
             var txt =$(this).prev('.fieldSugValue').text();
@@ -419,28 +489,35 @@ block content
             var lang =$(this).prev('.fieldSugLang').text();
             var txt =$(this).prev().prev('.fieldSugValue').text();
             if(!txt)txt =$(this).prev('.fieldSugValue').text();
-            addTextareaLang('titlesTd','titles','titlesLangs',txt.substring(1,txt.length-1),(lang)?lang.substring(1,lang.length):'');
+            addTextareaLang('titlesTd','titles',txt.substring(1,txt.length-1),(lang)?lang.substring(1,lang.length):'');
         });
         $('.fieldSugActionTextareaLangDescription').click(function() {  //on click 
             var lang =$(this).prev('.fieldSugLang').text();
             var txt =$(this).prev().prev('.fieldSugValue').text();
             if(!txt)txt =$(this).prev('.fieldSugValue').text();
-            addTextareaLang('descriptionsTd','descriptions','descriptionsLangs',txt.substring(1,txt.length-1), (lang)?lang.substring(1,lang.length):'');
+            addTextareaLang('descriptionsTd','descriptions',txt.substring(1,txt.length-1), (lang)?lang.substring(1,lang.length):'');
         });
         
         $('.fieldSugActionAgentComplete').click(function() {  //on click 
             var agentJson =JSON.parse($(this).prev('.fieldSugHidden').text());
-            addAgent('creatorsTd',agentJson);
+            addAgent('creatorIds',agentJson);
         });
         
         $('.fieldReviewAddAction').click(function() {  //on click 
             addReview('reviewsTd','titles','titlesLangs','','');
         });
         $('.fieldWithLangAddActionTitle').click(function() {  //on click 
-          addTextareaLang('titlesTd','titles','titlesLangs','','');
+          addTextareaLang('titlesTd','titles','','');
         });
         $('.fieldWithLangAddActionDescription').click(function() {  //on click 
-          addTextareaLang('descriptionsTd','descriptions','descriptionsLangs','','');
+          addTextareaLang('descriptionsTd','descriptions','','');
+        });
+        
+        $('.editionSaveButtonRight').click(function(e) {  //on click 
+           e.preventDefault();
+           test();
+            /*var formData = $('#TheForm').toObject();
+            document.getElementById('jsonResult').innerHTML = JSON.stringify(formData, null, '\t');*/
         });
         
         $(document).ready(function () {
@@ -516,9 +593,9 @@ block content
               position: {my : "left top",at: "left bottom"},
               messages: {noResults: '',results: function() {}},
               select : function(event, ui) {
-                  if($('#agentCreationOnTheFlyForm').hasClass('creatorForm')) addAgent('creatorsTd',ui.item);
-                  if($('#agentCreationOnTheFlyForm').hasClass('contributorForm')) addAgent('contributorsTd',ui.item);
-                  if($('#agentCreationOnTheFlyForm').hasClass('publisherForm')) addAgent('publishersTd',ui.item);
+                  if($('#agentCreationOnTheFlyForm').hasClass('creatorForm')) addAgent('creatorIds',ui.item);
+                  if($('#agentCreationOnTheFlyForm').hasClass('contributorForm')) addAgent('contributorIds',ui.item);
+                  if($('#agentCreationOnTheFlyForm').hasClass('publisherForm')) addAgent('publisherIds',ui.item);
                   $('#agentCreationOnTheFlyForm').dialog('close')
               },
              open: function(event, ui) {$(".ui-autocomplete").css("z-index", 1000);}

@@ -251,6 +251,29 @@ exports.show = function(req, res){
   })
 }
 
+exports.create = function (req, res) {
+  var vocab = new Vocabulary(req.body);
+  console.log(vocab);
+ /* vocab.save(function (err) {
+    if (err) {return res.render('500')}
+    return res.redirect('/dataset/lov/agents/' + agent.name)
+  })*/
+  return res.send({redirect:'/edition/lov'})
+}
+
+exports.update = function(req, res){
+  var vocab = req.vocab;
+  vocab = _.extend(vocab, req.body)
+  console.log(vocab);
+  /*vocab.save(function(err) {
+    if (err) {
+      return res.render('500')
+    }
+    res.redirect('/dataset/lov/agents/' + agent.name)
+  })*/
+  return res.send({redirect:'/edition/lov'})
+}
+
 exports.edit = function (req, res) {
   Language.listAll(function(err, langs) {
     if (err) return res.render('500')
