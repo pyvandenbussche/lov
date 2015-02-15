@@ -162,6 +162,7 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.get('/dataset/lov/api/v2/vocabulary/list', function(req, res){vocabularies.apiListVocabs(req,res);})
   app.get('/dataset/lov/api/v2/vocabulary/search', function(req, res){search.apiSearchVocabs(req,res,esclient);})
   app.get('/dataset/lov/api/v2/vocabulary/info', function(req, res){vocabularies.apiInfoVocab(req,res);})
+  app.get('/dataset/lov/api/v2/vocabulary/prefix/exists', function(req, res){vocabularies.apiPrefixExists(req,res);})
   
   app.get('/dataset/lov/api/v2/tags/list', function(req, res){vocabularies.apiTags(req,res);})
   

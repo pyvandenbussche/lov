@@ -17,16 +17,18 @@ block content
           article
             form(method='post' action=action name='TheForm' id='TheForm')
               #greenContainer.contents.clear.col-1.wrplGreen
+                
                 input(type='hidden', name='_csrf', value="#{csrf_token}")
                 input(type='hidden', value="1000" disabled="disabled", id='cptOverall')
                 input(type="hidden", name="lastModifiedInLOVAt", value="#{utils.dateToYMD(new Date())}")
                 - if (!vocab.isNew)
-                  input(type="hidden", name="_method", value="PUT")
+                  input#testIfNew(type="hidden", name="_method", value="PUT")
                 - else
                   input(type="hidden", name="createdInLOVAt", value="#{utils.dateToYMD(new Date())}")
                 .metadataFrame
                   #formErrors
                   div(class='metadataContainerVocab')
+                    #formErrors
                     table.editionTable
                       tbody
                         tr
@@ -77,10 +79,10 @@ block content
                                     span.fieldSugValue #{stdout.nspDefault}
                                     img.fieldSugActionInput(src='/img/validate.png' title='use this value')
                             - if(stdout && !vocab.nsp) vocab.nsp=stdout.nsp;
-                            input#inputVocabNsp(type='text', name="nsp", value=vocab.nsp)
+                            input#inputVocabNsp(type='text', name="nsp", value=vocab.nsp class='#{(stdout && stdout.nsp && ""+stdout.nsp!==""+vocab.nsp)?"conflict":""}')
                             
                         tr
-                          td Prefix
+                          td#tdPrefix(class='#{(vocab.prefix)? vocab.prefix:""}') Prefix
                           td
                             if(stdout)
                               .fieldSuggestions
@@ -95,7 +97,7 @@ block content
                                     span.fieldSugValue #{stdout.prefixAssociatedNsp}
                                     img.fieldSugActionInput(src='/img/validate.png' title='use this value')
                             - if(stdout && !vocab.prefix) vocab.prefix=stdout.prefix;
-                            input#inputVocabPrefix(type='text', name="prefix", value=vocab.prefix)
+                            input#inputVocabPrefix(type='text', name="prefix", value=vocab.prefix class='#{(stdout && stdout.prefix && ""+stdout.prefix!==""+vocab.prefix)?"conflict":""}')
                             
                         tr
                           td Titles
@@ -159,7 +161,7 @@ block content
                                     span.fieldSugValue #{stdout.dateIssued}
                                     img.fieldSugActionInput(src='/img/validate.png' title='use this value')
                             - if(stdout && !vocab.issuedAt) vocab.issuedAt=stdout.dateIssued;
-                            input#inputVocabIssuedAt(type='text' name="issuedAt" value=utils.dateToYMD(vocab.issuedAt) placeholder='yyyy-MM-dd')
+                            input#inputVocabIssuedAt(type='text' name="issuedAt" value=utils.dateToYMD(vocab.issuedAt) placeholder='yyyy-MM-dd' class='#{(stdout && stdout.dateIssued && ""+stdout.dateIssued!==""+vocab.issuedAt)?"conflict":""}')
                         tr
                           td Homepage 
                           td
@@ -277,7 +279,7 @@ block content
                               each review, i in vocab.reviews
                                 div
                                   textarea.textAreaReview(name='reviews[#{i}].body' rows='2') #{review.body}
-                                  img.imageWithLangRemoveAction(src='/img/remove.png' onClick(this.parentNode.remove();))
+                                  img.imageWithLangRemoveAction(src='/img/remove.png' onClick='this.parentNode.remove();')
                                   div.clear.reviewProv
                                     span By 
                                     span #{review.agentId.name} 
@@ -288,7 +290,7 @@ block content
               #greenContainer.contents.clear.col-1.wrplGreen
                 .editionActionBar
                   input.editionSaveButtonRight(type='button' name='submit' value='Save')
-                  a.editionCancelButtonRight(href="/dataset/lov/", title="cancel") Cancel
+                  a.editionCancelButtonRight(href="/edition/lov", title="cancel") Cancel
                   .clear
                 #jsonResult
             #listOfTags(title='Select a Tag' style='display:none;')
@@ -454,6 +456,20 @@ block content
             document.getElementById(agentsDiv).appendChild(newdiv);
         }
         
+        function ValidUrl(str) {
+          var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+          '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+          '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+          '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+          '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+          '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+          if(!pattern.test(str)) {
+            return false;
+          } else {
+            return true;
+          }
+        }
+        
         function test(){
           var formData = form2js('TheForm', '.', true,
               function(node){ //custom node process
@@ -464,23 +480,94 @@ block content
                      return { 'issuedAt': date};
                   }
               });
+          
+          
+          var formErrors = '';
+          
+          //test if URI is present
+          if(!formData.uri || !ValidUrl(formData.uri)) formErrors+='The URI is required and must be a valid URI<br>';
+          //test if Namepsace is present
+          if(!formData.nsp || !ValidUrl(formData.nsp)) formErrors+='The Namespace is required and must be a valid URI<br>';
+          //test if prefix is present 
+          if(!formData.prefix)  formErrors+='The Prefix is required<br>';
+          //test at least one title in English
+          if(formData.titles){
+            var ispresent = false;
+            for (i = 0; formData.titles.length > i; i += 1) {
+              var title = formData.titles[i];
+                if (title.lang === 'en' && title.value && title.value.length>0)ispresent=  true;
+            }
+            if(!ispresent)formErrors+='At least one title in English is required<br>';
+          }
+          else formErrors+='At least one title in English is required<br>';
+          //test at least one description English
+          if(formData.descriptions){
+            var ispresent = false;
+            for (i = 0; formData.descriptions.length > i; i += 1) {
+              var description = formData.descriptions[i];
+                if (description.lang === 'en' && description.value && description.value.length>0)ispresent=  true;
+            }
+            if(!ispresent)formErrors+='At least one description in English is required<br>';
+          }
+          else formErrors+='At least one description in English is required<br>';
+          //test at least one tag
+          if(!formData.tags || formData.tags.length<1)  formErrors+='At least one tag is required<br>';
+          //test at least one review
+          if(!formData.reviews || formData.reviews.length<1)  formErrors+='At least one review is required<br>';
+          
+              
           //document.getElementById('jsonResult').innerHTML = JSON.stringify(formData, null, '\t');
-          $.ajax({
-              type: "POST",
-              url: $('#TheForm').attr('action'),
-              // The key needs to match your method's input parameter (case-sensitive).
-              data: JSON.stringify(formData, null, '\t'),
-              contentType: "application/json; charset=utf-8",
-              dataType: "json",
-              success: function(data){window.location.replace(data.redirect);},
-              failure: function(errMsg) {
-                 document.getElementById('jsonResult').innerHTML = errMsg;
-              }
-          });
+          if(formErrors.length > 0){
+            document.getElementById('formErrors').innerHTML = formErrors;
+            document.getElementById('formErrors').style.display = "block";
+            window.scrollTo(0, 0);
+          }
+          else{
+            //test if prefix already exists
+            if(document.getElementById("testIfNew") == null || (document.getElementById("tdPrefix") != null && document.getElementById("tdPrefix").className !== formData.prefix)){
+              $.ajax({
+                 type: 'GET',
+                 url: '/dataset/lov/api/v2/vocabulary/prefix/exists',
+                 data: {prefix: formData.prefix},
+                 dataType: 'json',
+                 error: function() {
+                    document.getElementById('formErrors').innerHTML ='Prefix '+formData.prefix+' is already used in LOV';
+                    document.getElementById('formErrors').style.display = "block";
+                    window.scrollTo(0, 0);
+                 },
+                 success: function(data) {
+                    if(data.count>0){
+                      document.getElementById('formErrors').innerHTML ='Prefix '+formData.prefix+' is already used in LOV';
+                      document.getElementById('formErrors').style.display = "block";
+                      window.scrollTo(0, 0);
+                    }
+                    else submitForm(formData);
+                 }
+              });
+            }
+            else{
+              submitForm(formData);
+            }
+          }
         }
         
         
-        $('.conflict').after('<img src="/img/alert.png" style="margin-left:-1.7em; margin-bottom:-.3em; height:1.2em; width:1.2em;" />');
+        function submitForm(formData) {
+            $.ajax({
+                type: "POST",
+                url: $('#TheForm').attr('action'),
+                // The key needs to match your method's input parameter (case-sensitive).
+                data: JSON.stringify(formData, null, '\t'),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data){window.location.replace(data.redirect);},
+                failure: function(errMsg) {
+                   document.getElementById('jsonResult').innerHTML = errMsg;
+                }
+            });
+        }
+        
+        $('.conflict').after('<img src="/img/warning_red.png" style="margin-left:-1.7em; margin-bottom:-.3em; height:1.2em; width:1.2em;" />');
         $('.fieldSugActionInput').click(function() {  //on click 
             var txt =$(this).prev('.fieldSugValue').text();
             $(this).parent().parent().parent().children('input').val(txt);

@@ -57,6 +57,17 @@ exports.apiListVocabs = function (req, res) {
   })
 }
 
+/**
+* Vocabulary Prefix Exists API
+*/
+exports.apiPrefixExists = function (req, res) {
+  if (!(req.query.prefix!=null)) return res.send(500, "You must provide a value for 'prefix' parameter");
+  Vocabulary.testIfPrefixExists(req.query.prefix,function(err, count) {
+    return standardCallback(req, res, err, {count:count});
+  })
+}
+
+
  /**
 * Vocabulary Tags List API
 */
@@ -120,7 +131,8 @@ exports.load = function(req, res, next, prefix){
   Vocabulary.load(prefix, function (err, vocab) {
     if (err) return next(err)    
     if (!vocab) return next(new Error('Vocabulary '+prefix+' not found'))
-    req.vocab = vocab
+    req.vocab = vocab;
+    console.log(vocab);
     next()
   })
 }
@@ -193,9 +205,11 @@ exports.show = function(req, res){
       var inLinks = [];
       var cpt=0;
       
-      outNodes.push({name:statvocab.prefix, nbIncomingLinks:((statvocab.nbIncomingLinks>0)?statvocab.nbIncomingLinks:1), group:2});
-      inNodes.push({name:statvocab.prefix, nbIncomingLinks:((statvocab.nbIncomingLinks>0)?statvocab.nbIncomingLinks:1), group:2});
-      if(typeof(statvocab) != 'undefined'){
+      
+      if(statvocab && typeof(statvocab) != 'undefined'){
+      
+        outNodes.push({name:statvocab.prefix, nbIncomingLinks:((statvocab.nbIncomingLinks>0)?statvocab.nbIncomingLinks:1), group:2});
+        inNodes.push({name:statvocab.prefix, nbIncomingLinks:((statvocab.nbIncomingLinks>0)?statvocab.nbIncomingLinks:1), group:2});
       //generate the data for the outgoing links
         cpt = pushNodesLinks(statvocab.outRelMetadata,true,13, outNodes, outLinks, cpt);
         cpt = pushNodesLinks(statvocab.outRelExtends,false,4, outNodes, outLinks, cpt);
@@ -254,24 +268,26 @@ exports.show = function(req, res){
 exports.create = function (req, res) {
   var vocab = new Vocabulary(req.body);
   console.log(vocab);
- /* vocab.save(function (err) {
+  /* run analytics on vocab */
+  /* store version locally */
+  /* add version */
+  vocab.save(function (err) {
     if (err) {return res.render('500')}
-    return res.redirect('/dataset/lov/agents/' + agent.name)
-  })*/
-  return res.send({redirect:'/edition/lov'})
+    return res.redirect('/dataset/lov/vocabs/' + vocab.prefix);
+  })
 }
 
 exports.update = function(req, res){
   var vocab = req.vocab;
   vocab = _.extend(vocab, req.body)
   console.log(vocab);
-  /*vocab.save(function(err) {
+  vocab.save(function(err) {
     if (err) {
       return res.render('500')
     }
-    res.redirect('/dataset/lov/agents/' + agent.name)
-  })*/
-  return res.send({redirect:'/edition/lov'})
+    return res.send({redirect:'/dataset/lov/vocabs/'+vocab.prefix})
+  })
+  
 }
 
 exports.edit = function (req, res) {

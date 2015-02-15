@@ -156,6 +156,10 @@ VocabularySchema.statics = {
       .populate('versions.languageIds', 'label iso639P3PCode')
       .exec(cb)
   },
+  
+  testIfPrefixExists: function (prefix, cb) {
+    this.count({ prefix : prefix }).exec(cb)
+  },
 
   findNspURI: function (uri, cb) {
     var canonicalURI = (uri.slice(-1) == '#' || uri.slice(-1) == '/') ? uri.slice(0,-1): uri; //remove trailing char (to match case where there is an extra '/' or '#')
