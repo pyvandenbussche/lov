@@ -8,7 +8,7 @@ block content
             h1 #{agent.name?agent.name:'Create a new Agent'}
       section#posts.default-area
           article
-            #greenContainer.contents.clear.col-2.split.wrplGreen
+            #greenContainer.contents.clear.col-1.wrplGreen
               form(method='post' action=action name='TheForm')
                 input(type='hidden', name='_csrf', value="#{csrf_token}")
                 - if (!agent.isNew)
@@ -21,7 +21,7 @@ block content
                         tr
                           td Full name
                           td
-                            input(type='text', name="name", value=agent.name)
+                            input#agentNameAutocomplete(type='text', name="name", value=agent.name, autocomplete='off')
                         tr
                           td Type
                           td
@@ -35,13 +35,13 @@ block content
                             input(type='text', name="prefUri", value=agent.prefUri)
                         tr
                           td Alternative URIs
+                            img.fieldReviewAddAction(src='/img/add_grey.png')
                           td
-                            span(onclick="addInput('altUrisDiv','altUris','');") Add
                             #altUrisDiv.controls
                               each altUri in agent.altUris
                                 div
-                                  input(type='text', name='altUris[]', value=altUri)
-                                  span(onClick="this.parentNode.remove();") Remove
+                                  input.agentALtURI(type='text', name='altUris[]', value=altUri)
+                                  img.imageWithLangRemoveAction(src='/img/remove.png' onClick='this.parentNode.remove();')
                 .editionActionBar
                   input.editionSaveButtonRight(type='submit' name='submit' value='Save')
                   a.editionCancelButtonRight(href="/dataset/lov/agents/#{agent.name}", title="cancel") Cancel
@@ -50,10 +50,12 @@ block content
       script.
         function addInput(divName,dataArray,value){
             var newdiv = document.createElement('div');
-            newdiv.innerHTML = "<input type='text' name='"+dataArray+"[]', value='"+value+"'><span onClick='this.parentNode.remove();'>Remove</span>";
+            newdiv.innerHTML = "<input class='agentALtURI' type='text' name='"+dataArray+"[]', value='"+value+"'><img src='/img/remove.png' class='imageWithLangRemoveAction' onClick='this.parentNode.remove();'/>";
             document.getElementById(divName).appendChild(newdiv);
         }
-        
+        $('.fieldReviewAddAction').click(function() {  //on click 
+            addInput('altUrisDiv','altUris','');
+        });
         
         //form validation before submit
         new FormValidator('TheForm', [{
@@ -78,4 +80,31 @@ block content
               document.getElementById('formErrors').innerHTML = errorString;
               event.returnValue=false;
             }
+        });
+        $(document).ready(function () {
+          $( "#agentNameAutocomplete" ).autocomplete({
+              minLength: 1,
+              source: function (request, response) {
+               $.ajax({
+                 url: "/dataset/lov/api/v2/agent/autoCompleteFull",
+                 data: { q: request.term },
+                 dataType: "json",
+                 success: response,
+                 error: function () {
+                     response([]);
+                 }
+              });
+             },
+              position: {my : "left top",at: "left bottom"},
+              messages: {noResults: '',results: function() {}},
+              select : function(event, ui) {
+                  location.href = '/dataset/lov/agents/' + encodeURIComponent(ui.item.name);
+              },
+             open: function(event, ui) {$(".ui-autocomplete").css("z-index", 1000);}
+          }).data( "uiAutocomplete" )._renderItem = function( ul, item ) {
+           return $( "<li></li>" )
+             .data( "item", item )
+             .append( "<a>" + item.name +"</a>")
+             .appendTo( ul );
+          };
         });

@@ -305,3 +305,7 @@ li.inactive .editionInnerBox span {
 .tagFromList{
   cursor:pointer;
 }
+.unmatchedRel{
+   list-style-type: none;
+   font-weight: bold;
+}

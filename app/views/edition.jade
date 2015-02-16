@@ -91,9 +91,31 @@ block content
                             - else
                               div.uri Never reviewed
                           div.hr
-          article.wrpl(style="")
-            .wrplGreen(style="padding:1em;width:100%")
-              h2 Versions
+          article.wrpl
+            .wrplGreen.editionIndexBox
+              .editionIndexBoxHeader
+                .title Versions               
+                input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
+              .count-items
+                span.count #{vocabsVersionsForReview.length}
+                .clear
+                .items
+                  | #{vocabsVersionsForReview.length==1 ? 'vocab' : 'vocabs'}
+              - if(typeof vocabsVersionsForReview != "undefined")
+                ul#editionGridVocabsReviews.editionGrid 
+                  each vocab in vocabsVersionsForReview
+                    li(class="editionBoxRev")
+                      .editionContainer
+                        div.editionInnerBox
+                          a.prefix(href='/dataset/lov/vocabs/#{vocab.prefix}') #{vocab.prefix}
+                          - if(typeof vocab.lastModifiedInLOVAt != "undefined")
+                            div.uri Last Modified on #{utils.dateToYMD(vocab.lastModifiedInLOVAt)}
+                          - else
+                            div.uri Never reviewed
+                        div.hr
+              
+              
+              
           - if(auth.category === "admin")          
             article.wrpl
               .wrplGreen.editionIndexBox
@@ -123,7 +145,7 @@ block content
                               span - !{usr.category}
                               div.uri !{usr.email}
                             div.hr
-          #dialogCreateVocab(title="Enter the URI for the vocabulary to create") 
+          #dialogCreateVocab(title="Enter the URI for the vocabulary to create" style='display:none') 
             #dialogCreateVocabError
             form(action="/edition/lov/vocabs/new", method="post" name="formDialogCreateVocab" id="formDialogCreateVocab")
               fieldset.editionTable

@@ -288,6 +288,37 @@ block content
                                   input(type='hidden' name='reviews[#{i}].agentId' value='#{review.agentId._id}' )
                                   input(type='hidden' name='reviews[#{i}].createdAt' value='#{utils.dateToYMD(review.createdAt)}' )
               #greenContainer.contents.clear.col-1.wrplGreen
+                .metadataFrame
+                  div(class='metadataContainerVocab')
+                    table.editionTable
+                      tbody
+                        tr
+                          td Unmatched Vocabulary links
+                          td
+                            ul.unmatchedRel
+                              if(stdout)
+                                if(stdout.relMetadata)
+                                  each vocabUnmatched in utils.getUnmatchedRel(stdout.relMetadata)
+                                    li Metadata: #{vocabUnmatched.uri}
+                                if(stdout.relSpecializes)
+                                  each vocabUnmatched in utils.getUnmatchedRel(stdout.relSpecializes)
+                                    li Specializes: #{vocabUnmatched.uri}
+                                if(stdout.relGeneralizes)
+                                  each vocabUnmatched in utils.getUnmatchedRel(stdout.relGeneralizes)
+                                    li Generalizes: #{vocabUnmatched.uri}
+                                if(stdout.relExtends)
+                                  each vocabUnmatched in utils.getUnmatchedRel(stdout.relExtends)
+                                    li Extends: #{vocabUnmatched.uri}
+                                if(stdout.relEquivalent)
+                                  each vocabUnmatched in utils.getUnmatchedRel(stdout.relEquivalent)
+                                    li Has equivalences with: #{vocabUnmatched.uri}
+                                if(stdout.relDisjunc)
+                                  each vocabUnmatched in utils.getUnmatchedRel(stdout.relDisjunc)
+                                    li Has Disjunctions with: #{vocabUnmatched.uri}
+                                if(stdout.relImports)
+                                  each vocabUnmatched in utils.getUnmatchedRel(stdout.relImports)
+                                    li Imports: #{vocabUnmatched.uri}
+              #greenContainer.contents.clear.col-1.wrplGreen
                 .editionActionBar
                   input.editionSaveButtonRight(type='button' name='submit' value='Save')
                   a.editionCancelButtonRight(href="/edition/lov", title="cancel") Cancel

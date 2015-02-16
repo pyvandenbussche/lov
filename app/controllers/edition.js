@@ -50,12 +50,15 @@ exports.index = function(req, res){
   Vocabulary.listVocabsForReview(function (err, vocabsForReview) {
     LogSuggest.listActive(function (err, suggests) {
       User.listUsersForReview(function (err, users) {
-        res.render('edition', {
-          utils: utils,
-          users:users,
-          suggests:suggests,
-          vocabsForReview:vocabsForReview,
-          auth:req.user
+        Vocabulary.listVocabVersionsToReview(function (err, vocabsVersionsForReview) {
+          res.render('edition', {
+            utils: utils,
+            users:users,
+            suggests:suggests,
+            vocabsForReview:vocabsForReview,
+            vocabsVersionsForReview:vocabsVersionsForReview,
+            auth:req.user
+          })
         })
       })
     })

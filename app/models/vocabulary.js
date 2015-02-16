@@ -64,6 +64,7 @@ var VocabularySchema = new Schema({
     name: { type : String, trim : true },
     fileURL: { type : String, trim : true},
     issued: { type : Date},
+    isReviewed: { type: Boolean, default:false},
     classNumber: { type : String, trim : true},
     propertyNumber: { type : String, trim : true},
     instanceNumber: { type : String, trim : true },
@@ -201,6 +202,10 @@ VocabularySchema.statics = {
   
   latestModification: function (nbItemsRequired, cb) {
     this.find({},{prefix:1, lastModifiedInLOVAt:1, titles:1,_id:0}).sort({'lastModifiedInLOVAt': -1}).limit(nbItemsRequired).exec(cb)
+  },
+  
+  listVocabVersionsToReview: function (cb) {
+    this.find({'versions.isReviewed':false},{prefix:1, lastModifiedInLOVAt:1, titles:1,_id:0}).sort({'lastModifiedInLOVAt': -1}).exec(cb)
   },
   
   
