@@ -10,6 +10,7 @@ var async = require('async');
 
 var users = require('../app/controllers/users')
   , vocabularies = require('../app/controllers/vocabularies')
+  , versions = require('../app/controllers/versions')
   , languages = require('../app/controllers/languages')
   , edition = require('../app/controllers/edition')
   , agents = require('../app/controllers/agents')
@@ -75,6 +76,8 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   //app.get('/vocabs/:vocabPx/edit', articleAuth, vocabularies.edit)
   //app.put('/vocabs/:vocabPx', articleAuth, vocabularies.update)
   //app.del('/vocabs/:vocabPx', articleAuth, vocabularies.destroy)
+  //versions
+  app.get('/edition/lov/vocabs/:vocabPx/versions', auth.requiresLogin, versions.edit)
   
   // agent
   app.get('/dataset/lov/agents', function(req, res){search.searchAgent(req,res,esclient);})

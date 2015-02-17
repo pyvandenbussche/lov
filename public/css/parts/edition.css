@@ -295,6 +295,14 @@ li.inactive .editionInnerBox span {
   cursor:pointer;
 }
 
+.imageVersionActionRemove, .imageVersionActionUpload, .imageVersionActionEdit{
+  height: 1.2em;
+  width: 1.2em;
+  cursor: pointer;
+  padding-left: .5em;
+  float:right;
+}
+
 .reviewProv{
   color: #5E9B9B;
   padding:.2em 0 .7em 1em;

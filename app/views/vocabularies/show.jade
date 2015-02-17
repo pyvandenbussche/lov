@@ -10,8 +10,11 @@ block content
               if (req.isAuthenticated())
                 a(href='#')
                   img#vocabDelete.editActionH1(src='/img/remove.png')
+                a(href='/edition/lov/vocabs/#{vocab.prefix}/versions')
+                  img.editActionH1(src='/img/version.png')
                 a(href='/edition/lov/vocabs/#{vocab.prefix}')
                   img.editActionH1(src='/img/edit_grey.png')
+                
                 form(action='/edition/lov/vocabs/#{vocab.prefix}' method='post' name='formDelete' id='formDelete')
                   input(type='hidden', name='_csrf', value="#{csrf_token}")
                   input(type="hidden", name="_method", value="DELETE")
