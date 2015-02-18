@@ -132,7 +132,7 @@ exports.load = function(req, res, next, prefix){
     if (err) return next(err)    
     if (!vocab) return next(new Error('Vocabulary '+prefix+' not found'))
     req.vocab = vocab;
-    console.log(vocab);
+   // console.log(vocab);
     next()
   })
 }
