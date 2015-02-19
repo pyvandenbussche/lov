@@ -13,7 +13,7 @@ var mongoose = require('mongoose')
 
 
 exports.list = function (req, res) {
-  res.render('versions/edit', {
+  res.render('vocabVersions/edit', {
     vocab: req.vocab,
     profile:req.user,
     utils: utils

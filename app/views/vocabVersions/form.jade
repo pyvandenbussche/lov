@@ -1,0 +1,76 @@
+extends ../layout/layout
+block content
+      //- used to extract information form in JSON: https://github.com/maxatwork/form2js
+      - var action = '/edition/lov/vocabs'
+      - action += vocab.isNew? '' : '/' + vocab.prefix
+      section#post.postBlue
+        article
+          header.wrpl.w-3-3
+            if(vocab.isNew)
+              h1 Create a new Vocabulary
+            else
+              h1
+                a(href='#{vocab.prefix}')
+                  | #{vocab.titles[0].value} 
+                  span (#{vocab.prefix})
+      section#posts.default-area
+          article
+              #greenContainer.contents.clear.col-1.wrplGreen.editionIndexBox
+                .editionIndexBoxHeader
+                  .title #{vocab.prefix} Versions
+                    img.fieldReviewAddAction(src='/img/add.png')
+                .count-items
+                  span.count #{vocab.versions.length}
+                  .clear
+                  .items
+                    | #{vocab.versions.length==1 ? 'version' : 'versions'}
+                - if(vocab.versions && vocab.versions.length>0)
+                  ul#editionGridUsers.editionGrid 
+                    - var versionSorted = vocab.versions.sort(function(a,b) { return new Date(b.issued).getTime() - new Date(a.issued).getTime() } );
+                    each version in versionSorted
+                       li(class="editionBoxSugg")
+                        .editionContainer
+                          div.editionInnerBox
+                            .takeAction
+                              form(action='/edition/lov/vocabs/#{vocab.prefix}/versions' method='post' name='formDelete')
+                                input(type='hidden', name='_csrf', value="#{csrf_token}")
+                                input(type="hidden", name="_method", value="DELETE")
+                                input(type="hidden", name="issued", value="#{version.issued}")
+                                input(type="hidden", name="name", value="#{version.name}")
+                                img.imageVersionActionRemove(src="/img/remove.png" title="Remove") 
+                              img.imageVersionActionUpload(src="/img/upload.png" title="Upload") 
+                              
+                              img.imageVersionActionEdit(src="/img/edit_small.png" title="Edit") 
+                               
+                            span.prefix(href='#') #{utils.dateToYMD(version.issued)} [#{version.name}]
+                            if (version.fileURL)
+                              div
+                                a.uri(href='#{version.fileURL}' target='_blank') #{version.fileURL}
+                          div.hr
+                          div.SearchBody
+                            - if(!version.isReviewed)
+                              form.statusActionButton(action="/edition/lov/vocabs/#{}suggestUpdateStatus", method="post")
+                                input.csrf(type='hidden', name='_csrf', value="#{csrf_token}")
+                                input(type='hidden', name='suggId', value="#{version.name}")
+                                input(type='hidden', name='status', value="discarded")
+                                .statusSubmit review
+      #dialogRemoveVersion(style='display:none;') Are you sure you want to delete this version?
+      script.
+        $(document).ready(function () {
+          $('.imageVersionActionRemove').click(function(){
+            var form = $(this).parent();
+              $('#dialogRemoveVersion').dialog({
+                resizable: false,
+                height:200,
+                modal: true,
+                buttons: {
+                    'Confirm Deletion': function() {
+                        form.submit();
+                    },
+                    Cancel: function() {
+                        $(this).dialog('close');
+                    }
+                }
+              });
+          });
+        });
