@@ -28,15 +28,37 @@ exports.remove = function (req, res) {
   //remove the selected version
   for (i = 0; i < vocab.versions.length; i++) { 
     var version = vocab.versions[i];
-    console.log(version.issued+' - '+req.body.issued+' - '+(Date.parse(version.issued) === versionIssued));
-    console.log(version.name+' - '+versionName+' - '+(version.name === versionName));
+    //console.log(version.issued+' - '+req.body.issued+' - '+(Date.parse(version.issued) === versionIssued));
+    //console.log(version.name+' - '+versionName+' - '+(version.name === versionName));
     if(Date.parse(version.issued) === versionIssued && version.name === versionName){
-      console.log(vocab.versions.length);
+      //console.log(vocab.versions.length);
       vocab.versions.splice(i,1);
-      console.log(vocab.versions.length);
+      //console.log(vocab.versions.length);
       break
     }
-    console.log(vocab.versions.length);
+    //console.log(vocab.versions.length);
+  }
+  
+  vocab.save(function(err) {
+    if (err) {
+      return res.render('500')
+    }
+    return res.redirect('/edition/lov/vocabs/'+vocab.prefix+'/versions')
+  })
+}
+
+exports.changeStatusReviewed = function (req, res) {
+  var versionIssued = Date.parse(req.body.issued);
+  var versionName = req.body.name;
+  var vocab = req.vocab;
+  
+  //change the status of the selected version
+  for (i = 0; i < vocab.versions.length; i++) { 
+    var version = vocab.versions[i];
+    if(Date.parse(version.issued) === versionIssued && version.name === versionName){
+      vocab.versions[i].isReviewed = true;
+      break
+    }
   }
   
   vocab.save(function(err) {

@@ -80,6 +80,7 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.get('/edition/lov/vocabs/:vocabPx/versions', auth.requiresLogin, versions.list)
   //app.post('/edition/lov/vocabs/:vocabPx/versionEdit', auth.requiresLogin, versions.edit)
   app.del('/edition/lov/vocabs/:vocabPx/versions', auth.requiresLogin, versions.remove)
+  app.post('/edition/lov/vocabs/:vocabPx/versions/review', auth.requiresLogin, versions.changeStatusReviewed)
   
   // agent
   app.get('/dataset/lov/agents', function(req, res){search.searchAgent(req,res,esclient);})
