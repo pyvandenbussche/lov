@@ -45,7 +45,7 @@ border:1px solid #545454;
   /*text-shadow: 1px 1px 5px #646464;*/
   text-transform: uppercase;
 }
-.editionIndexBoxHeader #submitUsers, .editionIndexBoxHeader #selectAllUsers, .editionInnerBox .suggestCreate{
+.editionIndexBoxHeader #submitUsers, .editionIndexBoxHeader #selectAllUsers, .editionIndexBoxHeader .statusAllActionButton, .editionInnerBox .suggestCreate{
   float:right;
   background:#A2DAD2;
   margin: 0 .5em;
@@ -67,6 +67,10 @@ border:1px solid #545454;
 }
 .editionInnerBox .suggestCreate:hover{
   background: #3d3d3d;
+  color:white;
+}
+.editionIndexBoxHeader .statusAllActionButton:hover{
+  background:#f57c20;
   color:white;
 }
 
@@ -316,4 +320,8 @@ li.inactive .editionInnerBox span {
 .unmatchedRel{
    list-style-type: none;
    font-weight: bold;
+}
+
+.statusAllActionButton{
+  float:right;
 }

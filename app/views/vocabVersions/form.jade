@@ -13,12 +13,16 @@ block content
                 a(href='#{vocab.prefix}')
                   | #{vocab.titles[0].value} 
                   span (#{vocab.prefix})
+              
       section#posts.default-area
           article
               #greenContainer.contents.clear.col-1.wrplGreen.editionIndexBox
                 .editionIndexBoxHeader
                   .title #{vocab.prefix} Versions
                     img.fieldReviewAddAction(src='/img/add.png')
+                  form(action="/edition/lov/vocabs/#{vocab.prefix}/versions/reviewAll", method="post")
+                    input(type='hidden', name='_csrf', value="#{csrf_token}")
+                    input.statusAllActionButton(type='submit' name='submit' value='ReviewAll')
                 .count-items
                   span.count #{vocab.versions.length}
                   .clear
@@ -35,12 +39,11 @@ block content
                               form(action='/edition/lov/vocabs/#{vocab.prefix}/versions' method='post' name='formDelete')
                                 input(type='hidden', name='_csrf', value="#{csrf_token}")
                                 input(type="hidden", name="_method", value="DELETE")
-                                input(type="hidden", name="issued", value="#{version.issued}")
-                                input(type="hidden", name="name", value="#{version.name}")
+                                input.issuedInput(type="hidden", name="issued", value="#{version.issued}")
+                                input.nameInput(type="hidden", name="name", value="#{version.name}")
                                 img.imageVersionActionRemove(src="/img/remove.png" title="Remove") 
-                              img.imageVersionActionUpload(src="/img/upload.png" title="Upload") 
-                              
-                              img.imageVersionActionEdit(src="/img/edit_small.png" title="Edit") 
+                                img.imageVersionActionUpload(src="/img/upload.png" title="Upload")
+                                img.imageVersionActionEdit(src="/img/edit_small.png" title="Edit") 
                                
                             span.prefix(href='#') #{utils.dateToYMD(version.issued)} [#{version.name}]
                             if (version.fileURL)
@@ -55,13 +58,102 @@ block content
                                 input(type="hidden", name="name", value="#{version.name}")
                                 .statusSubmit review
       #dialogRemoveVersion(style='display:none;') Are you sure you want to delete this version?
+      #dialogEditVersion(style='display:none;' title='version Edition')
+        form#dialogEditVersionForm(action="/edition/lov/vocabs/#{vocab.prefix}/versions/edit", method="post")
+          input(type='hidden', name='_csrf', value="#{csrf_token}")
+          input#dialogEditVersionIssued(type='hidden', name='issued')
+          input#dialogEditVersionName(type='hidden', name='name')
+          .metadataFrame
+            #dialogEditVersionformErrors
+            div(class='metadataContainerVocab')
+              table.editionTable
+                tbody
+                  tr
+                    td Version issued Date
+                    td
+                      input#dialogEditVersionIssuedNew(type='text', name='issuedNew', placeholder='yyyy-MM-dd')
+                  tr
+                    td Version Label
+                    td
+                      input#dialogEditVersionNameNew(type='text', name='nameNew')
+      #dialogNewVersion(style='display:block;' title='version Creation')
+        form#dialogNewVersionForm(action="/edition/lov/vocabs/#{vocab.prefix}/versions/new", method="post", enctype="multipart/form-data")
+          input(type='hidden', name='_csrf', value="#{csrf_token}")
+          .metadataFrame
+            #dialogNewVersionFormErrors
+            div(class='metadataContainerVocab')
+              table.editionTable
+                tbody
+                  tr
+                    td Version issued Date
+                    td
+                      input#dialogNewVersionIssued(type='text', name='issued', placeholder='yyyy-MM-dd')
+                  tr
+                    td Version Label
+                    td
+                      input#dialogNewVersionName(type='text', name='name')
+                  tr
+                    td Version File
+                    td
+                      input#dialogNewVersionName(type='file', name='file')
       script.
+        //form validation before submit
+        var validatorEdit = new FormValidator('dialogEditVersionForm', [{
+            name: 'nameNew',
+            display: 'Version Label',
+            rules: 'required'
+        }, {
+            name: 'issuedNew',
+            display: 'Version Issued Date',
+            rules: 'required|!callback_check_date'
+        }], function(errors, event) {
+            if (errors.length > 0) {
+              var errorString = '';
+              for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+                  errorString += errors[i].message + '<br />';
+              }
+              document.getElementById('dialogEditVersionformErrors').style.display = 'block';
+              document.getElementById('dialogEditVersionformErrors').innerHTML = errorString;
+              event.returnValue=false;
+            }
+        });
+        validatorEdit.registerCallback('check_date', function(value) {
+          var newDate = new Date(value); // try to parse as a date
+          return (!isNaN(newDate.getTime())); //if not valid then send false
+        })
+        .setMessage('check_date', 'The date should be in yyyy-MM-dd format');
+        
+        var validatorNew = new FormValidator('dialogNewVersionForm', [{
+            name: 'name',
+            display: 'Version Label',
+            rules: 'required'
+        }, {
+            name: 'issued',
+            display: 'Version Issued Date',
+            rules: 'required|!callback_check_date'
+        }], function(errors, event) {
+            if (errors.length > 0) {
+              var errorString = '';
+              for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+                  errorString += errors[i].message + '<br />';
+              }
+              document.getElementById('dialogNewVersionFormErrors').style.display = 'block';
+              document.getElementById('dialogNewVersionFormErrors').innerHTML = errorString;
+              event.returnValue=false;
+            }
+        });
+        validatorNew.registerCallback('check_date', function(value) {
+          var newDate = new Date(value); // try to parse as a date
+          return (!isNaN(newDate.getTime())); //if not valid then send false
+        })
+        .setMessage('check_date', 'The date should be in yyyy-MM-dd format');
+        
         $(document).ready(function () {
           $('.imageVersionActionRemove').click(function(){
             var form = $(this).parent();
               $('#dialogRemoveVersion').dialog({
                 resizable: false,
-                height:200,
+                height:250,
                 modal: true,
                 buttons: {
                     'Confirm Deletion': function() {
@@ -77,4 +169,55 @@ block content
           $('.statusSubmit').click(function(){
             $(this).parent().submit();
           });
+          
+          $('.imageVersionActionEdit').click(function(e){
+            e.preventDefault();
+            var currentForm= $('#dialogEditVersionForm');
+            
+            var date = new Date($(this).parent().children('.issuedInput').val());
+            var d = date.getDate();
+            var m = date.getMonth() + 1;
+            var y = date.getFullYear();
+            $('#dialogEditVersionIssued').val(date);
+            $('#dialogEditVersionName').val($(this).parent().children('.nameInput').val());
+            $('#dialogEditVersionIssuedNew').val('' + y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d));
+            $('#dialogEditVersionNameNew').val($(this).parent().children('.nameInput').val());
+            
+              $('#dialogEditVersion').dialog({
+                resizable: false,
+                height:350,
+                width:600,
+                modal: true,
+                buttons: {
+                    'Save': function() {
+                        currentForm.submit();
+                    },
+                    Cancel: function() {
+                      currentForm=null;
+                      $(this).dialog('close');
+                    }
+                }
+              });
+          });
+          
+          $('.fieldReviewAddAction').click(function(e){
+            e.preventDefault();
+            var currentForm= $('#dialogNewVersionForm');            
+              $('#dialogNewVersion').dialog({
+                resizable: false,
+                height:450,
+                width:600,
+                modal: true,
+                buttons: {
+                    'Save': function() {
+                        currentForm.submit();
+                    },
+                    Cancel: function() {
+                      currentForm=null;
+                      $(this).dialog('close');
+                    }
+                }
+              });
+          });
+          
         });

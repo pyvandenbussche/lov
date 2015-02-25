@@ -292,6 +292,10 @@ VocabularySchema.statics = {
     this.find({ $or: [ { creatorIds: agentId }, { contributorIds: agentId  }, { publisherIds: agentId  } ] },{prefix:1})
       .sort({prefix:1})
       .exec(cb)
+  },
+  
+  addVersion: function (vocabPrefix, version, cb) {
+    this.update({ prefix : vocabPrefix }, {$push: { 'versions' : version }},{upsert:true}, cb)
   }
 
 }
