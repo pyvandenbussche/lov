@@ -125,7 +125,7 @@ exports.new = function (req, res) {
   console.log(vocab);
   
   if(req.files && req.files.file){//version file attached
-    //TODO upload file if present
+    // upload file if present
     //http://www.hacksparrow.com/handle-file-uploads-in-express-node-js.html
     // get the temporary location of the file
       var tmp_path = req.files.file.path;
