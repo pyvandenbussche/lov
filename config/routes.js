@@ -98,7 +98,7 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.get('/dataset/lov/vocabs', function(req, res){search.searchVocabulary(req,res,esclient);})
   app.get('/dataset/lov/vocabs/:vocabPx/versions/:vocabPx-:date.n3', function(req, res) {
     res.set('Content-Type', 'text/n3');
-    res.download(require('path').resolve(__dirname+'/../versions/'+req.vocab._id+'/'+req.vocab._id+'_'+req.params.date+'.n3'),req.params.vocabId+'-'+req.params.date+'.n3');
+    res.download(require('path').resolve(__dirname+'/../versions/'+req.vocab._id+'/'+req.vocab._id+'_'+req.params.date+'.n3'),req.params.vocabPx+'-'+req.params.date+'.n3');
 });
   app.get('/dataset/lov/vocabs/:vocabPx', vocabularies.show)
   app.get('/dataset/lov/details/vocabulary:vocabularyid', function(req, res) {
