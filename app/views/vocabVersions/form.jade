@@ -42,7 +42,7 @@ block content
                                 input.issuedInput(type="hidden", name="issued", value="#{version.issued}")
                                 input.nameInput(type="hidden", name="name", value="#{version.name}")
                                 img.imageVersionActionRemove(src="/img/remove.png" title="Remove") 
-                                img.imageVersionActionUpload(src="/img/upload.png" title="Upload")
+                                //-img.imageVersionActionUpload(src="/img/upload.png" title="Upload")
                                 img.imageVersionActionEdit(src="/img/edit_small.png" title="Edit") 
                                
                             span.prefix(href='#') #{utils.dateToYMD(version.issued)} [#{version.name}]
@@ -76,7 +76,7 @@ block content
                     td Version Label
                     td
                       input#dialogEditVersionNameNew(type='text', name='nameNew')
-      #dialogNewVersion(style='display:block;' title='version Creation')
+      #dialogNewVersion(style='display:none;' title='version Creation')
         form#dialogNewVersionForm(action="/edition/lov/vocabs/#{vocab.prefix}/versions/new", method="post", enctype="multipart/form-data")
           input(type='hidden', name='_csrf', value="#{csrf_token}")
           .metadataFrame

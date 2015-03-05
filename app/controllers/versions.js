@@ -27,12 +27,21 @@ exports.remove = function (req, res) {
   var vocab = req.vocab;
   
   //remove the selected version
+  var versionFile;
   for (i = 0; i < vocab.versions.length; i++) { 
     var version = vocab.versions[i];
     //console.log(version.issued+' - '+req.body.issued+' - '+(Date.parse(version.issued) === versionIssued));
     //console.log(version.name+' - '+versionName+' - '+(version.name === versionName));
     if(Date.parse(version.issued) === versionIssued && version.name === versionName){
       //console.log(vocab.versions.length);
+      if(version.fileURL){
+        var versionIssuedDate = new Date(version.issued);
+        var d = versionIssuedDate.getDate();
+        var m = versionIssuedDate.getMonth() + 1;
+        var y = versionIssuedDate.getFullYear();
+        var dateStr = '' + y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
+        versionFile = './versions/'+vocab._id+'/' +vocab._id+'_'+ dateStr+'.n3'
+      }
       vocab.versions.splice(i,1);
       //console.log(vocab.versions.length);
       break
@@ -42,7 +51,17 @@ exports.remove = function (req, res) {
   
   vocab.save(function(err) {
     if (err) {return res.render('500')}
-    return res.redirect('/edition/lov/vocabs/'+vocab.prefix+'/versions')
+    
+    // if the version has a file attached, then delete it
+    if(versionFile){
+      fs.unlink(versionFile, function() {
+          if (err) throw err;
+          return res.redirect('/edition/lov/vocabs/'+vocab.prefix+'/versions')
+      });
+    }
+    else{
+      return res.redirect('/edition/lov/vocabs/'+vocab.prefix+'/versions')
+    }
   })
 }
 
@@ -88,6 +107,17 @@ exports.edit = function (req, res) {
   //console.log(versionIssued+" - "+versionName);
   //console.log(versionIssuedNew+" - "+versionNameNew);
   
+  var versionIssuedDate = new Date(versionIssued);
+    var ds = versionIssuedDate.getDate();
+    var ms = versionIssuedDate.getMonth() + 1;
+    var ys = versionIssuedDate.getFullYear();
+    var sourceDateStr = '' + ys + '-' + (ms<=9 ? '0' + ms : ms) + '-' + (ds <= 9 ? '0' + ds : ds);
+    var versionIssuedNewDate = new Date(versionIssuedNew);
+    var d = versionIssuedNewDate.getDate();
+    var m = versionIssuedNewDate.getMonth() + 1;
+    var y = versionIssuedNewDate.getFullYear();
+    var targetDateStr = '' + y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
+  
   //change the date and issued date of the selected version
   for (i = 0; i < vocab.versions.length; i++) { 
     var version = vocab.versions[i];
@@ -96,12 +126,28 @@ exports.edit = function (req, res) {
       vocab.versions[i].isReviewed = true;
       vocab.versions[i].issued = versionIssuedNew;
       vocab.versions[i].name = versionNameNew;
+      if(vocab.versions[i].fileURL) vocab.versions[i].fileURL = "http://lov.okfn.org/dataset/lov/vocabs/"+vocab.prefix+"/versions/"+vocab.prefix+"-"+targetDateStr+".n3";
       break
     }
-  }
+  }  
   vocab.save(function(err) {
     if (err) {return res.render('500')}
-    return res.redirect('/edition/lov/vocabs/'+vocab.prefix+'/versions')
+    //change version file name if date has changed
+    if(sourceDateStr === targetDateStr){
+      return res.redirect('/edition/lov/vocabs/'+vocab.prefix+'/versions')
+    }
+    else{
+      var source_path = './versions/'+vocab._id+'/' +vocab._id+'_'+ sourceDateStr+'.n3'
+      var target_path = './versions/'+vocab._id+'/' +vocab._id+'_'+ targetDateStr+'.n3'
+      fs.rename(source_path, target_path, function(err) {
+            if (err) throw err;
+            // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
+            fs.unlink(source_path, function() {
+                if (err) throw err;
+                return res.redirect('/edition/lov/vocabs/'+vocab.prefix+'/versions')
+            });
+      });
+    }
   })
 }
   
@@ -111,6 +157,7 @@ exports.new = function (req, res) {
   var versionIssued = new Date(req.body.issued);
   
   var vocab = req.vocab;
+  vocab.lastModifiedInLOVAt = new Date();
   //console.log(versionIssued+" - "+versionName);
   version.issued = versionIssued;
   version.name = versionName;
@@ -121,11 +168,11 @@ exports.new = function (req, res) {
   var y = versionIssued.getFullYear();
   var issuedStr = '' + y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
   
-  console.log(req.files);
-  console.log(vocab);
+  //console.log(req.files);
+  //console.log(vocab);
   
   if(req.files && req.files.file && req.files.file.size>0){//version file attached
-    //TODO upload file if present
+    //upload file if present
     //http://www.hacksparrow.com/handle-file-uploads-in-express-node-js.html
     // get the temporary location of the file
       var tmp_path = req.files.file.path;
@@ -137,18 +184,24 @@ exports.new = function (req, res) {
           // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
           fs.unlink(tmp_path, function() {
               if (err) throw err;
-              res.send('File uploaded to: ' + target_path + ' - ' + req.files.file.size + ' bytes');
+              var versionPublicPath = "http://lov.okfn.org/dataset/lov/vocabs/"+req.vocab.prefix+"/versions/"+req.vocab.prefix+"-"+issuedStr+".n3";
+              //analyse the vocab
+               var command = "/usr/local/lov/scripts/bin/versionAnalyser "+versionPublicPath+" "+req.vocab.uri+" "+req.vocab.nsp+" /usr/local/lov/scripts/lov.config";
+              var exec = require('child_process').exec;
+              child = exec(command,
+                function (error, stdout, stderr) {
+                  stdout = JSON.parse(stdout);
+                  if(error !== null){
+                    console.log('exec error: ' + error);
+                  }
+                  stdout = _.extend(stdout, version);
+                   Vocabulary.addVersion(vocab.prefix, stdout, function(err) {
+                      if (err) {return res.render('500')}
+                      return res.redirect('/edition/lov/vocabs/'+vocab.prefix+'/versions')
+                    });
+              });
           });
-      });
-    
-    //TODO analyse the vocab
-    
-    /*console.log(JSON.stringify(version));
-    
-    Vocabulary.addVersion(vocab.prefix, version, function(err) {
-      if (err) {return res.render('500')}
-      return res.redirect('/edition/lov/vocabs/'+vocab.prefix+'/versions')
-    });*/
+      });    
   }
   else{//no version file atached
     Vocabulary.addVersion(vocab.prefix, version, function(err) {

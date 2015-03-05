@@ -8,6 +8,7 @@ var mongoose = require('mongoose')
   , Stattag = mongoose.model('Stattag')
   , LogSearch = mongoose.model('LogSearch')
   , utils = require('../../lib/utils')
+  , fs = require('fs')
   , _ = require('underscore')
 
 /**
@@ -267,20 +268,79 @@ exports.show = function(req, res){
 
 exports.create = function (req, res) {
   var vocab = new Vocabulary(req.body);
-  console.log(vocab);
-  /* run analytics on vocab */
-  /* store version locally */
-  /* add version */
+  //console.log(vocab);
+  
   vocab.save(function (err) {
     if (err) {return res.render('500')}
-    return res.redirect('/dataset/lov/vocabs/' + vocab.prefix);
+    
+    /* store version locally */
+    var command = "/usr/local/lov/scripts/bin/downloadVersion "+(vocab.isDefinedBy?vocab.isDefinedBy:vocab.uri)+" /usr/local/lov/scripts/lov.config";
+    var exec = require('child_process').exec;
+    child = exec(command,
+      function (error, stdout, stderr) {
+        stdout = stdout.split('\n')[0];
+        if(error !== null){
+          console.log('exec error: ' + error);
+        }
+        if(stdout && stdout.length>0){
+          /* move file with its name */
+          var version = {};
+          var versionIssued = new Date();
+          
+          var d = versionIssued.getDate();
+          var m = versionIssued.getMonth() + 1;
+          var y = versionIssued.getFullYear();
+          var issuedStr = '' + y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
+          var versionName = 'v'+issuedStr;
+          
+          version.issued = versionIssued;
+          version.name = versionName;
+          version.isReviewed = true;
+          
+          var dir = './versions/'+vocab._id;
+          if (!fs.existsSync(dir)){
+              fs.mkdirSync(dir);
+          }
+          
+          var target_path = './versions/'+vocab._id+'/' +vocab._id+'_'+ issuedStr+'.n3' //req.files.file.name;
+          // move the file from the temporary location to the intended location
+          fs.rename(stdout, target_path, function(err) {
+              if (err) throw err;
+              // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
+              fs.unlink(stdout, function() {
+                  if (err) throw err;
+                  var versionPublicPath = "http://lov.okfn.org/dataset/lov/vocabs/"+vocab.prefix+"/versions/"+vocab.prefix+"-"+issuedStr+".n3";
+                  /* run analytics on vocab */
+                   var command2 = "/usr/local/lov/scripts/bin/versionAnalyser "+versionPublicPath+" "+vocab.uri+" "+vocab.nsp+" /usr/local/lov/scripts/lov.config";
+                  var exec2 = require('child_process').exec;
+                  child = exec2(command2,
+                    function (error2, stdout2, stderr2) {
+                      stdout2 = JSON.parse(stdout2);
+                      if(error2 !== null){
+                        console.log('exec error: ' + error2);
+                      }
+                      stdout2 = _.extend(stdout2, version);
+                      /* add version */
+                       Vocabulary.addVersion(vocab.prefix, stdout2, function(err) {
+                          if (err) {return res.render('500')}
+                          console.log('Done!');
+                          return res.send({redirect:'/dataset/lov/vocabs/'+vocab.prefix})
+                        });
+                  });
+              });
+          });  
+        }
+        else{//no version found
+          return res.send({redirect:'/dataset/lov/vocabs/'+vocab.prefix})
+        }
+    });
   })
 }
 
 exports.update = function(req, res){
   var vocab = req.vocab;
   vocab = _.extend(vocab, req.body)
-  console.log(vocab);
+  //console.log(vocab);
   vocab.save(function(err) {
     if (err) {
       return res.render('500')
