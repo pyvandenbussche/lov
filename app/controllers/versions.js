@@ -124,7 +124,7 @@ exports.new = function (req, res) {
   console.log(req.files);
   console.log(vocab);
   
-  if(req.files && req.files.file){//version file attached
+  if(req.files && req.files.file && req.files.file.size>0){//version file attached
     //TODO upload file if present
     //http://www.hacksparrow.com/handle-file-uploads-in-express-node-js.html
     // get the temporary location of the file
