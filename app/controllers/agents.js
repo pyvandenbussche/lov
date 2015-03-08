@@ -64,6 +64,14 @@ exports.create = function (req, res) {
   })
 }
 
+exports.createOnTheFly = function (req, res) {
+  var agent = new Agent(req.body)
+  agent.save(function (err) {
+    if (err) {return res.render('500')}
+    return res.send({agent:agent})
+  })
+}
+
 exports.new = function (req, res){
   res.render('agents/new', {
     agent: new Agent({})

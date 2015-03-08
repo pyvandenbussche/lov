@@ -76,19 +76,47 @@ block content
                       -if(typeof(lastVersion)!='undefined') 
                         tr
                           td Language
-                          td !{utils.valueLangDisplay(lastVersion.languageIds,'label','iso639P3PCode','/dataset/lov/languages/')}
+                          //td !{utils.valueLangDisplay(lastVersion.languageIds,'label','iso639P3PCode','/dataset/lov/languages/')}
+                          td
+                            each lang in lastVersion.languageIds
+                              a(href='/dataset/lov/languages/#{lang.iso639P3PCode}')
+                                div.AgentThumb
+                                  div(class='agentThumbInnerBodylanguage')
+                                    div.agentThumbName #{lang.label}
+                                    div.agentThumbPrefUri #{lang.iso639P1Code}
                       if vocab.creatorIds && vocab.creatorIds.length>0
                         tr
                           td Creator
-                          td !{utils.valueLangDisplay(vocab.creatorIds,'name','name','/dataset/lov/agents/')}
+                          //td !{utils.valueLangDisplay(vocab.creatorIds,'name','name','/dataset/lov/agents/')}
+                          td
+                            each agent in vocab.creatorIds
+                              a(href='/dataset/lov/agents/#{agent.name}')
+                                div.AgentThumb
+                                  div(class='agentThumbInnerBody#{agent.type}')
+                                    div.agentThumbName #{agent.name}
+                                    div.agentThumbPrefUri #{agent.prefUri}
                       if vocab.contributorIds && vocab.contributorIds.length>0
                         tr
                           td Contributor
-                          td !{utils.valueLangDisplay(vocab.contributorIds,'name','name','/dataset/lov/agents/')}
+                          //td !{utils.valueLangDisplay(vocab.contributorIds,'name','name','/dataset/lov/agents/')}
+                          td
+                            each agent in vocab.contributorIds
+                              a(href='/dataset/lov/agents/#{agent.name}')
+                                div.AgentThumb
+                                  div(class='agentThumbInnerBody#{agent.type}')
+                                    div.agentThumbName #{agent.name}
+                                    div.agentThumbPrefUri #{agent.prefUri}
                       if vocab.publisherIds && vocab.publisherIds.length>0
                         tr
                           td Publisher
-                          td !{utils.valueLangDisplay(vocab.publisherIds,'name','name','/dataset/lov/agents/')}
+                          //td !{utils.valueLangDisplay(vocab.publisherIds,'name','name','/dataset/lov/agents/')}
+                          td
+                            each agent in vocab.publisherIds
+                              a(href='/dataset/lov/agents/#{agent.name}')
+                                div.AgentThumb
+                                  div(class='agentThumbInnerBody#{agent.type}')
+                                    div.agentThumbName #{agent.name}
+                                    div.agentThumbPrefUri #{agent.prefUri}
                       if vocab.reviews && vocab.reviews.length>0
                         tr
                           td Comment

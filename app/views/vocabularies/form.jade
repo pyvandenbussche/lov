@@ -3,6 +3,10 @@ block content
       //- used to extract information form in JSON: https://github.com/maxatwork/form2js
       - var action = '/edition/lov/vocabs'
       - action += vocab.isNew? '' : '/' + vocab.prefix
+      #loading-div-background
+        #loading-div
+          img(style="margin:30px;" src="/img/loading.gif" alt="Loading..")
+          div Patience is a virtue!
       section#post.postBlue
         article
           header.wrpl.w-3-3
@@ -330,9 +334,8 @@ block content
                   li
                     span.tag.tagFromList #{tag.label}
                                 
-            form(method='post' action=action name='agentCreationOnTheFlyForm' id='agentCreationOnTheFlyForm' title='Get Or Create an Agent' style='display:none;')
+            form(method='post' action='/edition/lov/agents/creationOnTheFly' name='agentCreationOnTheFlyForm' id='agentCreationOnTheFlyForm' title='Get Or Create an Agent' style='display:none;')
               input(type='hidden', name='_csrf', value="#{csrf_token}")
-              input(type="hidden", name="_method", value="PUT")
               #agentCreationOnTheFlyClue
               .metadataFrame
                 #agentCreationOnTheFlyErrors
@@ -584,6 +587,7 @@ block content
         
         
         function submitForm(formData) {
+          $("#loading-div-background").show();
             $.ajax({
                 type: "POST",
                 url: $('#TheForm').attr('action'),
@@ -594,6 +598,7 @@ block content
                 success: function(data){window.location.replace(data.redirect);},
                 failure: function(errMsg) {
                    document.getElementById('jsonResult').innerHTML = errMsg;
+                   $("#loading-div-background").hide();
                 }
             });
         }
@@ -685,7 +690,24 @@ block content
                 modal: true,
                 buttons: {
                     'Confirm': function() {
-                        currentForm.submit();
+                        //currentForm.submit();
+                         var postData = currentForm.serializeArray();
+                          var formURL = currentForm.attr("action");
+                          $.ajax(
+                          {
+                              url : formURL,
+                              type: "POST",
+                              data : postData,
+                              success: function(data){
+                                if($('#agentCreationOnTheFlyForm').hasClass('creatorForm')) addAgent('creatorIds',data.agent);
+                                if($('#agentCreationOnTheFlyForm').hasClass('contributorForm')) addAgent('contributorIds',data.agent);
+                                if($('#agentCreationOnTheFlyForm').hasClass('publisherForm')) addAgent('publisherIds',data.agent);
+                                $('#agentCreationOnTheFlyForm').dialog('close')
+                              },
+                              failure: function(errMsg) {
+                                 $('#agentCreationOnTheFlyForm').dialog('close')
+                              }
+                          });
                     },
                     Cancel: function() {
                       currentForm=null;

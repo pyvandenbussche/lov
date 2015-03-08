@@ -279,6 +279,16 @@ li.inactive .editionInnerBox span {
   border-left: 6px solid #82C836;
   padding-left:.3em;
 }
+.agentThumbInnerBodyorganization{
+  position:relative;
+  border-left: 6px solid #4A8806;
+  padding-left:.3em;
+}
+.agentThumbInnerBodylanguage{
+  position:relative;
+  border-left: 6px solid #8c564b;
+  padding-left:.3em;
+}
 .agentThumbPrefUri{
   color: #888888;
 }
@@ -324,4 +334,32 @@ li.inactive .editionInnerBox span {
 
 .statusAllActionButton{
   float:right;
+}
+
+#loading-div-background{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:rgba(200, 200, 200, 0.5);
+}
+
+#loading-div{
+    width: 300px;
+    height: 150px;
+    background-color: #fff;
+    border: 5px solid #1468b3;
+    text-align: center;
+    color: #202020;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -150px;
+    margin-top: -100px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    opacity: 1;
 }

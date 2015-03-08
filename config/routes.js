@@ -63,8 +63,9 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.param('userId', users.load)
   //agents
   app.get('/edition/lov/agents/new', auth.requiresLogin, agents.new);
-  app.get('/edition/lov/agents/:agentId', auth.requiresLogin, agents.edit)
   app.post('/edition/lov/agents', auth.requiresLogin, agents.create)
+  app.post('/edition/lov/agents/creationOnTheFly', auth.requiresLogin, agents.createOnTheFly)
+  app.get('/edition/lov/agents/:agentId', auth.requiresLogin, agents.edit)
   app.put('/edition/lov/agents/:agentId', auth.requiresLogin, agents.update)
   app.del('/edition/lov/agents/:agentId', auth.requiresLogin, agents.destroy)
   app.param('agentId', agents.load)
