@@ -25,6 +25,7 @@ exports.remove = function (req, res) {
   var versionIssued = Date.parse(req.body.issued);
   var versionName = req.body.name;
   var vocab = req.vocab;
+  vocab.lastModifiedInLOVAt = new Date();
   
   //remove the selected version
   var versionFile;
@@ -69,6 +70,7 @@ exports.changeStatusReviewed = function (req, res) {
   var versionIssued = Date.parse(req.body.issued);
   var versionName = req.body.name;
   var vocab = req.vocab;
+  vocab.lastModifiedInLOVAt = new Date();
   
   //change the status of the selected version
   for (i = 0; i < vocab.versions.length; i++) { 
@@ -87,6 +89,7 @@ exports.changeStatusReviewed = function (req, res) {
 
 exports.changeStatusReviewedAll = function (req, res) {
   var vocab = req.vocab;
+  vocab.lastModifiedInLOVAt = new Date();
   
   //change the status of all versions
   for (i = 0; i < vocab.versions.length; i++) {
@@ -104,6 +107,7 @@ exports.edit = function (req, res) {
   var versionIssuedNew = Date.parse(req.body.issuedNew);
   var versionNameNew = req.body.nameNew;
   var vocab = req.vocab;
+  vocab.lastModifiedInLOVAt = new Date();
   //console.log(versionIssued+" - "+versionName);
   //console.log(versionIssuedNew+" - "+versionNameNew);
   

@@ -295,7 +295,7 @@ VocabularySchema.statics = {
   },
   
   addVersion: function (vocabPrefix, version, cb) {
-    this.update({ prefix : vocabPrefix }, {$push: { 'versions' : version }},{upsert:true}, cb)
+    this.update({ prefix : vocabPrefix }, {$push: { 'versions' : version }, $set: {lastModifiedInLOVAt: new Date()}},{upsert:true}, cb)
   }
 
 }
