@@ -10,7 +10,7 @@ block content
               h1 Create a new Vocabulary
             else
               h1
-                a(href='#{vocab.prefix}')
+                a(href='/dataset/lov/vocabs/#{vocab.prefix}')
                   | #{vocab.titles[0].value} 
                   span (#{vocab.prefix})
               

@@ -100,6 +100,8 @@ module.exports = function (app, config, passport) {
         next()
       })
     }
+    
+    app.enable('trust proxy')
 
     // routes should be at the last
     app.use(app.router)

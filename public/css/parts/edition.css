@@ -247,7 +247,7 @@ li.inactive .editionInnerBox span {
 .fieldSuggestions .fieldSug .fieldSugLang{
   color:#426C6C;
 }
-.fieldWithLangAddAction, .fieldSugActionTextareaLangDescription, .fieldSugActionTextareaLangTitle, .fieldAgentAddAction, .fieldReviewAddAction, .fieldTagsAddAction{
+.fieldWithLangAddAction, .fieldSugActionTextareaLangDescription, .fieldSugActionTextareaLangTitle, .fieldAgentAddAction, .fieldReviewAddAction, .fieldTagsAddAction, .fieldSugActionAgentComplete{
   height:1em;
   width:1em;
   cursor:pointer;
