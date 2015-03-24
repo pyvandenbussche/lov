@@ -253,6 +253,7 @@ exports.show = function(req, res){
           ]}];
        }
     }
+    console.log(lastVersion);
     res.render('vocabularies/show', {
       statvocab: statvocab,
       vocab: req.vocab,

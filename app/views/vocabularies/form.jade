@@ -479,7 +479,8 @@ block content
                 var Id = document.createElement('input');
                 Id.type  = 'hidden';
                 Id.name= agentsDiv+'[]';    
-                Id.value= agentJson.id;     
+                Id.value= agentJson.id; 
+                if(agentJson._id) Id.value= agentJson._id; 
               inner.appendChild(Id);
                 var image = document.createElement("img");
                 image.className ='agentThumbRemove';

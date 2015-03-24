@@ -73,7 +73,7 @@ block content
                         tr
                           td Description
                           td !{utils.valueLangDisplay(vocab.descriptions, 'value',null,null)}
-                      -if(typeof(lastVersion)!='undefined') 
+                      -if(typeof(lastVersion)!='undefined' && lastVersion.languageIds) 
                         tr
                           td Language
                           //td !{utils.valueLangDisplay(lastVersion.languageIds,'label','iso639P3PCode','/dataset/lov/languages/')}
