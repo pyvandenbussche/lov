@@ -3,6 +3,7 @@
  */
 
 var express = require('express')
+  , csrf = express.csrf()
   , mongoStore = require('connect-mongo')(express)
   , flash = require('connect-flash')
   , winston = require('winston')
@@ -92,11 +93,23 @@ module.exports = function (app, config, passport) {
 
     // adds CSRF support
     if (process.env.NODE_ENV !== 'test') {
-      app.use(express.csrf())
+      
+      //app.use(express.csrf())
+      var conditionalCSRF = function (req, res, next) {
+        if (req.path != '/dataset/lov/sparql') {//don't check the csrf if sent to sparql as it is not supported by yasgui
+          csrf(req, res, next);
+        } else {
+          next();
+        }
+      }
+
+      app.use(conditionalCSRF);
 
       // This could be moved to view-helpers :-)
       app.use(function(req, res, next){
-        res.locals.csrf_token = req.csrfToken()
+        if(typeof req.csrfToken == 'function'){//small hack to work in the case of sparql access using yasgui
+          res.locals.csrf_token = req.csrfToken()
+        }
         next()
       })
     }

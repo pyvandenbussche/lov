@@ -3,6 +3,7 @@
  */
 
 var async = require('async');
+var http = require('http');
 
 /**
  * Controllers
@@ -193,16 +194,42 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.get('/endpoint/lov', function(req, res){res.redirect('/dataset/lov/sparql')});
   app.get('/dataset/lov/sparql', function(req, res, next) {
     //TODO log SPARQL Queries using the logSearch object ??
-    console.log(req.ip);
     req.negotiate({'application/sparql-results+json,application/sparql-results+xml,text/tab-separated-values,text/csv,application/json,application/xml': function() {
-          res.redirect('http://helium.okfnlabs.org:3030/lov/sparql?query='+ encodeURIComponent(req.query.query));
+          var options = {hostname: 'localhost',port: 3030,path: '/lov/sparql?query='+  encodeURIComponent(req.query.query),method: 'GET',
+            headers: {accept: req.headers.accept}
+          };
+          http.get(options, function(response) {
+              response.setEncoding('utf8');
+              var body = '';
+              response.on('data', function(d) {body += d;});// Continuously update stream with data
+              response.on('end', function() {res.send(200, body);});
+          });
         },
         'html': function() {
           res.render('endpoint/index', {queryExamples:queryExamples});
         },
         'default': function() {
-          res.redirect('http://helium.okfnlabs.org:3030/lov/sparql?query='+ encodeURIComponent(req.query.query));
+          var options = {hostname: 'localhost',port: 3030,path: '/lov/sparql?query='+  encodeURIComponent(req.query.query),method: 'GET',
+            headers: {accept: req.headers.accept}
+          };
+          http.get(options, function(response) {
+              response.setEncoding('utf8');
+              var body = '';
+              response.on('data', function(d) {body += d;});// Continuously update stream with data
+              response.on('end', function() {res.send(200, body);});
+          });
         }
+    });
+  });
+  app.post('/dataset/lov/sparql', function(req, res, next) {
+    var options = {hostname: 'localhost',port: 3030,path: '/lov/sparql?query='+  encodeURIComponent(req.body.query),method: 'GET',
+      headers: {accept: req.headers.accept}
+    };
+    http.get(options, function(response) {
+        response.setEncoding('utf8');
+        var body = '';
+        response.on('data', function(d) {body += d;});// Continuously update stream with data
+        response.on('end', function() {res.send(200, body);});
     });
   });
   

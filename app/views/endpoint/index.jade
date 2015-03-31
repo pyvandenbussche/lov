@@ -32,7 +32,7 @@ block content
               script.
                 var yasqe = YASQE(document.getElementById('yasqe'), {
                   sparql: {
-                    endpoint: 'http://helium.okfnlabs.org:3030/lov/sparql',
+                    endpoint: 'http://lov.okfn.org/dataset/lov/sparql',
                     showQueryButton: true
                     },
                     value: 'PREFIX vann:<http://purl.org/vocab/vann/>\n\PREFIX voaf:<http://purl.org/vocommons/voaf#>\n\ \n\### Vocabularies contained in LOV and their prefix\n\SELECT DISTINCT ?vocabPrefix ?vocabURI {\n\ \tGRAPH <http://lov.okfn.org/dataset/lov>{\n\ \t \t?vocabURI a voaf:Vocabulary.\n\ \t \t?vocabURI vann:preferredNamespacePrefix ?vocabPrefix.\n\}} ORDER BY ?vocabPrefix'
