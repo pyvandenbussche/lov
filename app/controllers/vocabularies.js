@@ -99,6 +99,25 @@ exports.apiInfoVocab = function (req, res) {
   })
 }
 
+
+ /**
+* Vocabulary JSON-LD context List
+*/
+exports.jsonLDListVocabs = function (req, res) {
+  Vocabulary.listPrefixNspUri(function(err, vocabs) {
+    if (err) return res.send(500, err);
+    var contexts= {};
+    for (x in vocabs) {
+        //console.log(vocabs[x].prefix);
+        contexts[vocabs[x].prefix]= vocabs[x].nsp;
+    }
+    var out = { 
+      "@context":contexts
+    }
+    return standardCallback(req, res, err, out);
+  })
+}
+
 /* depending on result, send the appropriate response code */
 function standardCallback(req, res, err, results) {
   if (err != null) {

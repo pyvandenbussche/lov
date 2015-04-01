@@ -150,6 +150,8 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   
   
   //APIs  
+  app.get('/dataset/lov/context', function(req, res){vocabularies.jsonLDListVocabs(req,res);})
+  
   app.get('/dataset/lov/api/v2/term/suggest', function(req, res){search.apiSuggestTerms(req,res,esclient);})
   app.get('/dataset/lov/api/v2/term/autocomplete', function(req, res){search.apiAutocompleteTerms(req,res,esclient);})
   app.get('/dataset/lov/api/v2/autocomplete/terms', function(req, res){search.apiAutocompleteTerms(req,res,esclient);})
