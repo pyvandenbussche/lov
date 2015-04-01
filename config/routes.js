@@ -191,47 +191,46 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
     });
   });
   
-  app.get('/endpoint/lov', function(req, res){res.redirect('/dataset/lov/sparql')});
+  app.get('/endpoint/lov', function(req, res){res.redirect('/dataset/lov/sparql')});   
   app.get('/dataset/lov/sparql', function(req, res, next) {
     //TODO log SPARQL Queries using the logSearch object ??
+    
     req.negotiate({'application/sparql-results+json,application/sparql-results+xml,text/tab-separated-values,text/csv,application/json,application/xml': function() {
-          var options = {hostname: 'localhost',port: 3030,path: '/lov/sparql?query='+  encodeURIComponent(req.query.query),method: 'GET',
-            headers: {accept: req.headers.accept}
-          };
-          http.get(options, function(response) {
-              response.setEncoding('utf8');
-              var body = '';
-              response.on('data', function(d) {body += d;});// Continuously update stream with data
-              response.on('end', function() {res.send(200, body);});
-          });
+          //console.log('req.query '+JSON.stringify(req.query.query))
+          executeSPARQLQuery(res, req.headers, req.query.query, req.query['default-graph-uri'],req.query['named-graph-uri']);
         },
         'html': function() {
           res.render('endpoint/index', {queryExamples:queryExamples});
         },
         'default': function() {
-          var options = {hostname: 'localhost',port: 3030,path: '/lov/sparql?query='+  encodeURIComponent(req.query.query),method: 'GET',
-            headers: {accept: req.headers.accept}
-          };
-          http.get(options, function(response) {
-              response.setEncoding('utf8');
-              var body = '';
-              response.on('data', function(d) {body += d;});// Continuously update stream with data
-              response.on('end', function() {res.send(200, body);});
-          });
+          executeSPARQLQuery(res, req.headers, req.query.query, req.query['default-graph-uri'],req.query['named-graph-uri']);
         }
     });
   });
   app.post('/dataset/lov/sparql', function(req, res, next) {
-    var options = {hostname: 'localhost',port: 3030,path: '/lov/sparql?query='+  encodeURIComponent(req.body.query),method: 'GET',
-      headers: {accept: req.headers.accept}
-    };
-    http.get(options, function(response) {
-        response.setEncoding('utf8');
-        var body = '';
-        response.on('data', function(d) {body += d;});// Continuously update stream with data
-        response.on('end', function() {res.send(200, body);});
-    });
+      //console.log('req.query '+JSON.stringify(req.body.query))
+      executeSPARQLQuery(res, req.headers, req.body.query, req.body['default-graph-uri'],req.body['named-graph-uri']);
+      
   });
+  
+  function executeSPARQLQuery(res, headers, query, defaultGraphUri, namedGraphUri) {
+    path='/lov/sparql?query='+  encodeURIComponent(query);
+    if(defaultGraphUri)path+='&default-graph-uri='+ encodeURIComponent(defaultGraphUri);
+    if(namedGraphUri)path+='&named-graph-uri='+ encodeURIComponent(namedGraphUri);
+    delete headers['content-length'];
+    delete headers['cookie'];
+    var options = {hostname: 'localhost',port: 3030,path: path, headers: headers};
+    //console.log('OPTIONS: '+JSON.stringify(options));
+    http.get(options, function(response) {
+        var bodyChunks = [];
+        response.on('data', function(d) {bodyChunks.push(d);});// Continuously update stream with data
+        response.on('end', function() {
+          var body = Buffer.concat(bodyChunks);
+          //console.log('HEADERS: '+JSON.stringify(response.headers))
+          res.set(response.headers); 
+          res.send(200, body);});
+    });    
+  }
   
 
 }

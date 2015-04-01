@@ -253,7 +253,7 @@ exports.show = function(req, res){
           ]}];
        }
     }
-    console.log(lastVersion);
+    //console.log(lastVersion);
     res.render('vocabularies/show', {
       statvocab: statvocab,
       vocab: req.vocab,
@@ -324,7 +324,7 @@ exports.create = function (req, res) {
                       /* add version */
                        Vocabulary.addVersion(vocab.prefix, stdout2, function(err) {
                           if (err) {return res.render('500')}
-                          console.log('Done!');
+                          //console.log('Done!');
                           return res.send({redirect:'/dataset/lov/vocabs/'+vocab.prefix})
                         });
                   });
