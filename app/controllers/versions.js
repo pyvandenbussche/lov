@@ -130,7 +130,7 @@ exports.edit = function (req, res) {
       vocab.versions[i].isReviewed = true;
       vocab.versions[i].issued = versionIssuedNew;
       vocab.versions[i].name = versionNameNew;
-      if(vocab.versions[i].fileURL) vocab.versions[i].fileURL = "http://lov.okfn.org/dataset/lov/vocabs/"+vocab.prefix+"/versions/"+vocab.prefix+"-"+targetDateStr+".n3";
+      if(vocab.versions[i].fileURL) vocab.versions[i].fileURL = "http://lov.okfn.org/dataset/lov/vocabs/"+vocab.prefix+"/versions/"+targetDateStr+".n3";
       break
     }
   }  
@@ -188,16 +188,16 @@ exports.new = function (req, res) {
           // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
           fs.unlink(tmp_path, function() {
               if (err) throw err;
-              var versionPublicPath = "http://lov.okfn.org/dataset/lov/vocabs/"+req.vocab.prefix+"/versions/"+req.vocab.prefix+"-"+issuedStr+".n3";
+              var versionPublicPath = "http://lov.okfn.org/dataset/lov/vocabs/"+req.vocab.prefix+"/versions/"+issuedStr+".n3";
               //analyse the vocab
                var command = "/usr/local/lov/scripts/bin/versionAnalyser "+versionPublicPath+" "+req.vocab.uri+" "+req.vocab.nsp+" /usr/local/lov/scripts/lov.config";
               var exec = require('child_process').exec;
               child = exec(command,
                 function (error, stdout, stderr) {
-                  stdout = JSON.parse(stdout);
                   if(error !== null){
                     console.log('exec error: ' + error);
                   }
+                  stdout = JSON.parse(stdout);
                   stdout = _.extend(stdout, version);
                    Vocabulary.addVersion(vocab.prefix, stdout, function(err) {
                       if (err) {return res.render('500')}

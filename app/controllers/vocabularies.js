@@ -329,7 +329,7 @@ exports.create = function (req, res) {
               // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
               fs.unlink(stdout, function() {
                   if (err) throw err;
-                  var versionPublicPath = "http://lov.okfn.org/dataset/lov/vocabs/"+vocab.prefix+"/versions/"+vocab.prefix+"-"+issuedStr+".n3";
+                  var versionPublicPath = "http://lov.okfn.org/dataset/lov/vocabs/"+vocab.prefix+"/versions/"+issuedStr+".n3";
                   /* run analytics on vocab */
                    var command2 = "/usr/local/lov/scripts/bin/versionAnalyser "+versionPublicPath+" "+vocab.uri+" "+vocab.nsp+" /usr/local/lov/scripts/lov.config";
                   var exec2 = require('child_process').exec;
