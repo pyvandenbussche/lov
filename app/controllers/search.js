@@ -813,9 +813,10 @@ function execSuggestTerms(client, queryString, suggest_size, type, callback) {
       }
     };
   return client.search(indexName, type, q).on('data', function(data) {
-    var hit, parsed, result;
+    var suggestions,result;
+    if (JSON.parse(data).suggest && JSON.parse(data).suggest.termSuggestion && JSON.parse(data).suggest.termSuggestion.length>0) suggestions = JSON.parse(data).suggest.termSuggestion[0].options;
     result = {
-      suggestions: JSON.parse(data).suggest.termSuggestion[0].options
+      suggestions: suggestions
     };
     return callback(null, result);
   }).on('error', function(error) {
