@@ -75,7 +75,7 @@ block content
               .pagination
                 - var query = '?'
                 - if(results.queryString)query=query+'q='+results.queryString;
-                - if(typeof results.filters.tag != 'undefined')query+='&tag='+results.filters.tag;
+                - if(typeof results.filters.tag != 'undefined')query+='&tag='+encodeURIComponent(results.filters.tag);
                 - if(typeof results.filters.type != 'undefined')query+='&type='+results.filters.type;
                 - if(p.current-boundary >1)
                   a.page(href='#{query}&page=1') 1
@@ -106,7 +106,7 @@ block content
                     - var query = '?'
                     - if(results.queryString)query=query+'q='+results.queryString;
                     - if(typeof results.filters.vocab != 'undefined')query+='&vocab='+results.filters.vocab;
-                    - if(typeof results.filters.tag != 'undefined')query+='&tag='+results.filters.tag;
+                    - if(typeof results.filters.tag != 'undefined')query+='&tag='+encodeURIComponent(results.filters.tag);
                     for type in results.aggregations.types.buckets
                       - if(typeof results.filters.type != 'undefined' && type.key == results.filters.type)
                         li.nav-item-active
