@@ -4,6 +4,7 @@
 
 var async = require('async');
 var http = require('http');
+var mongoose = require('mongoose')
 
 /**
  * Controllers
@@ -21,6 +22,7 @@ var users = require('../app/controllers/users')
   , bot = require('../app/controllers/bot')
   , negotiate = require('express-negotiate')
   , queryExamples = require('../lib/queryExamples')
+  , LogSparql = mongoose.model('LogSparql')
   
 
 /**
@@ -216,6 +218,7 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   });
   
   function executeSPARQLQuery(res, headers, query, defaultGraphUri, namedGraphUri) {
+    var sparqlExecTime = Date.now();
     path='/lov/sparql?query='+  encodeURIComponent(query);
     if(defaultGraphUri)path+='&default-graph-uri='+ encodeURIComponent(defaultGraphUri);
     if(namedGraphUri)path+='&named-graph-uri='+ encodeURIComponent(namedGraphUri);
@@ -228,10 +231,17 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
         response.on('data', function(d) {bodyChunks.push(d);});// Continuously update stream with data
         response.on('end', function() {
           var body = Buffer.concat(bodyChunks);
+          var duration = (Date.now() - sparqlExecTime)
+          var log = new LogSparql({query: encodeURIComponent(query),
+            date: new Date(),
+            execTime: duration,
+            nbResults: 0  });//console.log(log);
+          log.save(function (err){if(err)console.log(err)});
+          //console.log(body);
           //console.log('HEADERS: '+JSON.stringify(response.headers))
-          res.set(response.headers); 
+          res.set(response.headers);
           res.send(200, body);});
-    });    
+
   }
   
 
