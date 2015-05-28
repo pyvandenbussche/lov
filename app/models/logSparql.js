@@ -27,9 +27,8 @@ var LogSparql = new Schema({
 
 LogSparql.statics = {
 
-  
-  mostPopularTags: function (nbItemsRequired, cb) {
-    this.find({},{"_id":0}).sort({'nbOccurrences':-1}).limit(nbItemsRequired).exec(cb)
+  list: function (cb) {
+    this.find({},{"_id":0}).sort({'date':1}).exec(cb)
   },
 }
 
