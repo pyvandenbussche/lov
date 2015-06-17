@@ -75,6 +75,7 @@ block content
               .pagination
                 - var query = '?';
                 - if(results.queryString)query+='q='+results.queryString;
+                - if(typeof results.filters.lang != 'undefined')query+='&lang='+results.filters.lang;
                 - if(typeof results.filters.tag != 'undefined')query+='&tag='+encodeURIComponent(results.filters.tag);
                 - if(p.current-boundary >1)
                   a.page(href='#{query}&page=1') 1
