@@ -177,7 +177,7 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.get('/dataset/lov/api/v2/vocabulary/prefix/exists', function(req, res){vocabularies.apiPrefixExists(req,res);})
   
   app.get('/dataset/lov/api/v2/log/sparql', function(req, res){logs.apiSPARQL(req,res);})
-  
+
   app.get('/dataset/lov/api/v2/tags/list', function(req, res){vocabularies.apiTags(req,res);})
   
   app.get('/dataset/lov/api', function(req, res){res.render('api', {});}  )
@@ -242,9 +242,9 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
           log.save(function (err){if(err)console.log(err)});
           //console.log(body);
           //console.log('HEADERS: '+JSON.stringify(response.headers))
-          res.set(response.headers);
+          res.set(response.headers); 
           res.send(200, body);});
-
+    });    
   }
   
 
