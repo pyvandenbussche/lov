@@ -75,16 +75,16 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.param('agentId', agents.load)
   //vocabs
   app.post('/edition/lov/vocabs/new', auth.requiresLogin, vocabularies.new)
-  app.get('/edition/lov/vocabs/:vocabPx', auth.requiresLogin, vocabularies.edit)
+  app.get('/edition/lov/vocabs/:vocabPxEdition', auth.requiresLogin, vocabularies.edit)
   app.post('/edition/lov/vocabs', auth.requiresLogin, vocabularies.create)
-  app.put('/edition/lov/vocabs/:vocabPx', auth.requiresLogin, vocabularies.update)
+  app.put('/edition/lov/vocabs/:vocabPxEdition', auth.requiresLogin, vocabularies.update)
   //versions
-  app.get('/edition/lov/vocabs/:vocabPx/versions', auth.requiresLogin, versions.list)
-  app.del('/edition/lov/vocabs/:vocabPx/versions', auth.requiresLogin, versions.remove)
-  app.post('/edition/lov/vocabs/:vocabPx/versions/review', auth.requiresLogin, versions.changeStatusReviewed)
-  app.post('/edition/lov/vocabs/:vocabPx/versions/reviewAll', auth.requiresLogin, versions.changeStatusReviewedAll)
-  app.post('/edition/lov/vocabs/:vocabPx/versions/edit', auth.requiresLogin, versions.edit)
-  app.post('/edition/lov/vocabs/:vocabPx/versions/new', auth.requiresLogin, versions.new)
+  app.get('/edition/lov/vocabs/:vocabPxEdition/versions', auth.requiresLogin, versions.list)
+  app.del('/edition/lov/vocabs/:vocabPxEdition/versions', auth.requiresLogin, versions.remove)
+  app.post('/edition/lov/vocabs/:vocabPxEdition/versions/review', auth.requiresLogin, versions.changeStatusReviewed)
+  app.post('/edition/lov/vocabs/:vocabPxEdition/versions/reviewAll', auth.requiresLogin, versions.changeStatusReviewedAll)
+  app.post('/edition/lov/vocabs/:vocabPxEdition/versions/edit', auth.requiresLogin, versions.edit)
+  app.post('/edition/lov/vocabs/:vocabPxEdition/versions/new', auth.requiresLogin, versions.new)
   
   // agent
   app.get('/dataset/lov/agents', function(req, res){search.searchAgent(req,res,esclient);})
@@ -117,6 +117,7 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   //app.put('/vocabs/:vocabPx', articleAuth, vocabularies.update)
   //app.del('/vocabs/:vocabPx', articleAuth, vocabularies.destroy)
   app.param('vocabPx', vocabularies.load)
+  app.param('vocabPxEdition', vocabularies.loadEdition)
   
 
   // languages routes

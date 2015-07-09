@@ -137,6 +137,15 @@ VocabularySchema.statics = {
       .exec(cb)
   },
   
+  loadEdition: function (prefix, cb) {
+    this.findOne({ prefix : prefix })
+      .populate('creatorIds', 'name prefUri type')
+      .populate('contributorIds', 'name prefUri type')
+      .populate('publisherIds', 'name prefUri type')
+      .populate('reviews.agentId', 'name prefUri')
+      .exec(cb)
+  },
+  
   loadId: function (id, cb) {
     this.findOne({ _id : id })
       .populate('creatorIds', 'name prefUri type')

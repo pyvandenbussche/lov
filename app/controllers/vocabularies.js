@@ -158,6 +158,22 @@ exports.load = function(req, res, next, prefix){
 }
 
  /**
+ * Load for edition without populating versions.languageIds
+ */
+
+exports.loadEdition = function(req, res, next, prefix){
+  Vocabulary.loadEdition(prefix, function (err, vocab) {
+    if (err) return next(err)    
+    if (!vocab) return next(new Error('Vocabulary '+prefix+' not found'))
+    req.vocab = vocab;
+   // console.log(vocab);
+    next()
+  })
+}
+
+
+
+ /**
  * Load
  */
 
