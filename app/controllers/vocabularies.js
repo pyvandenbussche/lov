@@ -349,18 +349,26 @@ exports.create = function (req, res) {
                   /* run analytics on vocab */
                    var command2 = "/usr/local/lov/scripts/bin/versionAnalyser "+versionPublicPath+" "+vocab.uri+" "+vocab.nsp+" /usr/local/lov/scripts/lov.config";
                   var exec2 = require('child_process').exec;
-                  child = exec2(command2,
-                    function (error2, stdout2, stderr2) {
+                  child = exec2(command2, function (error2, stdout2, stderr2) {
                       stdout2 = JSON.parse(stdout2);
                       if(error2 !== null){
-                        console.log('exec error: ' + error2);
+                        console.log('exec error2: ' + error2);
                       }
                       stdout2 = _.extend(stdout2, version);
                       /* add version */
                        Vocabulary.addVersion(vocab.prefix, stdout2, function(err) {
                           if (err) {return res.render('500')}
                           //console.log('Done!');
-                          return res.send({redirect:'/dataset/lov/vocabs/'+vocab.prefix})
+                          
+                            //success generate first stats
+                            var command3 = "/usr/local/lov/scripts/bin/statsonevocab /usr/local/lov/scripts/lov.config "+vocab.uri;
+                            var exec3 = require('child_process').exec;
+                            child = exec3(command3, function (error3, stdout3, stderr3) {
+                              if(error3 !== null){
+                                console.log('exec error3: ' + error3);
+                              }
+                              return res.send({redirect:'/dataset/lov/vocabs/'+vocab.prefix})
+                            });
                         });
                   });
               });

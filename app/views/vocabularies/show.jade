@@ -126,7 +126,7 @@ block content
                 -if(typeof(lastVersion)!='undefined')
                   .asideListFloat
                     div(style='float:left; padding-right:0.5em; border-right:1px solid #d0d7da')
-                      a(href="#{'http://vowl.visualdataweb.org/webvowl/#iri='+vocab.uri}" target='_blank' style="display: table; ")
+                      a(href="#{'http://vowl.visualdataweb.org/webvowl/#iri='+((vocab.isDefinedBy)?vocab.isDefinedBy:vocab.uri)}" target='_blank' style="display: table; ")
                         img(src='/img/viz.png' style="width:38px; height:38px" title="Visualise this vocabulary in WebVOWL")
                     div(style='float:left; padding-left:0.5em; border-right:1px solid white')
                       a(href="#{'http://lov.okfn.org/dataset/lov/vocabs/'+vocab.prefix+'/versions/'+utils.dateToYMD(lastVersion.issued)+'.n3'}" target='_blank' style="display: table; ")

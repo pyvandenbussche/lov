@@ -74,9 +74,9 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   app.del('/edition/lov/agents/:agentId', auth.requiresLogin, agents.destroy)
   app.param('agentId', agents.load)
   //vocabs
-  app.post('/edition/lov/vocabs/new', auth.requiresLogin, vocabularies.new)
+  app.post('/edition/lov/vocabs/new', auth.requiresLogin, vocabularies.new) //create the vocab
   app.get('/edition/lov/vocabs/:vocabPxEdition', auth.requiresLogin, vocabularies.edit)
-  app.post('/edition/lov/vocabs', auth.requiresLogin, vocabularies.create)
+  app.post('/edition/lov/vocabs', auth.requiresLogin, vocabularies.create) //save initial metadata + version
   app.put('/edition/lov/vocabs/:vocabPxEdition', auth.requiresLogin, vocabularies.update)
   //versions
   app.get('/edition/lov/vocabs/:vocabPxEdition/versions', auth.requiresLogin, versions.list)
