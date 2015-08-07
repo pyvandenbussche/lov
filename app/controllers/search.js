@@ -900,6 +900,7 @@ function standardCallback(req, res, err, results) {
   } else if (!(results != null)) {
     return res.send(404, 'API returned no results');
   } else {
+    res.header("Content-Type", "application/json; charset=utf-8");
     return res.send(200, results);
   }
 };

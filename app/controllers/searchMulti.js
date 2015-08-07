@@ -2,6 +2,7 @@ var utils = require('../../lib/utils');
 var dagre = require("dagre");
 var fs = require('fs');
 var file = __dirname + '../../../public/test.json';
+var http = require('http');
 
 var indexName = 'lov'; /* Name of the ElasticSearch index */
 
@@ -12,17 +13,48 @@ var indexName = 'lov'; /* Name of the ElasticSearch index */
  * Full text search used by the search UI
  */
 exports.search = function (req, res, esclient) {
-  fs.readFile(file, 'utf8', function (err, data) {
-    if (err) {
-      console.log('Error: ' + err);
-      return;
+  if(req.query.q){
+    var kws = req.query.q.split(';');
+    if( kws.length>1){
+      console.log('Search for terms "'+kws+'"')
+      
+      var options = {hostname: 'localhost',port: 8181,path: '/vocreco/rest/reco?q='+req.query.q};
+      http.get(options, function(response) {
+            var bodyChunks = [];
+            response.on('data', function(d) {bodyChunks.push(d);});// Continuously update stream with data
+            response.on('end', function() {
+              var body = Buffer.concat(bodyChunks);    
+              res.render('searchMulti/index',{
+                    utils: utils,
+                    dagre: dagre,
+                    results: JSON.parse(body)
+                  });     
+            });
+      });
+  
+      /*fs.readFile(file, 'utf8', function (err, data) {
+        if (err) {
+          console.log('Error: ' + err);
+          return;
+        }
+        res.render('searchMulti/index',{
+          utils: utils,
+          dagre: dagre,
+          results: JSON.parse(data)
+        });
+      });*/
     }
-    res.render('searchMulti/index',{
-      utils: utils,
-      dagre: dagre,
-      results: JSON.parse(data)
-    });
-  });
+    else{
+      res.render('searchMulti/index',{utils: utils,dagre: dagre});
+    }
+  }
+  else{
+    res.render('searchMulti/index',{utils: utils,dagre: dagre});
+  }
+  
+  
+  
+
   
 }
 

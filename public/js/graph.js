@@ -8,7 +8,7 @@ generateGraph = function(svgId, json){
 }*/
   for (i=0; i<json.convexSetVertices.length; ++i){
     var vertex = json.convexSetVertices[i];
-    g.addNode(i,  { label: (vertex.prefixedName!=undefined?vertex.prefixedName:escape(vertex.uri)),         nodeclass: 'type-'+vertex.type+(vertex.matchingQueryTerm!=undefined?' matchingQueryTerm':'' ) });
+    g.addNode(i,  { label: (vertex.prefixedName!=undefined?vertex.prefixedName:escape(vertex.uri)), nodeclass: 'type-'+vertex.type+(vertex.matchingKeyword!=undefined?' matchingKeyword':'' ) });
   }
   for (i=0; i<json.convexSetEdges.length; ++i){
     var edge = json.convexSetEdges[i];
@@ -17,7 +17,7 @@ generateGraph = function(svgId, json){
       if(edge.source==json.convexSetVertices[j].uri)vertexSource=j;
       if(edge.target==json.convexSetVertices[j].uri)vertexTarget=j;
     }
-    g.addEdge(null, vertexSource, vertexTarget, { label: edge.prefixedName});
+    g.addEdge(null, vertexSource, vertexTarget, { label: edge.uri});
   }
   /*g.addNode(0,  { label: 'schema:publisher',       nodeclass: 'type-TK ' });
   g.addNode(1,  { label: 'schema:CreativeWork',         nodeclass: 'type-S' });
@@ -49,6 +49,15 @@ generateGraph = function(svgId, json){
   renderer.drawNodes(function(graph, root) {
     var svgNodes = oldDrawNodes(graph, root);
     svgNodes.each(function(u) { d3.select(this).classed(graph.node(u).nodeclass, true); });
+    //special style for the nodes matching keywords
+    svgNodes.each(function(u) { 
+      if(graph.node(u).nodeclass.indexOf("matchingKeyword") > -1){
+        d3.select(this).selectAll('rect')
+          .style("fill", '#ffbb78')
+          .style("stroke", '#666666');
+        }
+        
+    });
     return svgNodes;
   });
 

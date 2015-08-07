@@ -142,7 +142,7 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   
   // search
   app.get('/dataset/lov/terms', function(req, res){search.search(req,res,esclient);})
-  //app.get('/dataset/lov/searchMulti', function(req, res){searchMulti.search(req,res,esclient);})
+  app.get('/dataset/lov/searchMulti', function(req, res){searchMulti.search(req,res,esclient);})
   
   //Bot
   app.get('/dataset/lov/suggest', function(req, res){bot.isInLOV(req,res);})

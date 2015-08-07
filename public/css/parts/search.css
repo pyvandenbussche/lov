@@ -316,3 +316,12 @@ content: '';
 .nav-item-moreless{
   color: #8A8A8A;
 }
+
+
+/*********************/
+/* Multi search      */
+/*********************/
+/*.node.matchingKeyword tspan{
+  font-weight:bold;
+}*/
+
