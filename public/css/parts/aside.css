@@ -129,3 +129,82 @@ section#rightMovingSide .sectionPost{
 }
 .pre{
 font-family: "Courier New" Courier monospace;}
+
+
+/* toolbar */
+.moreAppButton img{	
+	opacity: 0.6;
+  filter: alpha(opacity=60); /* For IE8 and earlier */
+  display: block;
+}
+
+.moreAppButton img:hover, .pressed {
+	opacity: 1;
+	cursor: pointer;
+	z-index: 2;
+}
+
+.tool-container {
+	/*background-color: #A2DAD2;*/
+  background-color: #CFCFCF;
+  border: 2px #CFCFCF solid;
+	position: absolute;				
+}
+.tool-container.tool-top {
+	height: 38px;
+}
+.tool-items {
+	height: 100%;	
+}
+.tool-top .tool-item {
+	float: left;
+	border-right: 1px solid #ffffff;
+}
+
+.tool-item {
+	height: 100%;
+	display: block;				
+	/*width: 44px;*/
+	text-align: center;
+}
+.tool-item:first-child {
+	border-left: none;
+}
+.tool-item:last-child {
+	border-right: none;
+	border-bottom: none;
+}
+.tool-item.selected, .tool-item:hover  {
+	background: #ffffff;
+	-moz-transition-delay: initial;
+  -moz-transition-duration: 0.2s;
+  -moz-transition-property: box-shadow -moz-box-shadow -webkit-box-shadow -o-box-shadow;
+  -moz-transition-timing-function: ease-in-out;
+  -webkit-transition-delay: initial;
+  -webkit-transition-duration: 0.2s;
+  -webkit-transition-property: box-shadow -moz-box-shadow -webkit-box-shadow -o-box-shadow;
+  -webkit-transition-timing-function: ease-in-out;
+  -o-transition-delay: initial;
+  -o-transition-duration: 0.2s;
+  -o-transition-property: box-shadow -moz-box-shadow -webkit-box-shadow -o-box-shadow;
+  -o-transition-timing-function: ease-in-out;
+  transition-delay: initial;
+  transition-duration: 0.2s;
+  transition-property: box-shadow -moz-box-shadow -webkit-box-shadow -o-box-shadow;
+  transition-timing-function: ease-in-out;
+}
+
+.tool-container .arrow {
+	width:0;
+	height:0;
+	position: absolute;	
+	border-width:7px;
+	border-style:solid;
+}
+
+.tool-container.tool-top .arrow {
+	border-color: #CFCFCF transparent transparent; 
+	left: 50%;  
+	bottom: -14px;
+	margin-left: -7px;
+}
