@@ -18,6 +18,10 @@ The live instance of LOV is available at the following URL: [http://lov.okfn.org
 ```
 
 **NOTE:** Do not forget to update the various configuration fields in `config/config.js`.
+`db` points to your mongodb database e.g. `mongodb://localhost/lov`
+`es` and `elasticsearch` (used by two different node modules to connect to elasticsearch) point to your elastic search instance
+`email.auth` is used to send email notification to administrators for curation of the database
+
 
 Then visit [http://localhost:3000/](http://localhost:3000/)
 

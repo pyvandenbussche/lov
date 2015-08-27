@@ -17,7 +17,6 @@ module.exports = {
   development: {
     db: 'mongodb://localhost/lov',
     es: {host: 'localhost',port: 9200},
-    elasticsearch: {host: 'localhost:9200'},
     email: {
       service: 'Gmail',
       auth: {
@@ -29,7 +28,6 @@ module.exports = {
   test: {
     db: 'mongodb://localhost/lov',
     es: {host: 'localhost',port: 9200},
-    elasticsearch: {host: 'localhost:9200'},
     email: {
       service: 'Gmail',
       auth: {

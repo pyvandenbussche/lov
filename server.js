@@ -35,7 +35,8 @@ mongoose.connect(config.db)
 
 // Bootstrap ElasticSearch Connection
 var esclient = new ElasticSearchClient(config.es);
-var elasticsearchclient = new elasticsearch.Client(config.elasticsearch);
+console.log({host:config.es.host+':'+config.es.port});
+var elasticsearchclient = new elasticsearch.Client({host:config.es.host+':'+config.es.port});
 
 // Bootstrap models
 var models_path = __dirname + '/app/models'
