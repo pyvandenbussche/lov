@@ -22,9 +22,17 @@ The live instance of LOV is available at the following URL: [http://lov.okfn.org
 `es` and `elasticsearch` (used by two different node modules to connect to elasticsearch) point to your elastic search instance
 `email.auth` is used to send email notification to administrators for curation of the database
 
+You need to populate the database with certain files if you want to be able to use the edition.
+For that use the files in the folder /setup
+
+
 
 Then visit [http://localhost:3000/](http://localhost:3000/)
-
+```
+  $ mongoimport -d lov -c agents --file .\agents.json
+  $ mongoimport -d lov -c languages --file .\languages.json
+  $ mongoimport -d lov -c stattags --file .\stattags.json
+```
 
 ## Directory structure
 ```

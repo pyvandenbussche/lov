@@ -1,0 +1,184 @@
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ara", "label" : "Arabic", "iso639P3PCode" : "ara", "iso639P1Code" : "ar", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e02" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/bel", "label" : "Belarusian", "iso639P3PCode" : "bel", "iso639P1Code" : "be", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e03" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ben", "label" : "Bengali", "iso639P3PCode" : "ben", "iso639P1Code" : "bn", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e04" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/bos", "label" : "Bosnian", "iso639P3PCode" : "bos", "iso639P1Code" : "bs", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e05" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/bul", "label" : "Bulgarian", "iso639P3PCode" : "bul", "iso639P1Code" : "bg", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e06" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/cat", "label" : "Catalan", "iso639P3PCode" : "cat", "iso639P1Code" : "ca", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e07" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ces", "label" : "Czech", "iso639P3PCode" : "ces", "iso639P1Code" : "cs", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e08" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/dan", "label" : "Danish", "iso639P3PCode" : "dan", "iso639P1Code" : "da", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e09" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/deu", "label" : "German", "iso639P3PCode" : "deu", "iso639P1Code" : "de", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e0a" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ell", "label" : "Greek", "iso639P3PCode" : "ell", "iso639P1Code" : "el", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e0b" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/eng", "label" : "English", "iso639P3PCode" : "eng", "iso639P1Code" : "en", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e0c" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/est", "label" : "Estonian", "iso639P3PCode" : "est", "iso639P1Code" : "et", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e0d" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/eus", "label" : "Basque", "iso639P3PCode" : "eus", "iso639P1Code" : "eu", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e0e" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/fao", "label" : "Faroese", "iso639P3PCode" : "fao", "iso639P1Code" : "fo", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e0f" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/fin", "label" : "Finnish", "iso639P3PCode" : "fin", "iso639P1Code" : "fi", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e10" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/fra", "label" : "French", "iso639P3PCode" : "fra", "iso639P1Code" : "fr", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e11" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/gle", "label" : "Irish", "iso639P3PCode" : "gle", "iso639P1Code" : "ga", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e12" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/glg", "label" : "Galician", "iso639P3PCode" : "glg", "iso639P1Code" : "gl", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e13" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/heb", "label" : "Hebrew", "iso639P3PCode" : "heb", "iso639P1Code" : "he", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e14" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/hin", "label" : "Hindi", "iso639P3PCode" : "hin", "iso639P1Code" : "hi", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e15" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/hrv", "label" : "Croatian", "iso639P3PCode" : "hrv", "iso639P1Code" : "hr", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e16" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/hun", "label" : "Hungarian", "iso639P3PCode" : "hun", "iso639P1Code" : "hu", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e17" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ind", "label" : "Indonesian", "iso639P3PCode" : "ind", "iso639P1Code" : "id", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e18" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/isl", "label" : "Icelandic", "iso639P3PCode" : "isl", "iso639P1Code" : "is", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e19" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ita", "label" : "Italian", "iso639P3PCode" : "ita", "iso639P1Code" : "it", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e1a" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/jpn", "label" : "Japanese", "iso639P3PCode" : "jpn", "iso639P1Code" : "ja", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e1b" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/kat", "label" : "Georgian", "iso639P3PCode" : "kat", "iso639P1Code" : "ka", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e1c" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/kor", "label" : "Korean", "iso639P3PCode" : "kor", "iso639P1Code" : "ko", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e1d" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/lav", "label" : "Latvian", "iso639P3PCode" : "lav", "iso639P1Code" : "lv", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e1e" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/lit", "label" : "Lithuanian", "iso639P3PCode" : "lit", "iso639P1Code" : "lt", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e1f" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/mkd", "label" : "Macedonian", "iso639P3PCode" : "mkd", "iso639P1Code" : "mk", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e20" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/mlt", "label" : "Maltese", "iso639P3PCode" : "mlt", "iso639P1Code" : "mt", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e21" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/msa", "label" : "Malay", "iso639P3PCode" : "msa", "iso639P1Code" : "ms", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e22" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/nld", "label" : "Dutch", "iso639P3PCode" : "nld", "iso639P1Code" : "nl", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e23" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/nor", "label" : "Norwegian", "iso639P3PCode" : "nor", "iso639P1Code" : "no", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e24" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/pan", "label" : "Punjabi", "iso639P3PCode" : "pan", "iso639P1Code" : "pa", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e25" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/pol", "label" : "Polish", "iso639P3PCode" : "pol", "iso639P1Code" : "pl", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e26" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/por", "label" : "Portuguese", "iso639P3PCode" : "por", "iso639P1Code" : "pt", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e27" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/roh", "label" : "Romansh", "iso639P3PCode" : "roh", "iso639P1Code" : "rm", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e28" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ron", "label" : "Romanian", "iso639P3PCode" : "ron", "iso639P1Code" : "ro", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e29" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/rus", "label" : "Russian", "iso639P3PCode" : "rus", "iso639P1Code" : "ru", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e2a" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/slk", "label" : "Slovak", "iso639P3PCode" : "slk", "iso639P1Code" : "sk", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e2b" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/slv", "label" : "Slovenian", "iso639P3PCode" : "slv", "iso639P1Code" : "sl", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e2c" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/spa", "label" : "Spanish", "iso639P3PCode" : "spa", "iso639P1Code" : "es", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e2d" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/sqi", "label" : "Albanian", "iso639P3PCode" : "sqi", "iso639P1Code" : "sq", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e2e" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/srp", "label" : "Serbian", "iso639P3PCode" : "srp", "iso639P1Code" : "sr", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e2f" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/swe", "label" : "Swedish", "iso639P3PCode" : "swe", "iso639P1Code" : "sv", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e30" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/tha", "label" : "Thai", "iso639P3PCode" : "tha", "iso639P1Code" : "th", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e31" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/tur", "label" : "Turkish", "iso639P3PCode" : "tur", "iso639P1Code" : "tr", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e32" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ukr", "label" : "Ukrainian", "iso639P3PCode" : "ukr", "iso639P1Code" : "uk", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e33" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/urd", "label" : "Urdu", "iso639P3PCode" : "urd", "iso639P1Code" : "ur", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e34" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/vie", "label" : "Vietnamese", "iso639P3PCode" : "vie", "iso639P1Code" : "vi", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e35" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/zho", "label" : "Chinese", "iso639P3PCode" : "zho", "iso639P1Code" : "zh", "_id" : { "$oid" : "54b2be018433ca9ccf1c0e36" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/aar", "label" : "Afar", "iso639P3PCode" : "aar", "iso639P1Code" : "aa", "_id" : { "$oid" : "54fd6b195efee150f4419cee" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/abk", "label" : "Abkhazian", "iso639P3PCode" : "abk", "iso639P1Code" : "ab", "_id" : { "$oid" : "54fd6b195efee150f4419cef" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/afr", "label" : "Afrikaans", "iso639P3PCode" : "afr", "iso639P1Code" : "af", "_id" : { "$oid" : "54fd6b195efee150f4419cf0" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/aka", "label" : "Akan", "iso639P3PCode" : "aka", "iso639P1Code" : "ak", "_id" : { "$oid" : "54fd6b195efee150f4419cf1" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/amh", "label" : "Amharic", "iso639P3PCode" : "amh", "iso639P1Code" : "am", "_id" : { "$oid" : "54fd6b195efee150f4419cf2" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/arg", "label" : "Aragonese", "iso639P3PCode" : "arg", "iso639P1Code" : "an", "_id" : { "$oid" : "54fd6b195efee150f4419cf3" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/asm", "label" : "Assamese", "iso639P3PCode" : "asm", "iso639P1Code" : "as", "_id" : { "$oid" : "54fd6b195efee150f4419cf4" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ava", "label" : "Avaric", "iso639P3PCode" : "ava", "iso639P1Code" : "av", "_id" : { "$oid" : "54fd6b195efee150f4419cf5" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ave", "label" : "Avestan", "iso639P3PCode" : "ave", "iso639P1Code" : "ae", "_id" : { "$oid" : "54fd6b195efee150f4419cf6" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/aym", "label" : "Aymara", "iso639P3PCode" : "aym", "iso639P1Code" : "ay", "_id" : { "$oid" : "54fd6b195efee150f4419cf7" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/aze", "label" : "Azerbaijani", "iso639P3PCode" : "aze", "iso639P1Code" : "az", "_id" : { "$oid" : "54fd6b195efee150f4419cf8" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/bak", "label" : "Bashkir", "iso639P3PCode" : "bak", "iso639P1Code" : "ba", "_id" : { "$oid" : "54fd6b195efee150f4419cf9" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/bam", "label" : "Bambara", "iso639P3PCode" : "bam", "iso639P1Code" : "bm", "_id" : { "$oid" : "54fd6b195efee150f4419cfa" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/bis", "label" : "Bislama", "iso639P3PCode" : "bis", "iso639P1Code" : "bi", "_id" : { "$oid" : "54fd6b195efee150f4419cfb" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/bod", "label" : "Tibetan", "iso639P3PCode" : "bod", "iso639P1Code" : "bo", "_id" : { "$oid" : "54fd6b195efee150f4419cfc" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/bre", "label" : "Breton", "iso639P3PCode" : "bre", "iso639P1Code" : "br", "_id" : { "$oid" : "54fd6b195efee150f4419cfd" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/cha", "label" : "Chamorro", "iso639P3PCode" : "cha", "iso639P1Code" : "ch", "_id" : { "$oid" : "54fd6b195efee150f4419cfe" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/che", "label" : "Chechen", "iso639P3PCode" : "che", "iso639P1Code" : "ce", "_id" : { "$oid" : "54fd6b195efee150f4419cff" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/chu", "label" : "Church Slavic", "iso639P3PCode" : "chu", "iso639P1Code" : "cu", "_id" : { "$oid" : "54fd6b195efee150f4419d00" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/chv", "label" : "Chuvash", "iso639P3PCode" : "chv", "iso639P1Code" : "cv", "_id" : { "$oid" : "54fd6b195efee150f4419d01" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/cor", "label" : "Cornish", "iso639P3PCode" : "cor", "iso639P1Code" : "kw", "_id" : { "$oid" : "54fd6b195efee150f4419d02" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/cos", "label" : "Corsican", "iso639P3PCode" : "cos", "iso639P1Code" : "co", "_id" : { "$oid" : "54fd6b195efee150f4419d03" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/cre", "label" : "Cree", "iso639P3PCode" : "cre", "iso639P1Code" : "cr", "_id" : { "$oid" : "54fd6b195efee150f4419d04" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/cym", "label" : "Welsh", "iso639P3PCode" : "cym", "iso639P1Code" : "cy", "_id" : { "$oid" : "54fd6b195efee150f4419d05" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/div", "label" : "Dhivehi", "iso639P3PCode" : "div", "iso639P1Code" : "dv", "_id" : { "$oid" : "54fd6b195efee150f4419d06" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/dzo", "label" : "Dzongkha", "iso639P3PCode" : "dzo", "iso639P1Code" : "dz", "_id" : { "$oid" : "54fd6b195efee150f4419d07" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/epo", "label" : "Esperanto", "iso639P3PCode" : "epo", "iso639P1Code" : "eo", "_id" : { "$oid" : "54fd6b195efee150f4419d08" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ewe", "label" : "Ewe", "iso639P3PCode" : "ewe", "iso639P1Code" : "ee", "_id" : { "$oid" : "54fd6b195efee150f4419d09" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/fas", "label" : "Persian", "iso639P3PCode" : "fas", "iso639P1Code" : "fa", "_id" : { "$oid" : "54fd6b195efee150f4419d0a" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/fij", "label" : "Fijian", "iso639P3PCode" : "fij", "iso639P1Code" : "fj", "_id" : { "$oid" : "54fd6b195efee150f4419d0b" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/fry", "label" : "Western Frisian", "iso639P3PCode" : "fry", "iso639P1Code" : "fy", "_id" : { "$oid" : "54fd6b195efee150f4419d0c" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ful", "label" : "Fulah", "iso639P3PCode" : "ful", "iso639P1Code" : "ff", "_id" : { "$oid" : "54fd6b195efee150f4419d0d" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/gla", "label" : "Scottish Gaelic", "iso639P3PCode" : "gla", "iso639P1Code" : "gd", "_id" : { "$oid" : "54fd6b195efee150f4419d0e" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/glv", "label" : "Manx", "iso639P3PCode" : "glv", "iso639P1Code" : "gv", "_id" : { "$oid" : "54fd6b195efee150f4419d0f" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/grn", "label" : "Guarani", "iso639P3PCode" : "grn", "iso639P1Code" : "gn", "_id" : { "$oid" : "54fd6b195efee150f4419d10" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/guj", "label" : "Gujarati", "iso639P3PCode" : "guj", "iso639P1Code" : "gu", "_id" : { "$oid" : "54fd6b195efee150f4419d11" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/hat", "label" : "Haitian", "iso639P3PCode" : "hat", "iso639P1Code" : "ht", "_id" : { "$oid" : "54fd6b195efee150f4419d12" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/hau", "label" : "Hausa", "iso639P3PCode" : "hau", "iso639P1Code" : "ha", "_id" : { "$oid" : "54fd6b195efee150f4419d13" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/hbs", "label" : "Serbo-Croatian", "iso639P3PCode" : "hbs", "iso639P1Code" : "sh", "_id" : { "$oid" : "54fd6b195efee150f4419d14" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/her", "label" : "Herero", "iso639P3PCode" : "her", "iso639P1Code" : "hz", "_id" : { "$oid" : "54fd6b195efee150f4419d15" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/hmo", "label" : "Hiri Motu", "iso639P3PCode" : "hmo", "iso639P1Code" : "ho", "_id" : { "$oid" : "54fd6b195efee150f4419d16" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/hye", "label" : "Armenian", "iso639P3PCode" : "hye", "iso639P1Code" : "hy", "_id" : { "$oid" : "54fd6b195efee150f4419d17" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ibo", "label" : "Igbo", "iso639P3PCode" : "ibo", "iso639P1Code" : "ig", "_id" : { "$oid" : "54fd6b195efee150f4419d18" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ido", "label" : "Ido", "iso639P3PCode" : "ido", "iso639P1Code" : "io", "_id" : { "$oid" : "54fd6b195efee150f4419d19" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/iii", "label" : "Sichuan Yi", "iso639P3PCode" : "iii", "iso639P1Code" : "ii", "_id" : { "$oid" : "54fd6b195efee150f4419d1a" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/iku", "label" : "Inuktitut", "iso639P3PCode" : "iku", "iso639P1Code" : "iu", "_id" : { "$oid" : "54fd6b195efee150f4419d1b" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ile", "label" : "Interlingue", "iso639P3PCode" : "ile", "iso639P1Code" : "ie", "_id" : { "$oid" : "54fd6b195efee150f4419d1c" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ina", "label" : "Interlingua (International Auxiliary Language Association)", "iso639P3PCode" : "ina", "iso639P1Code" : "ia", "_id" : { "$oid" : "54fd6b195efee150f4419d1d" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ipk", "label" : "Inupiaq", "iso639P3PCode" : "ipk", "iso639P1Code" : "ik", "_id" : { "$oid" : "54fd6b195efee150f4419d1e" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/jav", "label" : "Javanese", "iso639P3PCode" : "jav", "iso639P1Code" : "jv", "_id" : { "$oid" : "54fd6b195efee150f4419d1f" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/kal", "label" : "Kalaallisut", "iso639P3PCode" : "kal", "iso639P1Code" : "kl", "_id" : { "$oid" : "54fd6b195efee150f4419d20" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/kan", "label" : "Kannada", "iso639P3PCode" : "kan", "iso639P1Code" : "kn", "_id" : { "$oid" : "54fd6b195efee150f4419d21" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/kas", "label" : "Kashmiri", "iso639P3PCode" : "kas", "iso639P1Code" : "ks", "_id" : { "$oid" : "54fd6b195efee150f4419d22" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/kau", "label" : "Kanuri", "iso639P3PCode" : "kau", "iso639P1Code" : "kr", "_id" : { "$oid" : "54fd6b195efee150f4419d23" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/kaz", "label" : "Kazakh", "iso639P3PCode" : "kaz", "iso639P1Code" : "kk", "_id" : { "$oid" : "54fd6b195efee150f4419d24" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/khm", "label" : "Central Khmer", "iso639P3PCode" : "khm", "iso639P1Code" : "km", "_id" : { "$oid" : "54fd6b195efee150f4419d25" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/kik", "label" : "Kikuyu", "iso639P3PCode" : "kik", "iso639P1Code" : "ki", "_id" : { "$oid" : "54fd6b195efee150f4419d26" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/kin", "label" : "Kinyarwanda", "iso639P3PCode" : "kin", "iso639P1Code" : "rw", "_id" : { "$oid" : "54fd6b195efee150f4419d27" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/kir", "label" : "Kirghiz", "iso639P3PCode" : "kir", "iso639P1Code" : "ky", "_id" : { "$oid" : "54fd6b195efee150f4419d28" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/kom", "label" : "Komi", "iso639P3PCode" : "kom", "iso639P1Code" : "kv", "_id" : { "$oid" : "54fd6b195efee150f4419d29" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/kon", "label" : "Kongo", "iso639P3PCode" : "kon", "iso639P1Code" : "kg", "_id" : { "$oid" : "54fd6b195efee150f4419d2a" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/kua", "label" : "Kuanyama", "iso639P3PCode" : "kua", "iso639P1Code" : "kj", "_id" : { "$oid" : "54fd6b195efee150f4419d2b" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/kur", "label" : "Kurdish", "iso639P3PCode" : "kur", "iso639P1Code" : "ku", "_id" : { "$oid" : "54fd6b195efee150f4419d2c" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/lao", "label" : "Lao", "iso639P3PCode" : "lao", "iso639P1Code" : "lo", "_id" : { "$oid" : "54fd6b195efee150f4419d2d" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/lat", "label" : "Latin", "iso639P3PCode" : "lat", "iso639P1Code" : "la", "_id" : { "$oid" : "54fd6b195efee150f4419d2e" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/lim", "label" : "Limburgan", "iso639P3PCode" : "lim", "iso639P1Code" : "li", "_id" : { "$oid" : "54fd6b195efee150f4419d2f" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/lin", "label" : "Lingala", "iso639P3PCode" : "lin", "iso639P1Code" : "ln", "_id" : { "$oid" : "54fd6b195efee150f4419d30" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ltz", "label" : "Luxembourgish", "iso639P3PCode" : "ltz", "iso639P1Code" : "lb", "_id" : { "$oid" : "54fd6b195efee150f4419d31" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/lub", "label" : "Luba-Katanga", "iso639P3PCode" : "lub", "iso639P1Code" : "lu", "_id" : { "$oid" : "54fd6b195efee150f4419d32" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/lug", "label" : "Ganda", "iso639P3PCode" : "lug", "iso639P1Code" : "lg", "_id" : { "$oid" : "54fd6b195efee150f4419d33" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/mah", "label" : "Marshallese", "iso639P3PCode" : "mah", "iso639P1Code" : "mh", "_id" : { "$oid" : "54fd6b195efee150f4419d34" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/mal", "label" : "Malayalam", "iso639P3PCode" : "mal", "iso639P1Code" : "ml", "_id" : { "$oid" : "54fd6b195efee150f4419d35" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/mar", "label" : "Marathi", "iso639P3PCode" : "mar", "iso639P1Code" : "mr", "_id" : { "$oid" : "54fd6b195efee150f4419d36" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/mlg", "label" : "Malagasy", "iso639P3PCode" : "mlg", "iso639P1Code" : "mg", "_id" : { "$oid" : "54fd6b195efee150f4419d37" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/mon", "label" : "Mongolian", "iso639P3PCode" : "mon", "iso639P1Code" : "mn", "_id" : { "$oid" : "54fd6b195efee150f4419d38" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/mri", "label" : "Maori", "iso639P3PCode" : "mri", "iso639P1Code" : "mi", "_id" : { "$oid" : "54fd6b195efee150f4419d39" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/mya", "label" : "Burmese", "iso639P3PCode" : "mya", "iso639P1Code" : "my", "_id" : { "$oid" : "54fd6b195efee150f4419d3a" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/nau", "label" : "Nauru", "iso639P3PCode" : "nau", "iso639P1Code" : "na", "_id" : { "$oid" : "54fd6b195efee150f4419d3b" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/nav", "label" : "Navajo", "iso639P3PCode" : "nav", "iso639P1Code" : "nv", "_id" : { "$oid" : "54fd6b195efee150f4419d3c" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/nbl", "label" : "South Ndebele", "iso639P3PCode" : "nbl", "iso639P1Code" : "nr", "_id" : { "$oid" : "54fd6b195efee150f4419d3d" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/nde", "label" : "North Ndebele", "iso639P3PCode" : "nde", "iso639P1Code" : "nd", "_id" : { "$oid" : "54fd6b195efee150f4419d3e" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ndo", "label" : "Ndonga", "iso639P3PCode" : "ndo", "iso639P1Code" : "ng", "_id" : { "$oid" : "54fd6b195efee150f4419d3f" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/nep", "label" : "Nepali (macrolanguage)", "iso639P3PCode" : "nep", "iso639P1Code" : "ne", "_id" : { "$oid" : "54fd6b195efee150f4419d40" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/nno", "label" : "Norwegian Nynorsk", "iso639P3PCode" : "nno", "iso639P1Code" : "nn", "_id" : { "$oid" : "54fd6b195efee150f4419d41" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/nob", "label" : "Norwegian Bokmål", "iso639P3PCode" : "nob", "iso639P1Code" : "nb", "_id" : { "$oid" : "54fd6b195efee150f4419d42" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/nya", "label" : "Nyanja", "iso639P3PCode" : "nya", "iso639P1Code" : "ny", "_id" : { "$oid" : "54fd6b195efee150f4419d43" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/oci", "label" : "Occitan (post 1500)", "iso639P3PCode" : "oci", "iso639P1Code" : "oc", "_id" : { "$oid" : "54fd6b195efee150f4419d44" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/oji", "label" : "Ojibwa", "iso639P3PCode" : "oji", "iso639P1Code" : "oj", "_id" : { "$oid" : "54fd6b195efee150f4419d45" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ori", "label" : "Oriya (macrolanguage)", "iso639P3PCode" : "ori", "iso639P1Code" : "or", "_id" : { "$oid" : "54fd6b195efee150f4419d46" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/orm", "label" : "Oromo", "iso639P3PCode" : "orm", "iso639P1Code" : "om", "_id" : { "$oid" : "54fd6b195efee150f4419d47" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/oss", "label" : "Ossetian", "iso639P3PCode" : "oss", "iso639P1Code" : "os", "_id" : { "$oid" : "54fd6b195efee150f4419d48" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/pli", "label" : "Pali", "iso639P3PCode" : "pli", "iso639P1Code" : "pi", "_id" : { "$oid" : "54fd6b195efee150f4419d49" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/pus", "label" : "Pushto", "iso639P3PCode" : "pus", "iso639P1Code" : "ps", "_id" : { "$oid" : "54fd6b195efee150f4419d4a" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/que", "label" : "Quechua", "iso639P3PCode" : "que", "iso639P1Code" : "qu", "_id" : { "$oid" : "54fd6b195efee150f4419d4b" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/run", "label" : "Rundi", "iso639P3PCode" : "run", "iso639P1Code" : "rn", "_id" : { "$oid" : "54fd6b195efee150f4419d4c" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/sag", "label" : "Sango", "iso639P3PCode" : "sag", "iso639P1Code" : "sg", "_id" : { "$oid" : "54fd6b1a5efee150f4419d4d" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/san", "label" : "Sanskrit", "iso639P3PCode" : "san", "iso639P1Code" : "sa", "_id" : { "$oid" : "54fd6b1a5efee150f4419d4e" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/sin", "label" : "Sinhala", "iso639P3PCode" : "sin", "iso639P1Code" : "si", "_id" : { "$oid" : "54fd6b1a5efee150f4419d4f" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/sme", "label" : "Northern Sami", "iso639P3PCode" : "sme", "iso639P1Code" : "se", "_id" : { "$oid" : "54fd6b1a5efee150f4419d50" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/smo", "label" : "Samoan", "iso639P3PCode" : "smo", "iso639P1Code" : "sm", "_id" : { "$oid" : "54fd6b1a5efee150f4419d51" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/sna", "label" : "Shona", "iso639P3PCode" : "sna", "iso639P1Code" : "sn", "_id" : { "$oid" : "54fd6b1a5efee150f4419d52" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/snd", "label" : "Sindhi", "iso639P3PCode" : "snd", "iso639P1Code" : "sd", "_id" : { "$oid" : "54fd6b1a5efee150f4419d53" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/som", "label" : "Somali", "iso639P3PCode" : "som", "iso639P1Code" : "so", "_id" : { "$oid" : "54fd6b1a5efee150f4419d54" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/sot", "label" : "Southern Sotho", "iso639P3PCode" : "sot", "iso639P1Code" : "st", "_id" : { "$oid" : "54fd6b1a5efee150f4419d55" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/srd", "label" : "Sardinian", "iso639P3PCode" : "srd", "iso639P1Code" : "sc", "_id" : { "$oid" : "54fd6b1a5efee150f4419d56" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ssw", "label" : "Swati", "iso639P3PCode" : "ssw", "iso639P1Code" : "ss", "_id" : { "$oid" : "54fd6b1a5efee150f4419d57" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/sun", "label" : "Sundanese", "iso639P3PCode" : "sun", "iso639P1Code" : "su", "_id" : { "$oid" : "54fd6b1a5efee150f4419d58" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/swa", "label" : "Swahili (macrolanguage)", "iso639P3PCode" : "swa", "iso639P1Code" : "sw", "_id" : { "$oid" : "54fd6b1a5efee150f4419d59" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/tah", "label" : "Tahitian", "iso639P3PCode" : "tah", "iso639P1Code" : "ty", "_id" : { "$oid" : "54fd6b1a5efee150f4419d5a" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/tam", "label" : "Tamil", "iso639P3PCode" : "tam", "iso639P1Code" : "ta", "_id" : { "$oid" : "54fd6b1a5efee150f4419d5b" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/tat", "label" : "Tatar", "iso639P3PCode" : "tat", "iso639P1Code" : "tt", "_id" : { "$oid" : "54fd6b1a5efee150f4419d5c" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/tel", "label" : "Telugu", "iso639P3PCode" : "tel", "iso639P1Code" : "te", "_id" : { "$oid" : "54fd6b1a5efee150f4419d5d" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/tgk", "label" : "Tajik", "iso639P3PCode" : "tgk", "iso639P1Code" : "tg", "_id" : { "$oid" : "54fd6b1a5efee150f4419d5e" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/tgl", "label" : "Tagalog", "iso639P3PCode" : "tgl", "iso639P1Code" : "tl", "_id" : { "$oid" : "54fd6b1a5efee150f4419d5f" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/tir", "label" : "Tigrinya", "iso639P3PCode" : "tir", "iso639P1Code" : "ti", "_id" : { "$oid" : "54fd6b1a5efee150f4419d60" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ton", "label" : "Tonga (Tonga Islands)", "iso639P3PCode" : "ton", "iso639P1Code" : "to", "_id" : { "$oid" : "54fd6b1a5efee150f4419d61" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/tsn", "label" : "Tswana", "iso639P3PCode" : "tsn", "iso639P1Code" : "tn", "_id" : { "$oid" : "54fd6b1a5efee150f4419d62" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/tso", "label" : "Tsonga", "iso639P3PCode" : "tso", "iso639P1Code" : "ts", "_id" : { "$oid" : "54fd6b1a5efee150f4419d63" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/tuk", "label" : "Turkmen", "iso639P3PCode" : "tuk", "iso639P1Code" : "tk", "_id" : { "$oid" : "54fd6b1a5efee150f4419d64" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/twi", "label" : "Twi", "iso639P3PCode" : "twi", "iso639P1Code" : "tw", "_id" : { "$oid" : "54fd6b1a5efee150f4419d65" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/uig", "label" : "Uighur", "iso639P3PCode" : "uig", "iso639P1Code" : "ug", "_id" : { "$oid" : "54fd6b1a5efee150f4419d66" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/uzb", "label" : "Uzbek", "iso639P3PCode" : "uzb", "iso639P1Code" : "uz", "_id" : { "$oid" : "54fd6b1a5efee150f4419d67" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/ven", "label" : "Venda", "iso639P3PCode" : "ven", "iso639P1Code" : "ve", "_id" : { "$oid" : "54fd6b1a5efee150f4419d68" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/vol", "label" : "Volapük", "iso639P3PCode" : "vol", "iso639P1Code" : "vo", "_id" : { "$oid" : "54fd6b1a5efee150f4419d69" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/wln", "label" : "Walloon", "iso639P3PCode" : "wln", "iso639P1Code" : "wa", "_id" : { "$oid" : "54fd6b1a5efee150f4419d6a" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/wol", "label" : "Wolof", "iso639P3PCode" : "wol", "iso639P1Code" : "wo", "_id" : { "$oid" : "54fd6b1a5efee150f4419d6b" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/xho", "label" : "Xhosa", "iso639P3PCode" : "xho", "iso639P1Code" : "xh", "_id" : { "$oid" : "54fd6b1a5efee150f4419d6c" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/yid", "label" : "Yiddish", "iso639P3PCode" : "yid", "iso639P1Code" : "yi", "_id" : { "$oid" : "54fd6b1a5efee150f4419d6d" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/yor", "label" : "Yoruba", "iso639P3PCode" : "yor", "iso639P1Code" : "yo", "_id" : { "$oid" : "54fd6b1a5efee150f4419d6e" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/zha", "label" : "Zhuang", "iso639P3PCode" : "zha", "iso639P1Code" : "za", "_id" : { "$oid" : "54fd6b1a5efee150f4419d6f" } }
+{ "uri" : "http://id.loc.gov/vocabulary/iso639-2/zul", "label" : "Zulu", "iso639P3PCode" : "zul", "iso639P1Code" : "zu", "_id" : { "$oid" : "54fd6b1a5efee150f4419d70" } }
