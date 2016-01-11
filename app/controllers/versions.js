@@ -180,6 +180,8 @@ exports.new = function (req, res) {
     //http://www.hacksparrow.com/handle-file-uploads-in-express-node-js.html
     // get the temporary location of the file
       var tmp_path = req.files.file.path;
+      // make sure the destination foler exists
+      if (!fs.existsSync('./versions/'+vocab._id))fs.mkdirSync('./versions/'+vocab._id);
       // set where the file should actually exists - in this case it is in the "images" directory
       var target_path = './versions/'+vocab._id+'/' +vocab._id+'_'+ issuedStr+'.n3' //req.files.file.name;
       // move the file from the temporary location to the intended location

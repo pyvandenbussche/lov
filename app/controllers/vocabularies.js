@@ -334,9 +334,7 @@ exports.create = function (req, res) {
           version.isReviewed = true;
           
           var dir = './versions/'+vocab._id;
-          if (!fs.existsSync(dir)){
-              fs.mkdirSync(dir);
-          }
+          if (!fs.existsSync(dir))fs.mkdirSync(dir);
           
           var target_path = './versions/'+vocab._id+'/' +vocab._id+'_'+ issuedStr+'.n3' //req.files.file.name;
           // move the file from the temporary location to the intended location

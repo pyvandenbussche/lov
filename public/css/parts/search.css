@@ -134,11 +134,11 @@
   padding-right:0.2em;
 }
 .SearchInnerBox .uri a{
-  color:#969696;
+  color:#5D5D5D;
   font-size:80%;
 }
 .SearchInnerBox .occurrences a, .SearchInnerBox .occurrences{
-  color: #969696;
+  color: #5D5D5D;
   font-size:80%;
 }
 
