@@ -20,6 +20,7 @@ var users = require('../app/controllers/users')
   , auth = require('./middlewares/authorization')
   , search = require('../app/controllers/search')
   , searchMulti = require('../app/controllers/searchMulti')
+  , qa = require('../app/controllers/qa')
   , bot = require('../app/controllers/bot')
   , negotiate = require('express-negotiate')
   , queryExamples = require('../lib/queryExamples')
@@ -143,6 +144,8 @@ module.exports = function (app, passport,esclient, elasticsearchClient, emailTra
   // search
   app.get('/dataset/lov/terms', function(req, res){search.search(req,res,esclient);})
   app.get('/dataset/lov/searchMulti', auth.requiresLogin, function(req, res){searchMulti.search(req,res,esclient);})
+  	  
+  app.get('/dataset/lov/qa', auth.requiresLogin, function(req, res){qa.search(req,res);})
   
   //Bot
   app.get('/dataset/lov/suggest', function(req, res){bot.isInLOV(req,res);})

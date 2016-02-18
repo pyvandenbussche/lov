@@ -1,0 +1,22 @@
+extends ../layout/layout
+block content
+      section#post.postBlue.postSearch
+        form#searchForm(action='' method='get')
+          div.searchWrapper
+            button(type='submit', value=' ') Search
+            input(name='q', type='text', autocomplete='off') 
+      
+      section#posts.default-area.postSearchResults 
+        - if(question)
+          #greenContainer.wrplGreen(style="width:100%")
+            ul#SearchGrid
+              li
+                .SearchContainer
+                  div.SearchInnerBox
+                    span #{question}
+              li(class="SearchBoxclass")
+                .SearchContainer
+                  div.SearchInnerBox
+                    div.SearchBody
+                      span !{stdout}
+                      span !{stderr}
