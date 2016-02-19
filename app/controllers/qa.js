@@ -1,6 +1,7 @@
 var utils = require('../../lib/utils');
 var fs = require('fs');
 var http = require('http');
+var questionAnswerExamples = require('../../lib/questionAnswerExamples');
 
 
 /* **********************
@@ -20,6 +21,7 @@ exports.search = function (req, res, esclient) {
               console.log('exec error: ' + error);
             }
              res.render('qa/index', {
+              QAExamples: questionAnswerExamples,
               question: req.query.q,
               stdout:stdout,
               stderr:stderr,
@@ -28,7 +30,7 @@ exports.search = function (req, res, esclient) {
         });
   }
   else{
-    res.render('qa/index',{utils: utils});
+    res.render('qa/index',{QAExamples:questionAnswerExamples, utils: utils});
   }
 }
 

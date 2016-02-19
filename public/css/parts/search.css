@@ -325,3 +325,24 @@ content: '';
   font-weight:bold;
 }*/
 
+
+/*********************/
+/* Question Answering*/
+/*********************/
+.QAanswer{
+    position: relative;
+  width:90%; 
+  padding:1em;
+  font-size:20pt; 
+  background-color: rgba(255,255,255,0.4)
+}
+.QAanswer:before {
+    content: '';
+    position: absolute;
+    border-width: 12px 24px 12px 0px;
+    border-style: solid;
+    border-color: transparent rgba(255,255,255,0.4) transparent transparent ;
+    top: 9px;
+    left: -24px;
+}
+
