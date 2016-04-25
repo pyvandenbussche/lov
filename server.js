@@ -11,6 +11,13 @@
 
 var express = require('express')
   , fs = require('fs')
+  , https = require('https')
+  , http = require('http')
+  , keys_dir = '/etc/letsencrypt/live/lov.okfn.org/'
+  , server_options = {
+        key  : fs.readFileSync(keys_dir + 'privkey.pem'),
+        cert : fs.readFileSync(keys_dir + 'cert.pem')
+      }
   , passport = require('passport')
   , mongoose = require('mongoose')
   , nodemailer = require('nodemailer')
@@ -58,8 +65,11 @@ var transporter = nodemailer.createTransport("SMTP", config.email);
 require('./config/routes')(app, passport, esclient, elasticsearchclient, transporter)
 
 // Start the app by listening on <port>
-var port = process.env.PORT || 3000
-app.listen(port)
+var port = process.env.PORT || 3333
+https.createServer(server_options,app).listen(4444);
+http.createServer(app).listen(port);
+
+//app.listen(port)
 console.log('Express app started on port '+port)
 
 // expose app
