@@ -2,7 +2,8 @@ var utils = require('../../lib/utils');
 var fs = require('fs');
 var http = require('http');
 var questionAnswerExamples = require('../../lib/questionAnswerExamples');
-
+var mongoose = require('mongoose');
+var LogQA = mongoose.model('LogQA');
 
 /* **********************
   ENTRYPOINT FUNCTIONS
@@ -20,6 +21,14 @@ exports.search = function (req, res, esclient) {
             if(error !== null){
               console.log('exec error: ' + error);
             }
+            
+             var log = new LogQA({query: req.query.q,
+               date: new Date(),
+               isQuestionProcessed: (stdout.lastIndexOf("Sorry. I don't", 0) !== 0),
+               isResultEmpty: (stdout.lastIndexOf("Sorry. I am", 0) === 0),
+             });//console.log(log);
+             log.save(function (err){if(err)console.log(err)});
+            
              res.render('qa/index', {
               QAExamples: questionAnswerExamples,
               question: req.query.q,

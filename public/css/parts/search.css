@@ -345,4 +345,7 @@ content: '';
     top: 9px;
     left: -24px;
 }
-
+.QAanswer p{
+  float:none;
+  padding-top:.5em;
+}
